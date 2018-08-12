@@ -5,6 +5,8 @@
  */
 package proyecto1_201122872;
 
+import XLSX.ReadExcel;
+
 /**
  *
  * @author Ramonella
@@ -16,6 +18,8 @@ public class Proyecto1_201122872 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        ReadExcel n = new ReadExcel ();
+        System.out.println(n.convertSheet("bin-CoDe", "C:\\Users\\Ramonella\\Desktop\\ejemplo.xlsx")); 
     }
     
 }
