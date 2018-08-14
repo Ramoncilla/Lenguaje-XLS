@@ -1,1 +1,174 @@
+options{
+	
+IGNORE_CASE = false;
+
+STATIC=false;
+}
+
+PARSER_BEGIN(analizador)
+
+package Analizador;
+import java.io.*;
+
+public class analizador{
+
+}
+
+PARSER_END(analizador)
+
+
+SKIP:
+{
+ " "
+    |"\r"
+    |"\t"
+    |"\r\n"
+    | "$#" : COMMENT
+    |"\n"
+    | "$$" : COMMENT2	
+}
+
+<COMMENT> SKIP :{
+  "#$" : DEFAULT
+}
+
+<COMMENT> MORE :{
+   <~[]>
+}
+
+<COMMENT2> SKIP :{
+  "\n" : DEFAULT
+}
+
+<COMMENT2> MORE :{
+   <~[]>
+}
+
+
+/*--------------- SIMBOLOS -----------------*/
+
+
+
+	
+//----------- Encabezados ------------------	
+TOKEN: 
+{
+   <tipoC :"tipo">
+   |<idPreguntaC :"idPregunta">
+   |< etiquetaC:"etiqueta">
+   |< sugerirC:"sugerir">
+   |< codigo_preC:"codigo_pre">
+   |< codigo_postC:"codigo_post">
+   |< restringirC:"restringir">
+   |< restringirMsnC:"restringirMsn">
+   |< predeterminadoC:"predeterminado">
+   |< aplicableC:"aplicable">
+   |< lecturaC:"lectura">
+   |< calculoC:"calculo">
+   |< repeticionC:"repeticion">
+   |< multimediaC:"multimedia">
+   |< aparienciaC:"apariencia">
+   |< parametroC:"parametro">
+}
+
+
+//Operadores Relacionales
+TOKEN:{
+
+<menorIgual: "<=">
+|<mayorIgual: ">=">
+|<menor: "<">
+|<mayor:">">
+|<igualIgual:"==">
+|<distintoA:"!=">
+
+}
+
+
+TOKEN:    //operadores logicos
+{ 
+   < or: "||">
+  | < and: "&&">
+  | < not: "!">
+}
+
+TOKEN:{
+ <menosMenos:"--">  
+|<masMas:"++">  
+|<suma: "+">
+|<resta: "-">
+|<multiplicacion: "*">
+|<division: "/">
+|<potencia: "^">
+}
+
+TOKEN:{
+<dosPuntos: ":">
+|<abrePar: "(">
+|<cierraPar: ")">
+|<coma:",">
+|<punto:".">
+|<puntoComa:";">
+|<abreLlave:"{">
+|<cierraLlave:"}">
+}
+
+TOKEN :   //EXPRESONES REGULARES 
+{
+     <DECIMAL: (["0"-"9"])+("."(["0"-"9"])+)>
+  |  < NUM: ["0"-"9"] (["0"-"9"])* >
+  |  <CADENA: "\"" (  ~["\""] )* "\"">
+  |  <CARACTER: "\'" (["0"-"9"] | ["_","a"-"z","A"-"Z"] | "#" | "$" | "%" | "?" | "¿" | "@")  "\'">
+  |  < id: <LETRA> (<LETRA>|<DIGITO>)* >
+  |  < UNO: "1">
+  |  <CERO:"0">
+  |  < #LETRA: ["_","a"-"z","A"-"Z"] >
+  |  < #DIGITO: ["0"-"9"] >
+}
+
+
+SimpleNode Start():{}{
+
+	Inicio(){return jjtThis;}
+
+}
+
+void Inicio():{}{
+TAG_ABRE()TAG_CIERRA()
+}
+
+void TAG_ABRE():{}{
+ <menor>ENCABEZADO()<mayor>
+}
+
+void TAG_CIERRA():{}{
+<menor><division>ENCABEZADO()<mayor>
+}
+
+void ENCABEZADO()#Encabezado:{Token t;}
+{
+    t= <tipoC >{ jjtThis.setName(t.image); }
+   |t=<idPreguntaC>{ jjtThis.setName(t.image); }
+   |t=<etiquetaC>{ jjtThis.setName(t.image); }
+   |t=<sugerirC>{ jjtThis.setName(t.image); }
+   |t=<codigo_preC>{ jjtThis.setName(t.image); }
+   |t=<codigo_postC>{ jjtThis.setName(t.image); }
+   |t=<restringirC>{ jjtThis.setName(t.image); }
+   |t=<restringirMsnC>{ jjtThis.setName(t.image); }
+   |t=<predeterminadoC>{ jjtThis.setName(t.image); }
+   |t=<aplicableC>{ jjtThis.setName(t.image); }
+   |t=<lecturaC>{ jjtThis.setName(t.image); }
+   |t=<calculoC>{ jjtThis.setName(t.image); }
+   |t=<repeticionC>{ jjtThis.setName(t.image); }
+   |t=<multimediaC>{ jjtThis.setName(t.image); }
+   |t=<aparienciaC>{ jjtThis.setName(t.image); }
+   |t=<parametroC>{ jjtThis.setName(t.image); }
+}
+
+
+
+
+
+
+
 
