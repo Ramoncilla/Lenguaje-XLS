@@ -5,16 +5,17 @@ IGNORE_CASE = false;
 STATIC=false;
 }
 
-PARSER_BEGIN(analizador)
+PARSER_BEGIN(grammarXLSX)
 
-package Analizador;
-import java.io.*;
+package XLSX.AnalizerXML;
+import java.util.ArrayList;
+import java.util.List;
 
-public class analizador{
+public class grammarXLSX{
 
 }
 
-PARSER_END(analizador)
+PARSER_END(grammarXLSX)
 
 
 SKIP:
@@ -45,30 +46,44 @@ SKIP:
 }
 
 
-/*--------------- SIMBOLOS -----------------*/
-
-
 
 	
 //----------- Encabezados ------------------	
 TOKEN: 
 {
-   <tipoC :"tipo">
-   |<idPreguntaC :"idPregunta">
-   |< etiquetaC:"etiqueta">
-   |< sugerirC:"sugerir">
-   |< codigo_preC:"codigo_pre">
-   |< codigo_postC:"codigo_post">
-   |< restringirC:"restringir">
-   |< restringirMsnC:"restringirMsn">
-   |< predeterminadoC:"predeterminado">
-   |< aplicableC:"aplicable">
-   |< lecturaC:"lectura">
-   |< calculoC:"calculo">
-   |< repeticionC:"repeticion">
-   |< multimediaC:"multimedia">
-   |< aparienciaC:"apariencia">
-   |< parametroC:"parametro">
+   <tipoC :"<tipo>">
+   |<idPreguntaC :"<idPregunta>">
+   |< etiquetaC:"<etiqueta>">
+   |< sugerirC:"<sugerir>">
+   |< codigo_preC:"<codigo_pre>">
+   |< codigo_postC:"<codigo_post>">
+   |< restringirC:"<restringir>">
+   |< restringirMsnC:"<restringirMsn>">
+   |< predeterminadoC:"<predeterminado>">
+   |< aplicableC:"<aplicable>">
+   |< lecturaC:"<lectura>">
+   |< calculoC:"<calculo>">
+   |< repeticionC:"<repeticion>">
+   |< multimediaC:"<multimedia>">
+   |< aparienciaC:"<apariencia>">
+   |< parametroC:"<parametro>">
+   
+   |<tipoC2 :"</tipo>">
+   |<idPreguntaC2 :"</idPregunta>">
+   |< etiquetaC2:"</etiqueta>">
+   |< sugerirC2:"</sugerir>">
+   |< codigo_preC2:"</codigo_pre>">
+   |< codigo_postC2:"</codigo_post>">
+   |< restringirC2:"</restringir>">
+   |< restringirMsnC2:"</restringirMsn>">
+   |< predeterminadoC2:"</predeterminado>">
+   |< aplicableC2:"</aplicable>">
+   |< lecturaC2:"</lectura>">
+   |< calculoC2:"</calculo>">
+   |< repeticionC2:"</repeticion>">
+   |< multimediaC2:"</multimedia>">
+   |< aparienciaC2:"</apariencia>">
+   |< parametroC2:"</parametro>">
 }
 
 
@@ -99,33 +114,37 @@ TOKEN:{
 |<resta: "-">
 |<multiplicacion: "*">
 |<division: "/">
+|<modulo: "mod">
+|<div: "div">
 |<potencia: "^">
 }
 
 TOKEN:{
-<dosPuntos: ":">
+  <igual:"=">
+| <dosPuntos: ":">
 |<abrePar: "(">
 |<cierraPar: ")">
 |<coma:",">
+|<doblePunto: "..">
 |<punto:".">
 |<puntoComa:";">
 |<abreLlave:"{">
 |<cierraLlave:"}">
+|<abreCorchete:"[">
+|<cierraCorchete:"]">
+|<arroba :"@">
 }
 
 TOKEN :   //EXPRESONES REGULARES 
 {
      <DECIMAL: (["0"-"9"])+("."(["0"-"9"])+)>
   |  < NUM: ["0"-"9"] (["0"-"9"])* >
-  |  <CADENA: "\"" (  ~["\""] )* "\"">
-  |  <CARACTER: "\'" (["0"-"9"] | ["_","a"-"z","A"-"Z"] | "#" | "$" | "%" | "?" | "¿" | "@")  "\'">
+  |  < CADENA: "\"" (  ~["\""] )* "\"">
+  |  < CARACTER: "\'" (["0"-"9"] | ["_","a"-"z","A"-"Z"] | "#" | "$" | "%" | "?" | "¿" | "@")  "\'">
   |  < id: <LETRA> (<LETRA>|<DIGITO>)* >
-  |  < UNO: "1">
-  |  <CERO:"0">
   |  < #LETRA: ["_","a"-"z","A"-"Z"] >
   |  < #DIGITO: ["0"-"9"] >
 }
-
 
 SimpleNode Start():{}{
 
@@ -134,20 +153,22 @@ SimpleNode Start():{}{
 }
 
 void Inicio():{}{
-TAG_ABRE()TAG_CIERRA()
+TAG() LISTA_UNIDADES() TAG()
 }
 
-void TAG_ABRE():{}{
- <menor>ENCABEZADO()<mayor>
+void TAG():{}{
+ ENCABEZADO_VAL()
 }
 
-void TAG_CIERRA():{}{
-<menor><division>ENCABEZADO()<mayor>
+
+
+void ENCABEZAD():{}{
+  ENCABEZADO_VAL()
 }
 
-void ENCABEZADO()#Encabezado:{Token t;}
+void ENCABEZADO_VAL()#Encabezado_Val:{Token t;}
 {
-    t= <tipoC >{ jjtThis.setName(t.image); }
+    t= <tipoC>{ jjtThis.setName(t.image); }
    |t=<idPreguntaC>{ jjtThis.setName(t.image); }
    |t=<etiquetaC>{ jjtThis.setName(t.image); }
    |t=<sugerirC>{ jjtThis.setName(t.image); }
@@ -163,7 +184,79 @@ void ENCABEZADO()#Encabezado:{Token t;}
    |t=<multimediaC>{ jjtThis.setName(t.image); }
    |t=<aparienciaC>{ jjtThis.setName(t.image); }
    |t=<parametroC>{ jjtThis.setName(t.image); }
+
+
+
+   |t= <tipoC2>{ jjtThis.setName(t.image); }
+   |t=<idPreguntaC2>{ jjtThis.setName(t.image); }
+   |t=<etiquetaC2>{ jjtThis.setName(t.image); }
+   |t=<sugerirC2>{ jjtThis.setName(t.image); }
+   |t=<codigo_preC2>{ jjtThis.setName(t.image); }
+   |t=<codigo_postC2>{ jjtThis.setName(t.image); }
+   |t=<restringirC2>{ jjtThis.setName(t.image); }
+   |t=<restringirMsnC2>{ jjtThis.setName(t.image); }
+   |t=<predeterminadoC2>{ jjtThis.setName(t.image); }
+   |t=<aplicableC2>{ jjtThis.setName(t.image); }
+   |t=<lecturaC2>{ jjtThis.setName(t.image); }
+   |t=<calculoC2>{ jjtThis.setName(t.image); }
+   |t=<repeticionC2>{ jjtThis.setName(t.image); }
+   |t=<multimediaC2>{ jjtThis.setName(t.image); }
+   |t=<aparienciaC2>{ jjtThis.setName(t.image); }
+   |t=<parametroC2>{ jjtThis.setName(t.image); }
 }
+
+void LISTA_UNIDADES() : {}
+	{ 
+		(LOOKAHEAD(2)unidad())*
+	}
+
+
+void unidad():{}{
+  obtenerValorUnidad()
+}
+
+void obtenerValorUnidad() #obtenerValorUnidad:{Token t;}{
+
+   t=<NUM>{ jjtThis.setName(t.image);  } 
+    |t =<DECIMAL>{ jjtThis.setName(t.image); }
+    |t =<CADENA>{ jjtThis.setName(t.image); }
+    |t =<CARACTER>{ jjtThis.setName(t.image); }
+    |t =<dosPuntos>{ jjtThis.setName(t.image); }
+    |t =<abrePar>{ jjtThis.setName(t.image); }
+    |t=<cierraPar>{ jjtThis.setName(t.image); }
+    |t=<coma>{ jjtThis.setName(t.image); }
+    |t=<doblePunto>{ jjtThis.setName(t.image); }
+    |t=<punto>{ jjtThis.setName(t.image); }
+    |t=<puntoComa>{ jjtThis.setName(t.image); }
+    |t=<abreLlave>{ jjtThis.setName(t.image); }
+    |t=<cierraLlave>{ jjtThis.setName(t.image); }
+    |t=<abreCorchete>{ jjtThis.setName(t.image); }
+    |t=<cierraCorchete>{ jjtThis.setName(t.image); }
+    |t=<arroba>{ jjtThis.setName(t.image); }
+    |t=<menorIgual>{ jjtThis.setName(t.image); }
+|t=<mayorIgual>{ jjtThis.setName(t.image); }
+|t=<menor>{ jjtThis.setName(t.image); }
+|t=<mayor>{ jjtThis.setName(t.image); }
+|t=<igualIgual>{ jjtThis.setName(t.image); }
+|t=<distintoA>{ jjtThis.setName(t.image); }
+|t=< or>{ jjtThis.setName(t.image); }
+| t= < and>{ jjtThis.setName(t.image); }
+|t=<menosMenos>{ jjtThis.setName(t.image); }  
+|t=<masMas>{ jjtThis.setName(t.image); }  
+|t=<suma>{ jjtThis.setName(t.image); }
+|t=<resta>{ jjtThis.setName(t.image); }
+|t=<multiplicacion>{ jjtThis.setName(t.image); }
+|t=<division>{ jjtThis.setName(t.image); }
+|t=<modulo>{ jjtThis.setName(t.image); }
+|t=<div>{ jjtThis.setName(t.image); }
+|t=<potencia>{ jjtThis.setName(t.image); }
+|t =<igual>{ jjtThis.setName(t.image); }
+| t=< not>{ jjtThis.setName(t.image); }
+|t =<id>{ jjtThis.setName(t.image); }
+}
+
+
+
 
 
 
