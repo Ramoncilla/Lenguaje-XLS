@@ -5,23 +5,69 @@ public interface grammarXLSXTreeConstants
 {
   public int JJTSTART = 0;
   public int JJTINICIO = 1;
-  public int JJTTAG = 2;
-  public int JJTENCABEZAD = 3;
-  public int JJTENCABEZADO_VAL = 4;
-  public int JJTLISTA_UNIDADES = 5;
-  public int JJTUNIDAD = 6;
-  public int JJTOBTENERVALORUNIDAD = 7;
+  public int JJTARCHIVO = 2;
+  public int JJTENCUESTA = 3;
+  public int JJTENCABEZADO_ENCUESTA = 4;
+  public int JJTENCABEZADO_VAL = 5;
+  public int JJTLISTA_PREGUNTAS = 6;
+  public int JJTPREGUNTA = 7;
+  public int JJTL_OPT_PREGUNTA = 8;
+  public int JJTOPT_PREGUNTA = 9;
+  public int JJTTAG = 10;
+  public int JJTENCABEZADO_PRE = 11;
+  public int JJTOPCIONES = 12;
+  public int JJTENCABEZADO_OPCI = 13;
+  public int JJTLISTA_OPCIONES = 14;
+  public int JJTOPCION = 15;
+  public int JJTENCABEZADO_OPT = 16;
+  public int JJTLISTA_OPT = 17;
+  public int JJTOPT_OPCION = 18;
+  public int JJTTAG_OPCIONES = 19;
+  public int JJTENCABEZADO_CONFI = 20;
+  public int JJTCONFIGURACION = 21;
+  public int JJTLISTA_CONFIGURACIONES = 22;
+  public int JJTELEMENTO_CONFIGURACION = 23;
+  public int JJTENCABEZADO_CONFI2 = 24;
+  public int JJTL_OP_CONFIGURACION = 25;
+  public int JJTOP_CONFIGURACION = 26;
+  public int JJTTAG_CONFIGURACION = 27;
+  public int JJTLISTA_UNIDADES = 28;
+  public int JJTUNIDAD = 29;
+  public int JJTOBTENERVALORUNIDAD = 30;
 
 
   public String[] jjtNodeName = {
     "Start",
     "Inicio",
-    "TAG",
-    "ENCABEZAD",
+    "Archivo",
+    "ENCUESTA",
+    "ENCABEZADO_ENCUESTA",
     "Encabezado_Val",
+    "LISTA_PREGUNTAS",
+    "PREGUNTA",
+    "L_OPT_PREGUNTA",
+    "OPT_PREGUNTA",
+    "TAG",
+    "ENCABEZADO_PRE",
+    "OPCIONES",
+    "ENCABEZADO_OPCI",
+    "LISTA_OPCIONES",
+    "OPCION",
+    "ENCABEZADO_OPT",
+    "LISTA_OPT",
+    "OPT_OPCION",
+    "TAG_OPCIONES",
+    "ENCABEZADO_CONFI",
+    "CONFIGURACION",
+    "LISTA_CONFIGURACIONES",
+    "ELEMENTO_CONFIGURACION",
+    "ENCABEZADO_CONFI2",
+    "L_OP_CONFIGURACION",
+    "OP_CONFIGURACION",
+    "TAG_CONFIGURACION",
     "LISTA_UNIDADES",
     "unidad",
     "obtenerValorUnidad",
   };
 }
-/* JavaCC - OriginalChecksum=faaed967f485ce011c51ebb10f923e42 (do not edit this line) */
+/* JavaCC - OriginalChecksum=2115f12b6f77549fda5c0e2d2cbfaf72 (do not edit this line) */

@@ -7,6 +7,7 @@ package proyecto1_201122872;
 
 import XLSX.AnalizerFileXML;
 import XLSX.ReadExcel;
+import java.util.List;
 
 /**
  *
@@ -21,8 +22,13 @@ public class Proyecto1_201122872 {
         // TODO code application logic here
         //ReadExcel n = new ReadExcel ();
         //System.out.println(n.convertSheet("bin-CoDe", "C:\\Users\\Ramonella\\Desktop\\ejemplo.xlsx")); 
-        AnalizerFileXML g = new AnalizerFileXML();
-        g.Analizer();
+        
+        ReadExcel reader = new ReadExcel();
+        AnalizerFileXML parserAnalizer = new AnalizerFileXML();
+        List<String> rutas = reader.generateXML("/home/alina/Descargas/Impresion.xlsx");
+        parserAnalizer.Analizer(rutas);
+        
+        
         
     
     }

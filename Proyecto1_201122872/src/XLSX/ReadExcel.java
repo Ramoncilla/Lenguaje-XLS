@@ -19,11 +19,37 @@ import javax.swing.JOptionPane;
 public class ReadExcel {
 
     static DecimalFormat df = new DecimalFormat("#####0");
+    
+    
+    public List<String> generateXML(String path){
+        List<String> paths = new ArrayList<>();
+        String pathTemp="";
+        pathTemp = this.convertSheet("encuesta", path,"preg");
+        if(!(pathTemp.equalsIgnoreCase(""))){
+            paths.add(pathTemp);
+        }else{
+            JOptionPane.showMessageDialog(null, "No se pudo generar archivo para ENCUESTA", "Error " , JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        pathTemp = this.convertSheet("opciones", path, "opt");
+        if(!(pathTemp.equalsIgnoreCase(""))){
+            paths.add(pathTemp);
+        }else{
+            JOptionPane.showMessageDialog(null, "No se pudo generar archivo para OPCIONES", "Error " , JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        pathTemp = this.convertSheet("configuracion", path, "confi");
+        if(!(pathTemp.equalsIgnoreCase(""))){
+            paths.add(pathTemp);
+        }
+        return paths;
+    }
+    
 
-    public String convertSheet(String name, String filename) {
+    private String convertSheet(String name, String filename, String option) {
         FileWriter fostream;
         PrintWriter out = null;
-        String strOutputPath = "C:\\Users\\Ramonella\\Desktop\\";
+        String strOutputPath = "/home/alina/Descargas/hola/";
         String strFilePrefix = "";
         File af = new File(filename);
         if (af.exists()) {
@@ -32,7 +58,7 @@ public class ReadExcel {
                 InputStream inputStream = new FileInputStream(af);
                 Workbook wb = WorkbookFactory.create(inputStream);
                 Sheet sheet = wb.getSheet(name);
-                fostream = new FileWriter(strOutputPath + "\\" + strFilePrefix + ".xml");
+                fostream = new FileWriter(strOutputPath  + strFilePrefix + ".xml");
                 out = new PrintWriter(new BufferedWriter(fostream));
                 out.println("<"+name+">");
                 boolean firstRow = true;
@@ -51,16 +77,16 @@ public class ReadExcel {
                         }
                         continue;
                     }
-                    out.println("\t<pregunta>");
+                    out.println("\t<"+option+">");
                     for (int i = 0; i < headers.size(); i++) {
                         out.println(formatElement("\t\t", headers.get(i), formatCell(row.getCell(i))));
                     }
-                    out.println("\t</pregunta>");
+                    out.println("\t</"+option+">");
                 }
                 out.write("</"+name+">");
                 out.flush();
                 out.close();
-                return strOutputPath + "\\" + strFilePrefix + ".xml";
+                return strOutputPath  + strFilePrefix + ".xml";
             } catch (Exception e) {
                 e.printStackTrace();
             }

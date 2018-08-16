@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.InputStream;
 import XLSX.AnalizerXML.grammarXLSX;
+import java.util.List;
 
 /**
  *
@@ -20,8 +21,18 @@ import XLSX.AnalizerXML.grammarXLSX;
 public class AnalizerFileXML {
     
     
-    public void Analizer(){
-         InputStream is = new ByteArrayInputStream(Leer_Archivo().getBytes());
+   public void Analizer(List<String> paths){
+       String contentFile="";
+       for (int i = 0; i < paths.size(); i++) {
+           contentFile+=Leer_Archivo(paths.get(i))+"\n";
+       }
+       Parser(contentFile);
+   } 
+    
+    
+    
+    private void Parser(String cadena){
+         InputStream is = new ByteArrayInputStream(cadena.getBytes());
         grammarXLSX analizar = new grammarXLSX(is);
         try {
             SimpleNode n = analizar.Start();
@@ -35,13 +46,14 @@ public class AnalizerFileXML {
     }
     
     
-    public String Leer_Archivo() {
+    private String Leer_Archivo(String ruta) {
         File archivo = null;
         FileReader fr = null;
         BufferedReader br = null;
         String cadena = "";
         try {
-            archivo = new File("/home/alina/Escritorio/ejemplo.txt");
+            archivo = new File(ruta);
+           // archivo = new File("/home/alina/Escritorio/ejemplo.txt");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             // Lectura del fichero

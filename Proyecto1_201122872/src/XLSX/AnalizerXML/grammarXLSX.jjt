@@ -46,14 +46,56 @@ SKIP:
 }
 
 
+TOKEN:{
+  <opt:"<opt>">
+  |<preg:"<preg>">
+  |<confi:"<confi>">
+  |<opt2:"</opt>">
+  |<preg2:"</preg>">
+  |<confi2:"</confi>">
+}
 
-	
+TOKEN:{
+  <nombre_lista :"<nombre_lista>">
+  |<nombre: "<nombre>">
+  |<etiqueta: "<etiqueta>">
+  |<multimedia: "<multimedia>">
+  |<nombre_lista2 :"</nombre_lista>">
+  |<nombre2: "</nombre>">
+  |<etiqueta2: "</etiqueta>">
+  |<multimedia2: "</multimedia>">
+}
+
+TOKEN:{
+  <titulo_formulario: "<titulo_formulario>">
+  |<idform: "<idForm>">
+  |<estilo: "<estilo>">
+  |<importar: "<importar>">
+  |<codigo_menu: "<codigo_menu>">
+  |<codigo_global: "<codigo_global>">
+  |<titulo_formulario2: "</titulo_formulario>">
+  |<idform2: "</idForm>">
+  |<estilo2: "</estilo>">
+  |<importar2: "</importar>">
+  |<codigo_menu2: "</codigo_menu>">
+  |<codigo_global2: "</codigo_global>">
+}
+
+TOKEN:{
+  <encuesta: "<encuesta>">
+  |<opciones: "<opciones>">
+  |<configuraciones: "<configuraciones>">
+  |<encuesta2: "</encuesta>">
+  |<opciones2: "</opciones>">
+  |<configuraciones2: "</configuraciones>">
+}
+
 //----------- Encabezados ------------------	
 TOKEN: 
 {
    <tipoC :"<tipo>">
    |<idPreguntaC :"<idPregunta>">
-   |< etiquetaC:"<etiqueta>">
+
    |< sugerirC:"<sugerir>">
    |< codigo_preC:"<codigo_pre>">
    |< codigo_postC:"<codigo_post>">
@@ -64,13 +106,12 @@ TOKEN:
    |< lecturaC:"<lectura>">
    |< calculoC:"<calculo>">
    |< repeticionC:"<repeticion>">
-   |< multimediaC:"<multimedia>">
    |< aparienciaC:"<apariencia>">
    |< parametroC:"<parametro>">
    
    |<tipoC2 :"</tipo>">
    |<idPreguntaC2 :"</idPregunta>">
-   |< etiquetaC2:"</etiqueta>">
+
    |< sugerirC2:"</sugerir>">
    |< codigo_preC2:"</codigo_pre>">
    |< codigo_postC2:"</codigo_post>">
@@ -81,7 +122,6 @@ TOKEN:
    |< lecturaC2:"</lectura>">
    |< calculoC2:"</calculo>">
    |< repeticionC2:"</repeticion>">
-   |< multimediaC2:"</multimedia>">
    |< aparienciaC2:"</apariencia>">
    |< parametroC2:"</parametro>">
 }
@@ -153,7 +193,48 @@ SimpleNode Start():{}{
 }
 
 void Inicio():{}{
-TAG() LISTA_UNIDADES() TAG()
+  (Archivo())*
+}
+
+
+void Archivo():{}{
+  ENCUESTA()
+  |OPCIONES()
+  |CONFIGURACION()
+}
+
+/*------------------------------------------ ENCUESTA -----------------------------*/
+
+void ENCUESTA():{}{
+ENCABEZADO_ENCUESTA() LISTA_PREGUNTAS() ENCABEZADO_ENCUESTA()
+}
+
+void ENCABEZADO_ENCUESTA():{}{
+  ENCABEZADO_E()
+}
+
+void ENCABEZADO_E()#Encabezado_Val:{Token t;}
+{
+    t= <encuesta>{ jjtThis.setName(t.image); }
+   |t=<encuesta2>{ jjtThis.setName(t.image); }
+
+}
+
+void LISTA_PREGUNTAS():{}{
+  (PREGUNTA())*
+}
+
+void PREGUNTA():{}{
+    ENCABEZADO_PRE() L_OPT_PREGUNTA()  ENCABEZADO_PRE()
+}
+
+
+void L_OPT_PREGUNTA():{}{
+  (OPT_PREGUNTA())*
+}
+
+void OPT_PREGUNTA():{}{
+  TAG() LISTA_UNIDADES() TAG()
 }
 
 void TAG():{}{
@@ -162,15 +243,22 @@ void TAG():{}{
 
 
 
-void ENCABEZAD():{}{
-  ENCABEZADO_VAL()
+void ENCABEZADO_PRE():{}
+{
+    tENCABEZADO_PRE()
 }
+
+void tENCABEZADO_PRE()#Encabezado_Val:{Token t;}
+{
+    t= <preg>{ jjtThis.setName(t.image); }
+   |t=<preg2>{ jjtThis.setName(t.image); }
+}
+
 
 void ENCABEZADO_VAL()#Encabezado_Val:{Token t;}
 {
     t= <tipoC>{ jjtThis.setName(t.image); }
    |t=<idPreguntaC>{ jjtThis.setName(t.image); }
-   |t=<etiquetaC>{ jjtThis.setName(t.image); }
    |t=<sugerirC>{ jjtThis.setName(t.image); }
    |t=<codigo_preC>{ jjtThis.setName(t.image); }
    |t=<codigo_postC>{ jjtThis.setName(t.image); }
@@ -181,15 +269,12 @@ void ENCABEZADO_VAL()#Encabezado_Val:{Token t;}
    |t=<lecturaC>{ jjtThis.setName(t.image); }
    |t=<calculoC>{ jjtThis.setName(t.image); }
    |t=<repeticionC>{ jjtThis.setName(t.image); }
-   |t=<multimediaC>{ jjtThis.setName(t.image); }
+   
    |t=<aparienciaC>{ jjtThis.setName(t.image); }
    |t=<parametroC>{ jjtThis.setName(t.image); }
-
-
-
    |t= <tipoC2>{ jjtThis.setName(t.image); }
    |t=<idPreguntaC2>{ jjtThis.setName(t.image); }
-   |t=<etiquetaC2>{ jjtThis.setName(t.image); }
+  
    |t=<sugerirC2>{ jjtThis.setName(t.image); }
    |t=<codigo_preC2>{ jjtThis.setName(t.image); }
    |t=<codigo_postC2>{ jjtThis.setName(t.image); }
@@ -200,10 +285,155 @@ void ENCABEZADO_VAL()#Encabezado_Val:{Token t;}
    |t=<lecturaC2>{ jjtThis.setName(t.image); }
    |t=<calculoC2>{ jjtThis.setName(t.image); }
    |t=<repeticionC2>{ jjtThis.setName(t.image); }
-   |t=<multimediaC2>{ jjtThis.setName(t.image); }
+  
    |t=<aparienciaC2>{ jjtThis.setName(t.image); }
    |t=<parametroC2>{ jjtThis.setName(t.image); }
 }
+
+/*-------------------------------- OPCIONES --------------------------------------*/
+
+void OPCIONES ():{}{
+  ENCABEZADO_OPCI() LISTA_OPCIONES() ENCABEZADO_OPCI()
+}
+
+void ENCABEZADO_OPCI():{}{
+  ENCABEZADO_O()
+}
+
+void ENCABEZADO_O()#Encabezado_Val:{Token t;}
+{
+   t=<opciones>{ jjtThis.setName(t.image); }
+   | t=<opciones2>{ jjtThis.setName(t.image); }
+}
+
+void LISTA_OPCIONES():{}{
+  (OPCION())*
+}
+
+void OPCION():{}{
+ENCABEZADO_OPT() LISTA_OPT() ENCABEZADO_OPT()
+
+}
+
+void ENCABEZADO_OPT():{}
+{
+    tENCABEZADO_OPT()
+}
+
+void tENCABEZADO_OPT()#Encabezado_Val:{Token t;}
+{
+    t= <opt>{ jjtThis.setName(t.image); }
+   |t=<opt2>{ jjtThis.setName(t.image); }
+}
+
+void LISTA_OPT():{}{
+  (OPT_OPCION())*
+}
+
+void OPT_OPCION():{}{
+  TAG_OPCIONES() LISTA_UNIDADES() TAG_OPCIONES()
+}
+
+void TAG_OPCIONES():{}{
+  ENCABEZADO_OPCIONES()
+}
+
+void ENCABEZADO_OPCIONES()#Encabezado_Val:{Token t;}
+{
+   t=<nombre_lista>{ jjtThis.setName(t.image); }
+  |t=<nombre>{ jjtThis.setName(t.image); }
+  |t=<etiqueta>{ jjtThis.setName(t.image); }
+  |t=<multimedia>{ jjtThis.setName(t.image); }
+  |t=<nombre_lista2 >{ jjtThis.setName(t.image); }
+  |t=<nombre2>{ jjtThis.setName(t.image); }
+  |t=<etiqueta2>{ jjtThis.setName(t.image); }
+  |t=<multimedia2>{ jjtThis.setName(t.image); }
+
+}
+
+
+
+
+/*------------------------------------ CONFIGURACIONES -----------------------------------*/
+
+void ENCABEZADO_CONFI():{}{
+  ENCABEZADO_C()
+}
+
+void ENCABEZADO_C()#Encabezado_Val:{Token t;}
+{
+   t=<configuraciones>{ jjtThis.setName(t.image); }
+   | t=<configuraciones2>{ jjtThis.setName(t.image); }
+
+}
+
+void CONFIGURACION():{}{
+  ENCABEZADO_CONFI() LISTA_CONFIGURACIONES()  ENCABEZADO_CONFI()
+}
+
+
+void LISTA_CONFIGURACIONES():{}{
+  ( ELEMENTO_CONFIGURACION())*
+}
+
+void ELEMENTO_CONFIGURACION():{}{
+  ENCABEZADO_CONFI2() L_OP_CONFIGURACION() ENCABEZADO_CONFI2()
+}
+
+
+void ENCABEZADO_CONFI2():{}
+{
+    tENCABEZADO_CONFI()
+}
+
+void tENCABEZADO_CONFI()#Encabezado_Val:{Token t;}
+{
+    t= <confi>{ jjtThis.setName(t.image); }
+   |t=<confi2>{ jjtThis.setName(t.image); }
+}
+
+
+
+void L_OP_CONFIGURACION():{}{
+  (OP_CONFIGURACION())*
+}
+
+void OP_CONFIGURACION():{}{
+  TAG_CONFIGURACION() LISTA_UNIDADES() TAG_CONFIGURACION()
+}
+
+
+
+void TAG_CONFIGURACION():{}{
+  ENCABEZADO_CONFIGURACION()
+}
+
+void ENCABEZADO_CONFIGURACION()#Encabezado_Val:{Token t;}
+{
+   t=<titulo_formulario>{ jjtThis.setName(t.image); }
+  |t=<idform>{ jjtThis.setName(t.image); }
+  |t=<estilo>{ jjtThis.setName(t.image); }
+  |t=<importar>{ jjtThis.setName(t.image); }
+  |t=<codigo_menu>{ jjtThis.setName(t.image); }
+  |t=<codigo_global>{ jjtThis.setName(t.image); }
+  |t=<titulo_formulario2>{ jjtThis.setName(t.image); }
+  |t=<idform2>{ jjtThis.setName(t.image); }
+  |t=<estilo2>{ jjtThis.setName(t.image); }
+  |t=<importar2>{ jjtThis.setName(t.image); }
+  |t=<codigo_menu2>{ jjtThis.setName(t.image); }
+  |t=<codigo_global2>{ jjtThis.setName(t.image); }
+
+}
+
+
+
+
+
+
+
+
+
+/*--------------------------------- cUERPO TAGS ----------------------*/
 
 void LISTA_UNIDADES() : {}
 	{ 
@@ -234,25 +464,25 @@ void obtenerValorUnidad() #obtenerValorUnidad:{Token t;}{
     |t=<cierraCorchete>{ jjtThis.setName(t.image); }
     |t=<arroba>{ jjtThis.setName(t.image); }
     |t=<menorIgual>{ jjtThis.setName(t.image); }
-|t=<mayorIgual>{ jjtThis.setName(t.image); }
-|t=<menor>{ jjtThis.setName(t.image); }
-|t=<mayor>{ jjtThis.setName(t.image); }
-|t=<igualIgual>{ jjtThis.setName(t.image); }
-|t=<distintoA>{ jjtThis.setName(t.image); }
-|t=< or>{ jjtThis.setName(t.image); }
-| t= < and>{ jjtThis.setName(t.image); }
-|t=<menosMenos>{ jjtThis.setName(t.image); }  
-|t=<masMas>{ jjtThis.setName(t.image); }  
-|t=<suma>{ jjtThis.setName(t.image); }
-|t=<resta>{ jjtThis.setName(t.image); }
-|t=<multiplicacion>{ jjtThis.setName(t.image); }
-|t=<division>{ jjtThis.setName(t.image); }
-|t=<modulo>{ jjtThis.setName(t.image); }
-|t=<div>{ jjtThis.setName(t.image); }
-|t=<potencia>{ jjtThis.setName(t.image); }
-|t =<igual>{ jjtThis.setName(t.image); }
-| t=< not>{ jjtThis.setName(t.image); }
-|t =<id>{ jjtThis.setName(t.image); }
+    |t=<mayorIgual>{ jjtThis.setName(t.image); }
+    |t=<menor>{ jjtThis.setName(t.image); }
+    |t=<mayor>{ jjtThis.setName(t.image); }
+    |t=<igualIgual>{ jjtThis.setName(t.image); }
+    |t=<distintoA>{ jjtThis.setName(t.image); }
+    |t=< or>{ jjtThis.setName(t.image); }
+    | t= < and>{ jjtThis.setName(t.image); }
+    |t=<menosMenos>{ jjtThis.setName(t.image); }  
+    |t=<masMas>{ jjtThis.setName(t.image); }  
+    |t=<suma>{ jjtThis.setName(t.image); }
+    |t=<resta>{ jjtThis.setName(t.image); }
+    |t=<multiplicacion>{ jjtThis.setName(t.image); }
+    |t=<division>{ jjtThis.setName(t.image); }
+    |t=<modulo>{ jjtThis.setName(t.image); }
+    |t=<div>{ jjtThis.setName(t.image); }
+    |t=<potencia>{ jjtThis.setName(t.image); }
+    |t =<igual>{ jjtThis.setName(t.image); }
+    | t=< not>{ jjtThis.setName(t.image); }
+    |t =<id>{ jjtThis.setName(t.image); }
 }
 
 
