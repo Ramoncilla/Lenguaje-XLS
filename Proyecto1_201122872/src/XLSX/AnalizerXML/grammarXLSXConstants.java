@@ -79,133 +79,145 @@ public interface grammarXLSXConstants {
   /** RegularExpression Id. */
   int idPreguntaC = 45;
   /** RegularExpression Id. */
-  int sugerirC = 46;
+  int requeridoC = 46;
   /** RegularExpression Id. */
-  int codigo_preC = 47;
+  int requeridoMsnC = 47;
   /** RegularExpression Id. */
-  int codigo_postC = 48;
+  int requeridoC2 = 48;
   /** RegularExpression Id. */
-  int restringirC = 49;
+  int requeridoMsnC2 = 49;
   /** RegularExpression Id. */
-  int restringirMsnC = 50;
+  int sugerirC = 50;
   /** RegularExpression Id. */
-  int predeterminadoC = 51;
+  int codigo_preC = 51;
   /** RegularExpression Id. */
-  int aplicableC = 52;
+  int codigo_postC = 52;
   /** RegularExpression Id. */
-  int lecturaC = 53;
+  int restringirC = 53;
   /** RegularExpression Id. */
-  int calculoC = 54;
+  int restringirMsnC = 54;
   /** RegularExpression Id. */
-  int repeticionC = 55;
+  int predeterminadoC = 55;
   /** RegularExpression Id. */
-  int aparienciaC = 56;
+  int aplicableC = 56;
   /** RegularExpression Id. */
-  int parametroC = 57;
+  int lecturaC = 57;
   /** RegularExpression Id. */
-  int tipoC2 = 58;
+  int calculoC = 58;
   /** RegularExpression Id. */
-  int idPreguntaC2 = 59;
+  int repeticionC = 59;
   /** RegularExpression Id. */
-  int sugerirC2 = 60;
+  int aparienciaC = 60;
   /** RegularExpression Id. */
-  int codigo_preC2 = 61;
+  int parametroC = 61;
   /** RegularExpression Id. */
-  int codigo_postC2 = 62;
+  int tipoC2 = 62;
   /** RegularExpression Id. */
-  int restringirC2 = 63;
+  int idPreguntaC2 = 63;
   /** RegularExpression Id. */
-  int restringirMsnC2 = 64;
+  int sugerirC2 = 64;
   /** RegularExpression Id. */
-  int predeterminadoC2 = 65;
+  int codigo_preC2 = 65;
   /** RegularExpression Id. */
-  int aplicableC2 = 66;
+  int codigo_postC2 = 66;
   /** RegularExpression Id. */
-  int lecturaC2 = 67;
+  int restringirC2 = 67;
   /** RegularExpression Id. */
-  int calculoC2 = 68;
+  int restringirMsnC2 = 68;
   /** RegularExpression Id. */
-  int repeticionC2 = 69;
+  int predeterminadoC2 = 69;
   /** RegularExpression Id. */
-  int aparienciaC2 = 70;
+  int aplicableC2 = 70;
   /** RegularExpression Id. */
-  int parametroC2 = 71;
+  int lecturaC2 = 71;
   /** RegularExpression Id. */
-  int menorIgual = 72;
+  int calculoC2 = 72;
   /** RegularExpression Id. */
-  int mayorIgual = 73;
+  int repeticionC2 = 73;
   /** RegularExpression Id. */
-  int menor = 74;
+  int aparienciaC2 = 74;
   /** RegularExpression Id. */
-  int mayor = 75;
+  int parametroC2 = 75;
   /** RegularExpression Id. */
-  int igualIgual = 76;
+  int menorIgual = 76;
   /** RegularExpression Id. */
-  int distintoA = 77;
+  int mayorIgual = 77;
   /** RegularExpression Id. */
-  int or = 78;
+  int menor = 78;
   /** RegularExpression Id. */
-  int and = 79;
+  int mayor = 79;
   /** RegularExpression Id. */
-  int not = 80;
+  int igualIgual = 80;
   /** RegularExpression Id. */
-  int menosMenos = 81;
+  int distintoA = 81;
   /** RegularExpression Id. */
-  int masMas = 82;
+  int or = 82;
   /** RegularExpression Id. */
-  int suma = 83;
+  int and = 83;
   /** RegularExpression Id. */
-  int resta = 84;
+  int not = 84;
   /** RegularExpression Id. */
-  int multiplicacion = 85;
+  int menosMenos = 85;
   /** RegularExpression Id. */
-  int division = 86;
+  int masMas = 86;
   /** RegularExpression Id. */
-  int modulo = 87;
+  int suma = 87;
   /** RegularExpression Id. */
-  int div = 88;
+  int resta = 88;
   /** RegularExpression Id. */
-  int potencia = 89;
+  int multiplicacion = 89;
   /** RegularExpression Id. */
-  int igual = 90;
+  int division = 90;
   /** RegularExpression Id. */
-  int dosPuntos = 91;
+  int modulo = 91;
   /** RegularExpression Id. */
-  int abrePar = 92;
+  int div = 92;
   /** RegularExpression Id. */
-  int cierraPar = 93;
+  int potencia = 93;
   /** RegularExpression Id. */
-  int coma = 94;
+  int igual = 94;
   /** RegularExpression Id. */
-  int doblePunto = 95;
+  int dosPuntos = 95;
   /** RegularExpression Id. */
-  int punto = 96;
+  int abrePar = 96;
   /** RegularExpression Id. */
-  int puntoComa = 97;
+  int cierraPar = 97;
   /** RegularExpression Id. */
-  int abreLlave = 98;
+  int coma = 98;
   /** RegularExpression Id. */
-  int cierraLlave = 99;
+  int doblePunto = 99;
   /** RegularExpression Id. */
-  int abreCorchete = 100;
+  int punto = 100;
   /** RegularExpression Id. */
-  int cierraCorchete = 101;
+  int puntoComa = 101;
   /** RegularExpression Id. */
-  int arroba = 102;
+  int abreLlave = 102;
   /** RegularExpression Id. */
-  int DECIMAL = 103;
+  int cierraLlave = 103;
   /** RegularExpression Id. */
-  int NUM = 104;
+  int abreCorchete = 104;
   /** RegularExpression Id. */
-  int CADENA = 105;
+  int cierraCorchete = 105;
   /** RegularExpression Id. */
-  int CARACTER = 106;
+  int arroba = 106;
   /** RegularExpression Id. */
-  int id = 107;
+  int DECIMAL = 107;
   /** RegularExpression Id. */
-  int LETRA = 108;
+  int NUMERAL = 108;
   /** RegularExpression Id. */
-  int DIGITO = 109;
+  int NUM = 109;
+  /** RegularExpression Id. */
+  int CADENA = 110;
+  /** RegularExpression Id. */
+  int CARACTER = 111;
+  /** RegularExpression Id. */
+  int hexa = 112;
+  /** RegularExpression Id. */
+  int id = 113;
+  /** RegularExpression Id. */
+  int LETRA = 114;
+  /** RegularExpression Id. */
+  int DIGITO = 115;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -256,12 +268,16 @@ public interface grammarXLSXConstants {
     "\"</codigo_global>\"",
     "\"<encuesta>\"",
     "\"<opciones>\"",
-    "\"<configuraciones>\"",
+    "\"<configuracion>\"",
     "\"</encuesta>\"",
     "\"</opciones>\"",
-    "\"</configuraciones>\"",
+    "\"</configuracion>\"",
     "\"<tipo>\"",
     "\"<idPregunta>\"",
+    "\"<requerido>\"",
+    "\"<requeridoMsn>\"",
+    "\"</requerido>\"",
+    "\"</requeridoMsn>\"",
     "\"<sugerir>\"",
     "\"<codigo_pre>\"",
     "\"<codigo_post>\"",
@@ -320,9 +336,11 @@ public interface grammarXLSXConstants {
     "\"]\"",
     "\"@\"",
     "<DECIMAL>",
+    "<NUMERAL>",
     "<NUM>",
     "<CADENA>",
     "<CARACTER>",
+    "<hexa>",
     "<id>",
     "<LETRA>",
     "<DIGITO>",

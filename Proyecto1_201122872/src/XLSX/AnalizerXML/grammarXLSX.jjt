@@ -1,6 +1,6 @@
 options{
 	
-IGNORE_CASE = false;
+IGNORE_CASE = true;
 
 STATIC=false;
 }
@@ -84,10 +84,10 @@ TOKEN:{
 TOKEN:{
   <encuesta: "<encuesta>">
   |<opciones: "<opciones>">
-  |<configuraciones: "<configuraciones>">
+  |<configuraciones: "<configuracion>">
   |<encuesta2: "</encuesta>">
   |<opciones2: "</opciones>">
-  |<configuraciones2: "</configuraciones>">
+  |<configuraciones2: "</configuracion>">
 }
 
 //----------- Encabezados ------------------	
@@ -95,7 +95,11 @@ TOKEN:
 {
    <tipoC :"<tipo>">
    |<idPreguntaC :"<idPregunta>">
+|< requeridoC:"<requerido>">
+   |< requeridoMsnC:"<requeridoMsn>">
 
+   |< requeridoC2:"</requerido>">
+   |< requeridoMsnC2:"</requeridoMsn>">
    |< sugerirC:"<sugerir>">
    |< codigo_preC:"<codigo_pre>">
    |< codigo_postC:"<codigo_post>">
@@ -178,10 +182,13 @@ TOKEN:{
 TOKEN :   //EXPRESONES REGULARES 
 {
      <DECIMAL: (["0"-"9"])+("."(["0"-"9"])+)>
+  |  < #NUMERAL: ["#"] >
   |  < NUM: ["0"-"9"] (["0"-"9"])* >
   |  < CADENA: "\"" (  ~["\""] )* "\"">
   |  < CARACTER: "\'" (["0"-"9"] | ["_","a"-"z","A"-"Z"] | "#" | "$" | "%" | "?" | "¿" | "@")  "\'">
+  |< hexa: <NUMERAL> (<LETRA>|<DIGITO>)* >
   |  < id: <LETRA> (<LETRA>|<DIGITO>)* >
+    
   |  < #LETRA: ["_","a"-"z","A"-"Z"] >
   |  < #DIGITO: ["0"-"9"] >
 }
@@ -288,6 +295,16 @@ void ENCABEZADO_VAL()#Encabezado_Val:{Token t;}
   
    |t=<aparienciaC2>{ jjtThis.setName(t.image); }
    |t=<parametroC2>{ jjtThis.setName(t.image); }
+
+   |t=< requeridoC>{ jjtThis.setName(t.image); }
+   |t=< requeridoMsnC>{ jjtThis.setName(t.image); }
+
+   |t=< requeridoC2>{ jjtThis.setName(t.image); }
+   |t=< requeridoMsnC2>{ jjtThis.setName(t.image); }
+
+
+   |t=<etiqueta>{ jjtThis.setName(t.image); }
+  |t=<etiqueta2>{ jjtThis.setName(t.image); }
 }
 
 /*-------------------------------- OPCIONES --------------------------------------*/
@@ -448,6 +465,7 @@ void unidad():{}{
 void obtenerValorUnidad() #obtenerValorUnidad:{Token t;}{
 
    t=<NUM>{ jjtThis.setName(t.image);  } 
+   |t =<hexa>{ jjtThis.setName(t.image); }
     |t =<DECIMAL>{ jjtThis.setName(t.image); }
     |t =<CADENA>{ jjtThis.setName(t.image); }
     |t =<CARACTER>{ jjtThis.setName(t.image); }

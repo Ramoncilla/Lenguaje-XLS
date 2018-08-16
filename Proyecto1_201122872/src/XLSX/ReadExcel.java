@@ -38,6 +38,7 @@ public class ReadExcel {
             JOptionPane.showMessageDialog(null, "No se pudo generar archivo para OPCIONES", "Error " , JOptionPane.ERROR_MESSAGE);
             return null;
         }
+        
         pathTemp = this.convertSheet("configuracion", path, "confi");
         if(!(pathTemp.equalsIgnoreCase(""))){
             paths.add(pathTemp);

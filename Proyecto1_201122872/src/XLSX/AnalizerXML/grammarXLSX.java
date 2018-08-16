@@ -296,8 +296,14 @@ public class grammarXLSX/*@bgen(jjtree)*/implements grammarXLSXTreeConstants, gr
       label_3:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case etiqueta:
+        case etiqueta2:
         case tipoC:
         case idPreguntaC:
+        case requeridoC:
+        case requeridoMsnC:
+        case requeridoC2:
+        case requeridoMsnC2:
         case sugerirC:
         case codigo_preC:
         case codigo_postC:
@@ -644,6 +650,42 @@ public class grammarXLSX/*@bgen(jjtree)*/implements grammarXLSXTreeConstants, gr
                      jjtree.closeNodeScope(jjtn000, true);
                      jjtc000 = false;
                      jjtn000.setName(t.image);
+        break;
+      case requeridoC:
+        t = jj_consume_token(requeridoC);
+                     jjtree.closeNodeScope(jjtn000, true);
+                     jjtc000 = false;
+                     jjtn000.setName(t.image);
+        break;
+      case requeridoMsnC:
+        t = jj_consume_token(requeridoMsnC);
+                        jjtree.closeNodeScope(jjtn000, true);
+                        jjtc000 = false;
+                        jjtn000.setName(t.image);
+        break;
+      case requeridoC2:
+        t = jj_consume_token(requeridoC2);
+                      jjtree.closeNodeScope(jjtn000, true);
+                      jjtc000 = false;
+                      jjtn000.setName(t.image);
+        break;
+      case requeridoMsnC2:
+        t = jj_consume_token(requeridoMsnC2);
+                         jjtree.closeNodeScope(jjtn000, true);
+                         jjtc000 = false;
+                         jjtn000.setName(t.image);
+        break;
+      case etiqueta:
+        t = jj_consume_token(etiqueta);
+                  jjtree.closeNodeScope(jjtn000, true);
+                  jjtc000 = false;
+                  jjtn000.setName(t.image);
+        break;
+      case etiqueta2:
+        t = jj_consume_token(etiqueta2);
+                  jjtree.closeNodeScope(jjtn000, true);
+                  jjtc000 = false;
+                  jjtn000.setName(t.image);
         break;
       default:
         jj_la1[6] = jj_gen;
@@ -1543,6 +1585,12 @@ public class grammarXLSX/*@bgen(jjtree)*/implements grammarXLSXTreeConstants, gr
             jjtc000 = false;
             jjtn000.setName(t.image);
         break;
+      case hexa:
+        t = jj_consume_token(hexa);
+               jjtree.closeNodeScope(jjtn000, true);
+               jjtc000 = false;
+               jjtn000.setName(t.image);
+        break;
       case DECIMAL:
         t = jj_consume_token(DECIMAL);
                    jjtree.closeNodeScope(jjtn000, true);
@@ -1772,98 +1820,8 @@ public class grammarXLSX/*@bgen(jjtree)*/implements grammarXLSXTreeConstants, gr
     finally { jj_save(0, xla); }
   }
 
-  private boolean jj_3R_29() {
-    if (jj_scan_token(menor)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_28() {
-    if (jj_scan_token(mayorIgual)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_27() {
-    if (jj_scan_token(menorIgual)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_26() {
-    if (jj_scan_token(arroba)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_25() {
-    if (jj_scan_token(cierraCorchete)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_24() {
-    if (jj_scan_token(abreCorchete)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_23() {
-    if (jj_scan_token(cierraLlave)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_22() {
-    if (jj_scan_token(abreLlave)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_21() {
-    if (jj_scan_token(puntoComa)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_20() {
-    if (jj_scan_token(punto)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_19() {
-    if (jj_scan_token(doblePunto)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_18() {
-    if (jj_scan_token(coma)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_17() {
-    if (jj_scan_token(cierraPar)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_16() {
-    if (jj_scan_token(abrePar)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_15() {
-    if (jj_scan_token(dosPuntos)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_14() {
-    if (jj_scan_token(CARACTER)) return true;
-    return false;
-  }
-
-  private boolean jj_3_1() {
-    if (jj_3R_9()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_13() {
-    if (jj_scan_token(CADENA)) return true;
-    return false;
-  }
-
   private boolean jj_3R_12() {
-    if (jj_scan_token(DECIMAL)) return true;
+    if (jj_scan_token(hexa)) return true;
     return false;
   }
 
@@ -1945,7 +1903,10 @@ public class grammarXLSX/*@bgen(jjtree)*/implements grammarXLSXTreeConstants, gr
     jj_scanpos = xsp;
     if (jj_3R_45()) {
     jj_scanpos = xsp;
-    if (jj_3R_46()) return true;
+    if (jj_3R_46()) {
+    jj_scanpos = xsp;
+    if (jj_3R_47()) return true;
+    }
     }
     }
     }
@@ -1989,88 +1950,183 @@ public class grammarXLSX/*@bgen(jjtree)*/implements grammarXLSXTreeConstants, gr
     return false;
   }
 
-  private boolean jj_3R_46() {
+  private boolean jj_3R_47() {
     if (jj_scan_token(id)) return true;
     return false;
   }
 
-  private boolean jj_3R_45() {
+  private boolean jj_3R_46() {
     if (jj_scan_token(not)) return true;
     return false;
   }
 
-  private boolean jj_3R_44() {
+  private boolean jj_3R_45() {
     if (jj_scan_token(igual)) return true;
     return false;
   }
 
-  private boolean jj_3R_43() {
+  private boolean jj_3R_44() {
     if (jj_scan_token(potencia)) return true;
     return false;
   }
 
-  private boolean jj_3R_42() {
+  private boolean jj_3R_43() {
     if (jj_scan_token(div)) return true;
     return false;
   }
 
-  private boolean jj_3R_41() {
+  private boolean jj_3R_42() {
     if (jj_scan_token(modulo)) return true;
     return false;
   }
 
-  private boolean jj_3R_40() {
+  private boolean jj_3R_41() {
     if (jj_scan_token(division)) return true;
     return false;
   }
 
-  private boolean jj_3R_39() {
+  private boolean jj_3R_40() {
     if (jj_scan_token(multiplicacion)) return true;
     return false;
   }
 
-  private boolean jj_3R_38() {
+  private boolean jj_3R_39() {
     if (jj_scan_token(resta)) return true;
     return false;
   }
 
-  private boolean jj_3R_37() {
+  private boolean jj_3R_38() {
     if (jj_scan_token(suma)) return true;
     return false;
   }
 
-  private boolean jj_3R_36() {
+  private boolean jj_3R_37() {
     if (jj_scan_token(masMas)) return true;
     return false;
   }
 
-  private boolean jj_3R_34() {
+  private boolean jj_3R_35() {
     if (jj_scan_token(and)) return true;
     return false;
   }
 
-  private boolean jj_3R_35() {
+  private boolean jj_3R_36() {
     if (jj_scan_token(menosMenos)) return true;
     return false;
   }
 
-  private boolean jj_3R_33() {
+  private boolean jj_3R_34() {
     if (jj_scan_token(or)) return true;
     return false;
   }
 
-  private boolean jj_3R_32() {
+  private boolean jj_3R_33() {
     if (jj_scan_token(distintoA)) return true;
     return false;
   }
 
-  private boolean jj_3R_31() {
+  private boolean jj_3R_32() {
     if (jj_scan_token(igualIgual)) return true;
     return false;
   }
 
-  private boolean jj_3R_30() {
+  private boolean jj_3R_31() {
     if (jj_scan_token(mayor)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_30() {
+    if (jj_scan_token(menor)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_29() {
+    if (jj_scan_token(mayorIgual)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_28() {
+    if (jj_scan_token(menorIgual)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_27() {
+    if (jj_scan_token(arroba)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_26() {
+    if (jj_scan_token(cierraCorchete)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_25() {
+    if (jj_scan_token(abreCorchete)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_24() {
+    if (jj_scan_token(cierraLlave)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_23() {
+    if (jj_scan_token(abreLlave)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_22() {
+    if (jj_scan_token(puntoComa)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_21() {
+    if (jj_scan_token(punto)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_20() {
+    if (jj_scan_token(doblePunto)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_19() {
+    if (jj_scan_token(coma)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_18() {
+    if (jj_scan_token(cierraPar)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_17() {
+    if (jj_scan_token(abrePar)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_16() {
+    if (jj_scan_token(dosPuntos)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_15() {
+    if (jj_scan_token(CARACTER)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_14() {
+    if (jj_scan_token(CADENA)) return true;
+    return false;
+  }
+
+  private boolean jj_3_1() {
+    if (jj_3R_9()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_13() {
+    if (jj_scan_token(DECIMAL)) return true;
     return false;
   }
 
@@ -2097,16 +2153,16 @@ public class grammarXLSX/*@bgen(jjtree)*/implements grammarXLSXTreeConstants, gr
       jj_la1_init_3();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x0,0x0,0x0,0x12000,0x0,0x12000,0x0,0x0,0x9000,0x9000,0x3fc0000,0x3fc0000,0x0,0x24000,0x24000,0xfc000000,0xfc000000,0x0,};
+      jj_la1_0 = new int[] {0x0,0x0,0x0,0x12000,0x1100000,0x12000,0x1100000,0x0,0x9000,0x9000,0x3fc0000,0x3fc0000,0x0,0x24000,0x24000,0xfc000000,0xfc000000,0x0,};
    }
    private static void jj_la1_init_1() {
       jj_la1_1 = new int[] {0xfc0,0xfc0,0x240,0x0,0xfffff000,0x0,0xfffff000,0x480,0x0,0x0,0x0,0x0,0x900,0x0,0x0,0x3f,0x3f,0x0,};
    }
    private static void jj_la1_init_2() {
-      jj_la1_2 = new int[] {0x0,0x0,0x0,0x0,0xff,0x0,0xff,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xffffff00,};
+      jj_la1_2 = new int[] {0x0,0x0,0x0,0x0,0xfff,0x0,0xfff,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xfffff000,};
    }
    private static void jj_la1_init_3() {
-      jj_la1_3 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xfff,};
+      jj_la1_3 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x3efff,};
    }
   final private JJCalls[] jj_2_rtns = new JJCalls[1];
   private boolean jj_rescan = false;
@@ -2298,7 +2354,7 @@ public class grammarXLSX/*@bgen(jjtree)*/implements grammarXLSXTreeConstants, gr
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[110];
+    boolean[] la1tokens = new boolean[116];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -2321,7 +2377,7 @@ public class grammarXLSX/*@bgen(jjtree)*/implements grammarXLSXTreeConstants, gr
         }
       }
     }
-    for (int i = 0; i < 110; i++) {
+    for (int i = 0; i < 116; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
