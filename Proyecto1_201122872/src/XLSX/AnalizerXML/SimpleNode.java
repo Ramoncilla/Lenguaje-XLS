@@ -2,6 +2,12 @@
 /* JavaCCOptions:MULTI=false,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package XLSX.AnalizerXML;
 
+import XLSX.Forms.ConfigurationBase;
+import XLSX.Forms.OptionBase;
+import XLSX.Forms.QuestionBase;
+import java.util.ArrayList;
+import java.util.List;
+
 public
 class SimpleNode implements Node {
 
@@ -11,6 +17,10 @@ class SimpleNode implements Node {
   protected Object value;
   protected grammarXLSX parser;
   protected String name;
+  private List<QuestionBase> questions;
+  private List<OptionBase>options;
+  private List<ConfigurationBase>configurations;
+  
 
   public SimpleNode(int i) {
     id = i;
@@ -65,15 +75,38 @@ class SimpleNode implements Node {
      out its children. */
 
   public void dump(String prefix) {
+    this.configurations= new ArrayList<>();
+    this.options= new ArrayList<>();
+    this.questions= new ArrayList<>();
     System.out.println(toString(prefix));
     if (children != null) {
       for (int i = 0; i < children.length; ++i) {
         SimpleNode n = (SimpleNode)children[i];
-        if (n != null) {
-          n.dump(prefix + " ");
-        }
+         if (n != null) {
+            if (n.toString().equals("CREAR")) {
+                //System.out.println("REsultado:\n " +crear_objetos_usql((SimpleNode)n.jjtGetChild(0)).getXML());
+                        
+            }
+                   n.dump(prefix + " ");
+                  
+                }
       }
     }
+  }
+  
+  
+  private void createQuestion (SimpleNode nodeQuestion){
+      
+  }
+  
+  
+  private void createConfiguration (SimpleNode nodeConf){
+      
+  }
+  
+  
+  private void createOption (SimpleNode nodeOption){
+      
   }
   
   

@@ -83,7 +83,7 @@ public class grammarXLSX/*@bgen(jjtree)*/implements grammarXLSXTreeConstants, gr
   }
 
   final public void Archivo() throws ParseException {
-                /*@bgen(jjtree) Archivo */
+                        /*@bgen(jjtree) Archivo */
   SimpleNode jjtn000 = new SimpleNode(JJTARCHIVO);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
