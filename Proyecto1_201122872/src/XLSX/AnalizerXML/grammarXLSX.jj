@@ -181,6 +181,9 @@ TOKEN:{
 |<abreCorchete:"[">
 |<cierraCorchete:"]">
 |<arroba :"@">
+| < pregunta1: "?">
+| < pregunta2: "\u00c2\u00bf">
+|<exclamacion:"\u00c2\u00a1">
 }
 
 TOKEN :   //EXPRESONES REGULARES 
@@ -189,7 +192,7 @@ TOKEN :   //EXPRESONES REGULARES
   |  < #NUMERAL: ["#"] >
   |  < NUM: ["0"-"9"] (["0"-"9"])* >
   |  < CADENA: "\"" (  ~["\""] )* "\"">
-  |  < CARACTER: "\'" (["0"-"9"] | ["_","a"-"z","A"-"Z"] | "#" | "$" | "%" | "?" | "\u00bf" | "@")  "\'">
+  |  < CARACTER: "\'" (["0"-"9"] | ["_","a"-"z","A"-"Z"] | "#" | "$" | "%" | "?" | "\u00c2\u00bf" | "@")  "\'">
   |< hexa: <NUMERAL> (<LETRA>|<DIGITO>)* >
   |  < id: <LETRA> (<LETRA>|<DIGITO>)* >
     
@@ -306,7 +309,7 @@ void ENCUESTA():{/*@bgen(jjtree) ENCUESTA */
 /*@egen*/}{/*@bgen(jjtree) ENCUESTA */
 try {
 /*@egen*/
-ENCABEZADO_ENCUESTA() LISTA_PREGUNTAS() ENCABEZADO_ENCUESTA()/*@bgen(jjtree)*/
+ENCABEZADO_E() LISTA_PREGUNTAS() ENCABEZADO_E()/*@bgen(jjtree)*/
 } catch (Throwable jjte000) {
   if (jjtc000) {
     jjtree.clearNodeScope(jjtn000);
@@ -425,7 +428,7 @@ void PREGUNTA():{/*@bgen(jjtree) PREGUNTA */
 /*@egen*/}{/*@bgen(jjtree) PREGUNTA */
     try {
 /*@egen*/
-    ENCABEZADO_PRE() L_OPT_PREGUNTA()  ENCABEZADO_PRE()/*@bgen(jjtree)*/
+    tENCABEZADO_PRE() L_OPT_PREGUNTA()  tENCABEZADO_PRE()/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -486,7 +489,7 @@ void OPT_PREGUNTA():{/*@bgen(jjtree) OPT_PREGUNTA */
 /*@egen*/}{/*@bgen(jjtree) OPT_PREGUNTA */
   try {
 /*@egen*/
-  TAG() LISTA_UNIDADES() TAG()/*@bgen(jjtree)*/
+  ENCABEZADO_VAL() LISTA_UNIDADES() ENCABEZADO_VAL()/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -614,86 +617,105 @@ void ENCABEZADO_VAL()               :{/*@bgen(jjtree) Encabezado_Val */
                 jjtree.closeNodeScope(jjtn000, true);
                 jjtc000 = false;
               }
-/*@egen*/{ jjtn000.setName(t.image); }
+/*@egen*/{ jjtn000.setName(t.image); }//
    |t=<idPreguntaC>/*@bgen(jjtree)*/
                    {
                      jjtree.closeNodeScope(jjtn000, true);
                      jjtc000 = false;
                    }
-/*@egen*/{ jjtn000.setName(t.image); }
+/*@egen*/{ jjtn000.setName(t.image); }//
    |t=<sugerirC>/*@bgen(jjtree)*/
                 {
                   jjtree.closeNodeScope(jjtn000, true);
                   jjtc000 = false;
                 }
-/*@egen*/{ jjtn000.setName(t.image); }
+/*@egen*/{ jjtn000.setName(t.image); }//
    |t=<codigo_preC>/*@bgen(jjtree)*/
                    {
                      jjtree.closeNodeScope(jjtn000, true);
                      jjtc000 = false;
                    }
-/*@egen*/{ jjtn000.setName(t.image); }
+/*@egen*/{ jjtn000.setName(t.image); }//
    |t=<codigo_postC>/*@bgen(jjtree)*/
                     {
                       jjtree.closeNodeScope(jjtn000, true);
                       jjtc000 = false;
                     }
-/*@egen*/{ jjtn000.setName(t.image); }
+/*@egen*/{ jjtn000.setName(t.image); }//
    |t=<restringirC>/*@bgen(jjtree)*/
                    {
                      jjtree.closeNodeScope(jjtn000, true);
                      jjtc000 = false;
                    }
-/*@egen*/{ jjtn000.setName(t.image); }
+/*@egen*/{ jjtn000.setName(t.image); }//
    |t=<restringirMsnC>/*@bgen(jjtree)*/
                       {
                         jjtree.closeNodeScope(jjtn000, true);
                         jjtc000 = false;
                       }
-/*@egen*/{ jjtn000.setName(t.image); }
+/*@egen*/{ jjtn000.setName(t.image); }//
    |t=<predeterminadoC>/*@bgen(jjtree)*/
                        {
                          jjtree.closeNodeScope(jjtn000, true);
                          jjtc000 = false;
                        }
-/*@egen*/{ jjtn000.setName(t.image); }
+/*@egen*/{ jjtn000.setName(t.image); }//
    |t=<aplicableC>/*@bgen(jjtree)*/
                   {
                     jjtree.closeNodeScope(jjtn000, true);
                     jjtc000 = false;
                   }
-/*@egen*/{ jjtn000.setName(t.image); }
+/*@egen*/{ jjtn000.setName(t.image); }//
    |t=<lecturaC>/*@bgen(jjtree)*/
                 {
                   jjtree.closeNodeScope(jjtn000, true);
                   jjtc000 = false;
                 }
-/*@egen*/{ jjtn000.setName(t.image); }
+/*@egen*/{ jjtn000.setName(t.image); }//
    |t=<calculoC>/*@bgen(jjtree)*/
                 {
                   jjtree.closeNodeScope(jjtn000, true);
                   jjtc000 = false;
                 }
-/*@egen*/{ jjtn000.setName(t.image); }
+/*@egen*/{ jjtn000.setName(t.image); }//
    |t=<repeticionC>/*@bgen(jjtree)*/
                    {
                      jjtree.closeNodeScope(jjtn000, true);
                      jjtc000 = false;
                    }
-/*@egen*/{ jjtn000.setName(t.image); }
-   
+/*@egen*/{ jjtn000.setName(t.image); }//
    |t=<aparienciaC>/*@bgen(jjtree)*/
                    {
                      jjtree.closeNodeScope(jjtn000, true);
                      jjtc000 = false;
                    }
-/*@egen*/{ jjtn000.setName(t.image); }
+/*@egen*/{ jjtn000.setName(t.image); }//
    |t=<parametroC>/*@bgen(jjtree)*/
                   {
                     jjtree.closeNodeScope(jjtn000, true);
                     jjtc000 = false;
                   }
-/*@egen*/{ jjtn000.setName(t.image); }
+/*@egen*/{ jjtn000.setName(t.image); }//
+   |t=< requeridoC>/*@bgen(jjtree)*/
+                   {
+                     jjtree.closeNodeScope(jjtn000, true);
+                     jjtc000 = false;
+                   }
+/*@egen*/{ jjtn000.setName(t.image); }//
+   |t=<etiqueta>/*@bgen(jjtree)*/
+                {
+                  jjtree.closeNodeScope(jjtn000, true);
+                  jjtc000 = false;
+                }
+/*@egen*/{ jjtn000.setName(t.image); }//
+   |t=< requeridoMsnC>/*@bgen(jjtree)*/
+                      {
+                        jjtree.closeNodeScope(jjtn000, true);
+                        jjtc000 = false;
+                      }
+/*@egen*/{ jjtn000.setName(t.image); }//
+   
+   
    |t= <tipoC2>/*@bgen(jjtree)*/
                {
                  jjtree.closeNodeScope(jjtn000, true);
@@ -706,7 +728,6 @@ void ENCABEZADO_VAL()               :{/*@bgen(jjtree) Encabezado_Val */
                       jjtc000 = false;
                     }
 /*@egen*/{ jjtn000.setName(t.image); }
-  
    |t=<sugerirC2>/*@bgen(jjtree)*/
                  {
                    jjtree.closeNodeScope(jjtn000, true);
@@ -767,7 +788,6 @@ void ENCABEZADO_VAL()               :{/*@bgen(jjtree) Encabezado_Val */
                       jjtc000 = false;
                     }
 /*@egen*/{ jjtn000.setName(t.image); }
-  
    |t=<aparienciaC2>/*@bgen(jjtree)*/
                     {
                       jjtree.closeNodeScope(jjtn000, true);
@@ -780,20 +800,6 @@ void ENCABEZADO_VAL()               :{/*@bgen(jjtree) Encabezado_Val */
                      jjtc000 = false;
                    }
 /*@egen*/{ jjtn000.setName(t.image); }
-
-   |t=< requeridoC>/*@bgen(jjtree)*/
-                   {
-                     jjtree.closeNodeScope(jjtn000, true);
-                     jjtc000 = false;
-                   }
-/*@egen*/{ jjtn000.setName(t.image); }
-   |t=< requeridoMsnC>/*@bgen(jjtree)*/
-                      {
-                        jjtree.closeNodeScope(jjtn000, true);
-                        jjtc000 = false;
-                      }
-/*@egen*/{ jjtn000.setName(t.image); }
-
    |t=< requeridoC2>/*@bgen(jjtree)*/
                     {
                       jjtree.closeNodeScope(jjtn000, true);
@@ -806,19 +812,11 @@ void ENCABEZADO_VAL()               :{/*@bgen(jjtree) Encabezado_Val */
                          jjtc000 = false;
                        }
 /*@egen*/{ jjtn000.setName(t.image); }
-
-
-   |t=<etiqueta>/*@bgen(jjtree)*/
-                {
-                  jjtree.closeNodeScope(jjtn000, true);
-                  jjtc000 = false;
-                }
-/*@egen*/{ jjtn000.setName(t.image); }
-  |t=<etiqueta2>/*@bgen(jjtree)*/
-                {
-                  jjtree.closeNodeScope(jjtn000, true);
-                  jjtc000 = false;
-                }
+   |t=<etiqueta2>/*@bgen(jjtree)*/
+                 {
+                   jjtree.closeNodeScope(jjtn000, true);
+                   jjtc000 = false;
+                 }
 /*@egen*/{ jjtn000.setName(t.image); }/*@bgen(jjtree)*/
     } finally {
       if (jjtc000) {
@@ -1609,7 +1607,7 @@ void LISTA_UNIDADES() : {/*@bgen(jjtree) LISTA_UNIDADES */
 	{/*@bgen(jjtree) LISTA_UNIDADES */
                 try {
 /*@egen*/ 
-		(LOOKAHEAD(2)unidad())*/*@bgen(jjtree)*/
+		(LOOKAHEAD(2)obtenerValorUnidad())*/*@bgen(jjtree)*/
                 } catch (Throwable jjte000) {
                   if (jjtc000) {
                     jjtree.clearNodeScope(jjtn000);
@@ -1892,6 +1890,24 @@ void obtenerValorUnidad()                    :{/*@bgen(jjtree) obtenerValorUnida
               jjtree.closeNodeScope(jjtn000, true);
               jjtc000 = false;
             }
+/*@egen*/{ jjtn000.setName(t.image); }
+	|t =<exclamacion>/*@bgen(jjtree)*/
+                         {
+                           jjtree.closeNodeScope(jjtn000, true);
+                           jjtc000 = false;
+                         }
+/*@egen*/{ jjtn000.setName(t.image); }
+	|t =<pregunta2>/*@bgen(jjtree)*/
+                       {
+                         jjtree.closeNodeScope(jjtn000, true);
+                         jjtc000 = false;
+                       }
+/*@egen*/{ jjtn000.setName(t.image); }
+	|t =<pregunta1>/*@bgen(jjtree)*/
+                       {
+                         jjtree.closeNodeScope(jjtn000, true);
+                         jjtc000 = false;
+                       }
 /*@egen*/{ jjtn000.setName(t.image); }/*@bgen(jjtree)*/
    } finally {
      if (jjtc000) {
@@ -1900,14 +1916,3 @@ void obtenerValorUnidad()                    :{/*@bgen(jjtree) obtenerValorUnida
    }
 /*@egen*/
 }
-
-
-
-
-
-
-
-
-
-
-

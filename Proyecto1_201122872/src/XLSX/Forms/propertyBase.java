@@ -5,20 +5,18 @@
  */
 package XLSX.Forms;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author alina
  */
-public class QuestionList {
-   private List<QuestionBase> questions;
-   
-   
-   public QuestionList(){
-       this.questions= new ArrayList<>();
-   }
-   
+public class propertyBase {
+    
+    public Object elemento;
+    
+    
+    
+    public void executeProperty(){
+        
+    }
     
 }

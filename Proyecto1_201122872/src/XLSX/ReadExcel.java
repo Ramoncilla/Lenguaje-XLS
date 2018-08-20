@@ -31,7 +31,7 @@ public class ReadExcel {
             JOptionPane.showMessageDialog(null, "No se pudo generar archivo para ENCUESTA", "Error " , JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        pathTemp = this.convertSheet("opciones", path, "opt");
+     /*   pathTemp = this.convertSheet("opciones", path, "opt");
         if(!(pathTemp.equalsIgnoreCase(""))){
             paths.add(pathTemp);
         }else{
@@ -42,7 +42,7 @@ public class ReadExcel {
         pathTemp = this.convertSheet("configuracion", path, "confi");
         if(!(pathTemp.equalsIgnoreCase(""))){
             paths.add(pathTemp);
-        }
+        }*/
         return paths;
     }
     
@@ -50,7 +50,7 @@ public class ReadExcel {
     private String convertSheet(String name, String filename, String option) {
         FileWriter fostream;
         PrintWriter out = null;
-        String strOutputPath = "/home/alina/Descargas/hola/";
+        String strOutputPath = "C:\\Users\\Ramonella\\Downloads\\hola\\";
         String strFilePrefix = "";
         File af = new File(filename);
         if (af.exists()) {

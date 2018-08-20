@@ -25,7 +25,7 @@ public class Proyecto1_201122872 {
         
         ReadExcel reader = new ReadExcel();
         AnalizerFileXML parserAnalizer = new AnalizerFileXML();
-        List<String> rutas = reader.generateXML("/home/alina/Descargas/Impresion.xlsx");
+        List<String> rutas = reader.generateXML("C:\\Users\\Ramonella\\Downloads\\Arbol.xls");
         parserAnalizer.Analizer(rutas);
         
         

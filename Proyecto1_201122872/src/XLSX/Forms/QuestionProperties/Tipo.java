@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package XLSX.Forms;
-
+package XLSX.Forms.QuestionProperties;
+import XLSX.Forms.propertyBase;
 /**
  *
- * @author alina
+ * @author Ramonella
  */
-public class QuestionBase {
+public class Tipo extends propertyBase {
+
+    public Tipo(Object elem) {
+        this.elemento= elem;
+    }
     
 }

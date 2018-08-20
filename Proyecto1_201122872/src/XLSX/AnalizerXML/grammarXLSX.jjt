@@ -177,6 +177,9 @@ TOKEN:{
 |<abreCorchete:"[">
 |<cierraCorchete:"]">
 |<arroba :"@">
+| < pregunta1: "?">
+| < pregunta2: "¿">
+|<exclamacion:"¡">
 }
 
 TOKEN :   //EXPRESONES REGULARES 
@@ -213,7 +216,7 @@ void Archivo()#Archivo:{}{
 /*------------------------------------------ ENCUESTA -----------------------------*/
 
 void ENCUESTA():{}{
-ENCABEZADO_ENCUESTA() LISTA_PREGUNTAS() ENCABEZADO_ENCUESTA()
+ENCABEZADO_E() LISTA_PREGUNTAS() ENCABEZADO_E()
 }
 
 void ENCABEZADO_ENCUESTA():{}{
@@ -232,7 +235,7 @@ void LISTA_PREGUNTAS():{}{
 }
 
 void PREGUNTA():{}{
-    ENCABEZADO_PRE() L_OPT_PREGUNTA()  ENCABEZADO_PRE()
+    tENCABEZADO_PRE() L_OPT_PREGUNTA()  tENCABEZADO_PRE()
 }
 
 
@@ -241,7 +244,7 @@ void L_OPT_PREGUNTA():{}{
 }
 
 void OPT_PREGUNTA():{}{
-  TAG() LISTA_UNIDADES() TAG()
+  ENCABEZADO_VAL() LISTA_UNIDADES() ENCABEZADO_VAL()
 }
 
 void TAG():{}{
@@ -264,24 +267,27 @@ void tENCABEZADO_PRE()#Encabezado_Val:{Token t;}
 
 void ENCABEZADO_VAL()#Encabezado_Val:{Token t;}
 {
-    t= <tipoC>{ jjtThis.setName(t.image); }
-   |t=<idPreguntaC>{ jjtThis.setName(t.image); }
-   |t=<sugerirC>{ jjtThis.setName(t.image); }
-   |t=<codigo_preC>{ jjtThis.setName(t.image); }
-   |t=<codigo_postC>{ jjtThis.setName(t.image); }
-   |t=<restringirC>{ jjtThis.setName(t.image); }
-   |t=<restringirMsnC>{ jjtThis.setName(t.image); }
-   |t=<predeterminadoC>{ jjtThis.setName(t.image); }
-   |t=<aplicableC>{ jjtThis.setName(t.image); }
-   |t=<lecturaC>{ jjtThis.setName(t.image); }
-   |t=<calculoC>{ jjtThis.setName(t.image); }
-   |t=<repeticionC>{ jjtThis.setName(t.image); }
+    t= <tipoC>{ jjtThis.setName(t.image); }//
+   |t=<idPreguntaC>{ jjtThis.setName(t.image); }//
+   |t=<sugerirC>{ jjtThis.setName(t.image); }//
+   |t=<codigo_preC>{ jjtThis.setName(t.image); }//
+   |t=<codigo_postC>{ jjtThis.setName(t.image); }//
+   |t=<restringirC>{ jjtThis.setName(t.image); }//
+   |t=<restringirMsnC>{ jjtThis.setName(t.image); }//
+   |t=<predeterminadoC>{ jjtThis.setName(t.image); }//
+   |t=<aplicableC>{ jjtThis.setName(t.image); }//
+   |t=<lecturaC>{ jjtThis.setName(t.image); }//
+   |t=<calculoC>{ jjtThis.setName(t.image); }//
+   |t=<repeticionC>{ jjtThis.setName(t.image); }//
+   |t=<aparienciaC>{ jjtThis.setName(t.image); }//
+   |t=<parametroC>{ jjtThis.setName(t.image); }//
+   |t=< requeridoC>{ jjtThis.setName(t.image); }//
+   |t=<etiqueta>{ jjtThis.setName(t.image); }//
+   |t=< requeridoMsnC>{ jjtThis.setName(t.image); }//
    
-   |t=<aparienciaC>{ jjtThis.setName(t.image); }
-   |t=<parametroC>{ jjtThis.setName(t.image); }
+   
    |t= <tipoC2>{ jjtThis.setName(t.image); }
    |t=<idPreguntaC2>{ jjtThis.setName(t.image); }
-  
    |t=<sugerirC2>{ jjtThis.setName(t.image); }
    |t=<codigo_preC2>{ jjtThis.setName(t.image); }
    |t=<codigo_postC2>{ jjtThis.setName(t.image); }
@@ -292,19 +298,11 @@ void ENCABEZADO_VAL()#Encabezado_Val:{Token t;}
    |t=<lecturaC2>{ jjtThis.setName(t.image); }
    |t=<calculoC2>{ jjtThis.setName(t.image); }
    |t=<repeticionC2>{ jjtThis.setName(t.image); }
-  
    |t=<aparienciaC2>{ jjtThis.setName(t.image); }
    |t=<parametroC2>{ jjtThis.setName(t.image); }
-
-   |t=< requeridoC>{ jjtThis.setName(t.image); }
-   |t=< requeridoMsnC>{ jjtThis.setName(t.image); }
-
    |t=< requeridoC2>{ jjtThis.setName(t.image); }
    |t=< requeridoMsnC2>{ jjtThis.setName(t.image); }
-
-
-   |t=<etiqueta>{ jjtThis.setName(t.image); }
-  |t=<etiqueta2>{ jjtThis.setName(t.image); }
+   |t=<etiqueta2>{ jjtThis.setName(t.image); }
 }
 
 /*-------------------------------- OPCIONES --------------------------------------*/
@@ -454,7 +452,7 @@ void ENCABEZADO_CONFIGURACION()#Encabezado_Val:{Token t;}
 
 void LISTA_UNIDADES() : {}
 	{ 
-		(LOOKAHEAD(2)unidad())*
+		(LOOKAHEAD(2)obtenerValorUnidad())*
 	}
 
 
@@ -501,6 +499,9 @@ void obtenerValorUnidad() #obtenerValorUnidad:{Token t;}{
     |t =<igual>{ jjtThis.setName(t.image); }
     | t=< not>{ jjtThis.setName(t.image); }
     |t =<id>{ jjtThis.setName(t.image); }
+	|t =<exclamacion>{ jjtThis.setName(t.image); }
+	|t =<pregunta2>{ jjtThis.setName(t.image); }
+	|t =<pregunta1>{ jjtThis.setName(t.image); }
 }
 
 

@@ -201,23 +201,29 @@ public interface grammarXLSXConstants {
   /** RegularExpression Id. */
   int arroba = 106;
   /** RegularExpression Id. */
-  int DECIMAL = 107;
+  int pregunta1 = 107;
   /** RegularExpression Id. */
-  int NUMERAL = 108;
+  int pregunta2 = 108;
   /** RegularExpression Id. */
-  int NUM = 109;
+  int exclamacion = 109;
   /** RegularExpression Id. */
-  int CADENA = 110;
+  int DECIMAL = 110;
   /** RegularExpression Id. */
-  int CARACTER = 111;
+  int NUMERAL = 111;
   /** RegularExpression Id. */
-  int hexa = 112;
+  int NUM = 112;
   /** RegularExpression Id. */
-  int id = 113;
+  int CADENA = 113;
   /** RegularExpression Id. */
-  int LETRA = 114;
+  int CARACTER = 114;
   /** RegularExpression Id. */
-  int DIGITO = 115;
+  int hexa = 115;
+  /** RegularExpression Id. */
+  int id = 116;
+  /** RegularExpression Id. */
+  int LETRA = 117;
+  /** RegularExpression Id. */
+  int DIGITO = 118;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -335,6 +341,9 @@ public interface grammarXLSXConstants {
     "\"[\"",
     "\"]\"",
     "\"@\"",
+    "\"?\"",
+    "\"\\u00c2\\u00bf\"",
+    "\"\\u00c2\\u00a1\"",
     "<DECIMAL>",
     "<NUMERAL>",
     "<NUM>",
