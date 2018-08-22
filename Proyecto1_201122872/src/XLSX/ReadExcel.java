@@ -31,18 +31,19 @@ public class ReadExcel {
             JOptionPane.showMessageDialog(null, "No se pudo generar archivo para ENCUESTA", "Error " , JOptionPane.ERROR_MESSAGE);
             return null;
         }
-     /*   pathTemp = this.convertSheet("opciones", path, "opt");
+        /*
+       pathTemp = this.convertSheet("opciones", path, "opt");
         if(!(pathTemp.equalsIgnoreCase(""))){
             paths.add(pathTemp);
         }else{
             JOptionPane.showMessageDialog(null, "No se pudo generar archivo para OPCIONES", "Error " , JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        
+      
         pathTemp = this.convertSheet("configuracion", path, "confi");
         if(!(pathTemp.equalsIgnoreCase(""))){
             paths.add(pathTemp);
-        }*/
+        } */
         return paths;
     }
     

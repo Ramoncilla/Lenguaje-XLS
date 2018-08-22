@@ -1,8 +1,9 @@
 options{
 	
 IGNORE_CASE = true;
-
-STATIC=false;
+	STATIC=false;
+	//MULTI=true;
+	NODE_DEFAULT_VOID=false;
 }
 
 PARSER_BEGIN(grammarXLSX)
@@ -16,7 +17,6 @@ public class grammarXLSX{
 }
 
 PARSER_END(grammarXLSX)
-
 
 SKIP:
 {
@@ -46,6 +46,143 @@ SKIP:
 }
 
 
+MORE :
+{
+  "<etiqueta>"{}: estado2
+  |"<sugerir>"{}: estado2
+  |"<codigo_pre>"{}: estado2
+  |"<codigo_post>"{}: estado2
+  |"<restringirMsn>"{}: estado2
+  |"<requeridoMsn>"{}: estado2
+  |"<predeterminado>"{}: estado2
+  |"<importar>"{}:estado2
+  |"<codigo_principal>"{}:estado2
+  |"<codigo_global>"{}:estado2
+  |"<titulo_formulario>"{}:estado2
+}
+
+<estado2> TOKEN :
+{
+  <etiqueta: "</etiqueta>"> {} : DEFAULT
+ |<sugerir: "</sugerir>"> {} : DEFAULT
+ |<codigo_pre: "</codigo_pre>"> {} : DEFAULT
+ |<codigo_post: "</codigo_post>"> {} : DEFAULT
+ |<restringirMsn: "</restringirMsn>"> {} : DEFAULT
+ |<requeridoMsn: "</requeridoMsn>"> {} : DEFAULT
+ |<predeterminado: "</predeterminado>"> {} : DEFAULT
+ |<importar: "</importar>"> {} : DEFAULT
+ |<codigo_principal: "</codigo_principal>"> {} : DEFAULT
+ |<codigo_global: "</codigo_global>"> {} : DEFAULT
+ |<titulo_formulario: "</titulo_formulario>"> {} : DEFAULT
+}
+
+<estado2> MORE :
+{
+  <~[]> {
+	  
+  }
+}
+
+MORE:
+{
+ "<restringir>"{}: operaciones
+ | "<aplicable>"{}: operaciones
+ | "<calculo>"{}: operaciones
+ | "<repeticion>"{}: operaciones
+}
+
+
+<operaciones> MORE :
+{
+		<menorIgual_: "<=">
+		|<mayorIgual_: ">=">
+		|<menor_: "<">
+		|<mayor_:">">
+		|<igualIgual_:"==">
+		|<distintoA_:"!=">
+		|<menosMenos_:"--">  
+		|<masMas_:"++">  
+		|<suma_: "+">
+		|<resta_: "-">
+		|<multiplicacion_: "*">
+		|<division_: "/">
+		|<modulo_: "mod">
+		|<div_: "div">
+		|<potencia_: "^">
+		|< or_: "||">
+		| < and_: "&&">
+		| < not_: "!">
+		|<igual_: "=">
+		|<doblePunto_: "..">
+		|<punto_:".">
+		|<arroba_ :"@">
+		|<abrePar_: "(">
+		|<cierraPar_: ")">
+		|<NUM_: ("-")?(["0"-"9"])+ ("."(["0"-"9"])+)?>
+		|  < CARACTER_: "\'" (["0"-"9"] | ["_","a"-"z","A"-"Z"] | "#" | "$" | "%" | "?" | "¿" | "@")  "\'">
+		|	<tagid_: ["#"]["["]["A"-"Z","a"-"z"](["A"-"Z","a"-"z","0"-"9","_"])*["]"] >
+		|	<id_: ["A"-"Z","a"-"z"](["A"-"Z","a"-"z","0"-"9","_"])*>
+		|   < CADENA_: "\"" (  ~["\""] )* "\"">
+		|  < #NUMERAL_: ["#"] >
+		|  < hexa_: <NUMERAL_> (<LETRA_>|<DIGITO_>)* >
+		  |  < #LETRA_: ["_","a"-"z","A"-"Z"] >
+		  |  < #DIGITO_: ["0"-"9"] >
+		|	" "
+		|	"\r"
+		|	"\n"
+		|	"\t"
+		|	"\r\n"	
+}
+
+
+
+<operaciones> TOKEN:
+{
+	 <restringir: "</restringir>"> {} : DEFAULT
+	 | <aplicable: "</aplicable>"> {} : DEFAULT
+	 | <calculo: "</calculo>"> {} : DEFAULT
+	 | <repeticion: "</repeticion>"> {} : DEFAULT
+}	
+
+TOKEN:{
+
+	<imagen: "media_imagen">
+	|<audio: "media_audio">
+	|<video:"media_video">
+	|<verdadero: "verdadero">
+	|<falso:"falso">
+	|<reproduccion: "reproduccion">
+	|<cad_min: "cad_min">
+	|<cad_max: "cad_max">
+	|<iniciar: "iniciar">
+	|<finalizar: "finalizar">
+	|<opcion: "opcion">
+	|<v_f: "v_f">
+	|<si_no: "si_no">
+	| <cad_fila:"cad_fila">
+}
+
+TOKEN:{
+	<pagina : "pagina">
+	|<todo: "todo">
+	|<cuadricula: "cuadricula">
+	 |<texto:"texto">
+   |<entero:"entero">
+   |<decimal:"decimal">
+   |<rango:"rango">
+   |<condicion:"condicion">
+   |<hora:"hora">
+   |<fecha:"fecha">
+   |<fechahora:"fechahora">
+   |<selecciona_uno:"selecciona_uno">
+   |<selecciona_multiples:"selecciona_multiples">
+   |<nota:"nota">
+   |<fichero:"fichero">
+   |<calcular:"calcular">
+   |<ciclo:"ciclo">
+   |<agrupacion:"agrupacion">
+}
+
 TOKEN:{
   <opt:"<opt>">
   |<preg:"<preg>">
@@ -58,7 +195,6 @@ TOKEN:{
 TOKEN:{
   <nombre_lista :"<nombre_lista>">
   |<nombre: "<nombre>">
-  |<etiqueta: "<etiqueta>">
   |<multimedia: "<multimedia>">
   |<nombre_lista2 :"</nombre_lista>">
   |<nombre2: "</nombre>">
@@ -66,19 +202,12 @@ TOKEN:{
   |<multimedia2: "</multimedia>">
 }
 
+
 TOKEN:{
-  <titulo_formulario: "<titulo_formulario>">
-  |<idform: "<idForm>">
+  <idform: "<idForm>">
   |<estilo: "<estilo>">
-  |<importar: "<importar>">
-  |<codigo_menu: "<codigo_menu>">
-  |<codigo_global: "<codigo_global>">
-  |<titulo_formulario2: "</titulo_formulario>">
   |<idform2: "</idForm>">
   |<estilo2: "</estilo>">
-  |<importar2: "</importar>">
-  |<codigo_menu2: "</codigo_menu>">
-  |<codigo_global2: "</codigo_global>">
 }
 
 TOKEN:{
@@ -95,27 +224,13 @@ TOKEN:
 {
    <tipoC :"<tipo>">
    |<idPreguntaC :"<idPregunta>">
-|< requeridoC:"<requerido>">
-   |< requeridoMsnC:"<requeridoMsn>">
-
+	|< requeridoC:"<requerido>">
    |< requeridoC2:"</requerido>">
    |< requeridoMsnC2:"</requeridoMsn>">
-   |< sugerirC:"<sugerir>">
-   |< codigo_preC:"<codigo_pre>">
-   |< codigo_postC:"<codigo_post>">
-   |< restringirC:"<restringir>">
-   |< restringirMsnC:"<restringirMsn>">
-   |< predeterminadoC:"<predeterminado>">
-   |< aplicableC:"<aplicable>">
-   |< lecturaC:"<lectura>">
-   |< calculoC:"<calculo>">
-   |< repeticionC:"<repeticion>">
    |< aparienciaC:"<apariencia>">
    |< parametroC:"<parametro>">
-   
    |<tipoC2 :"</tipo>">
    |<idPreguntaC2 :"</idPregunta>">
-
    |< sugerirC2:"</sugerir>">
    |< codigo_preC2:"</codigo_pre>">
    |< codigo_postC2:"</codigo_post>">
@@ -123,6 +238,7 @@ TOKEN:
    |< restringirMsnC2:"</restringirMsn>">
    |< predeterminadoC2:"</predeterminado>">
    |< aplicableC2:"</aplicable>">
+   |<lecturaC:"<lectura>">
    |< lecturaC2:"</lectura>">
    |< calculoC2:"</calculo>">
    |< repeticionC2:"</repeticion>">
@@ -132,69 +248,58 @@ TOKEN:
 
 
 //Operadores Relacionales
+
 TOKEN:{
 
 <menorIgual: "<=">
-|<mayorIgual: ">=">
-|<menor: "<">
-|<mayor:">">
-|<igualIgual:"==">
-|<distintoA:"!=">
+		|<mayorIgual: ">=">
+		|<menor: "<">
+		|<mayor:">">
+		|<igualIgual:"==">
+		|<distintoA:"!=">
+		|<menosMenos:"--">  
+		|<masMas:"++">  
+		|<suma: "+">
+		|<resta: "-">
+		|<multiplicacion: "*">
+		|<division: "/">
+		|<modulo: "mod">
+		|<div: "div">
+		|<potencia: "^">
+		|< or: "||">
+		| < and: "&&">
+		| < not: "!">
+		|<igual: "=">
+		|<doblePunto: "..">
+		|<punto:".">
+		|<arroba :"@">
+		|<abrePar: "(">
+		|<cierraPar: ")">
 
+	| <dosPuntos: ":">
+	|<coma:",">
+	|<puntoComa:";">
+	|<abreLlave:"{">
+	|<cierraLlave:"}">
+	|<abreCorchete:"[">
+	|<cierraCorchete:"]">
+	| < pregunta1: "?">
+	| < pregunta2: "¿">
+	|<exclamacion:"¡">
+	|<id: ["A"-"Z","a"-"z"](["A"-"Z","a"-"z","0"-"9","_"])*>
+	|<NUM: ("-")?(["0"-"9"])+ ("."(["0"-"9"])+)?>
+		|  < CARACTER: "\'" (["0"-"9"] | ["_","a"-"z","A"-"Z"] | "#" | "$" | "%" | "?" | "¿" | "@")  "\'">
+		|	<tagid: ["#"]["["]["A"-"Z","a"-"z"](["A"-"Z","a"-"z","0"-"9","_"])*["]"] >
+		|   < CADENA: "\"" (  ~["\""] )* "\"">
+		|  < #NUMERAL: ["#"] >
+		|  < hexa: <NUMERAL> (<LETRA>|<DIGITO>)* >
+		  |  < #LETRA: ["_","a"-"z","A"-"Z"] >
+		  |  < #DIGITO: ["0"-"9"] >
 }
 
 
-TOKEN:    //operadores logicos
-{ 
-   < or: "||">
-  | < and: "&&">
-  | < not: "!">
-}
 
-TOKEN:{
- <menosMenos:"--">  
-|<masMas:"++">  
-|<suma: "+">
-|<resta: "-">
-|<multiplicacion: "*">
-|<division: "/">
-|<modulo: "mod">
-|<div: "div">
-|<potencia: "^">
-}
 
-TOKEN:{
-  <igual:"=">
-| <dosPuntos: ":">
-|<abrePar: "(">
-|<cierraPar: ")">
-|<coma:",">
-|<doblePunto: "..">
-|<punto:".">
-|<puntoComa:";">
-|<abreLlave:"{">
-|<cierraLlave:"}">
-|<abreCorchete:"[">
-|<cierraCorchete:"]">
-|<arroba :"@">
-| < pregunta1: "?">
-| < pregunta2: "¿">
-|<exclamacion:"¡">
-}
-
-TOKEN :   //EXPRESONES REGULARES 
-{
-     <DECIMAL: (["0"-"9"])+("."(["0"-"9"])+)>
-  |  < #NUMERAL: ["#"] >
-  |  < NUM: ["0"-"9"] (["0"-"9"])* >
-  |  < CADENA: "\"" (  ~["\""] )* "\"">
-  |  < CARACTER: "\'" (["0"-"9"] | ["_","a"-"z","A"-"Z"] | "#" | "$" | "%" | "?" | "¿" | "@")  "\'">
-  |< hexa: <NUMERAL> (<LETRA>|<DIGITO>)* >
-  |  < id: <LETRA> (<LETRA>|<DIGITO>)* >
-    
-  |  < #LETRA: ["_","a"-"z","A"-"Z"] >
-  |  < #DIGITO: ["0"-"9"] >
-}
 
 SimpleNode Start():{}{
 
@@ -208,8 +313,8 @@ void Inicio():{}{
 
 
 void Archivo()#Archivo:{}{
-  ENCUESTA()
-  |OPCIONES()
+ ENCUESTA()
+   |OPCIONES()
   |CONFIGURACION()
 }
 
@@ -244,19 +349,238 @@ void L_OPT_PREGUNTA():{}{
 }
 
 void OPT_PREGUNTA():{}{
-  ENCABEZADO_VAL() LISTA_UNIDADES() ENCABEZADO_VAL()
+ // ENCABEZADO_VAL() LISTA_UNIDADES() ENCABEZADO_VAL()
+ tipo()
+ |idPregunta()
+ |etiqueta()
+ |Sugerir()
+ |codigo_pre()
+ |codigo_post()
+ |restringirMsn()
+ |requeridoMsn()
+ |predeterminado()
+ |restringir()
+ |aplicable()
+ |calculo()
+ |repeticion()
+ |requerido()
+ |lectura()
+ |multimedia()
+ |apariencia()
+ |PARAMETROS()
 }
 
-void TAG():{}{
- ENCABEZADO_VAL()
+
+void tipo():{}{
+ <tipoC> TIPO_E() <tipoC2> 
+}
+
+void idPregunta():{}{
+idPreguntaE()
+}
+
+void idPreguntaE()#idPreguntaE:{Token t;}{
+<idPreguntaC>t=<id><idPreguntaC2>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+}
+
+
+void Sugerir():{}{
+sugerirO()
+}
+void sugerirO()#sugerir:{Token t;}{
+	t=<sugerir>{ jjtThis.setName(t.image.replace("<sugerir>","").replace("</sugerir>",""));jjtThis.setPos(t.beginLine, t.beginColumn); }
+}
+
+
+void codigo_pre():{}{
+codPre()
+}
+
+void codPre()#codPre:{Token t;}{
+	t=<codigo_pre>{ jjtThis.setName(t.image.replace("<codigo_pre>","").replace("</codigo_pre>",""));jjtThis.setPos(t.beginLine, t.beginColumn); }
+}
+
+void codigo_post():{}{
+codPost()
+}
+
+void codPost()#codPost:{Token t;}{
+	t=<codigo_post>{ jjtThis.setName(t.image.replace("<codigo_post>","").replace("</codigo_post>",""));jjtThis.setPos(t.beginLine, t.beginColumn); }
+}
+
+
+void restringirMsn():{}{
+restrMsn()
+}
+
+void restrMsn()#restrMsn:{Token t;}{
+	t=<restringirMsn>{ jjtThis.setName(t.image.replace("<restringirMsn>","").replace("</restringirMsn>",""));jjtThis.setPos(t.beginLine, t.beginColumn); }
+}
+
+
+void requeridoMsn():{}{
+requeMsn()
+}
+
+void requeMsn()#requeMsn:{Token t;}{
+	t=<requeridoMsn>{ jjtThis.setName(t.image.replace("<requeridoMsn>","").replace("</requeridoMsn>",""));jjtThis.setPos(t.beginLine, t.beginColumn); }
 }
 
 
 
-void ENCABEZADO_PRE():{}
-{
-    tENCABEZADO_PRE()
+
+void predeterminado():{}{
+predeter()
 }
+
+void predeter()#predeter:{Token t1;}{
+	t1=<predeterminado>{ jjtThis.setName(t1.image.replace("<predeterminado>","").replace("</predeterminado>",""));jjtThis.setPos(t1.beginLine, t1.beginColumn);}
+}
+
+
+void restringir():{}{
+restrin()
+}
+
+void restrin()#restrin:{Token t1;}{
+	t1=<restringir>{ jjtThis.setName(t1.image.replace("<restringir>","").replace("</restringir>",""));jjtThis.setPos(t1.beginLine, t1.beginColumn);}
+}
+
+
+
+void aplicable():{}{
+apli()
+}
+
+void apli()#apli:{Token t1;}{
+	t1=<aplicable>{ jjtThis.setName(t1.image.replace("<aplicable>","").replace("</aplicable>",""));jjtThis.setPos(t1.beginLine, t1.beginColumn);}
+}
+
+
+void calculo():{}{
+calcu()
+}
+
+void calcu()#calcu:{Token t1;}{
+	t1=<calculo>{ jjtThis.setName(t1.image.replace("<calculo>","").replace("</calculo>",""));jjtThis.setPos(t1.beginLine, t1.beginColumn);}
+}
+
+void repeticion():{}{
+repet()
+}
+
+void repet()#repet:{Token t1;}{
+	t1=<repeticion>{ jjtThis.setName(t1.image.replace("<repeticion>","").replace("</repeticion>",""));jjtThis.setPos(t1.beginLine, t1.beginColumn);}
+}
+
+
+void requerido():{}{
+ <requeridoC> (TIPO_BOOL())? <requeridoC2>
+}
+
+
+void lectura():{}{
+<lecturaC> (TIPO_BOOL())? <lecturaC2>
+}
+
+
+void apariencia():{}{
+<aparienciaC> ((ID()|TIPO_E()))? <aparienciaC2>
+}
+
+void ID():{}{
+ identificador()
+}
+
+void identificador()#identificador:{Token t1;}{
+    t1 = <id>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+}
+
+void TIPO_E()#tipo:{Token t1,t2;}{
+    t1=<texto>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<entero>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<decimal>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<rango>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<nota>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<fichero>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<calcular>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<iniciar> (t2=<agrupacion> | t2=<ciclo> ){ jjtThis.setName(t1.image+t2.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<finalizar>(t2=<agrupacion> | t2=<ciclo> ){ jjtThis.setName(t1.image+t2.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<condicion>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<hora>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<fecha>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<fechahora>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<selecciona_uno> <id>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<selecciona_multiples> <id>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+	
+}
+
+
+void PARAMETROS():{}{
+	<parametroC>(PARAMETRO())* <parametroC2>
+	
+}
+
+void PARAMETRO():{}{
+cad_min()
+|cad_max()
+|cad_fila()
+|iniciar()
+|finalizar()
+|opcion2()
+}
+
+void cad_min():{}{
+ cadMin()
+}
+
+
+void cad_max():{}{
+cadMax()
+}
+
+void cad_fila():{}{
+cadFila()
+}
+
+void iniciar():{}{
+cadIniciar()
+}
+
+void finalizar():{}{
+cadFinalizar()
+}
+
+void opcion2():{}{
+cadOpcion()
+}
+
+void cadMin()#cadMin:{Token t1;}{
+   <cad_min><igual> t1=<NUM>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+}
+
+void cadMax()#cadMax:{Token t1;}{
+   <cad_max><igual> t1=<NUM>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+}
+
+void cadFila()#cadFila:{Token t1;}{
+   <cad_fila><igual> t1=<NUM>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+}
+
+void cadIniciar()#cadIniciar:{Token t1;}{
+   <iniciar><igual> t1=<NUM>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+}
+
+
+void cadFinalizar()#cadFinalizar:{Token t1;}{
+   <finalizar><igual> t1=<NUM>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+}
+
+void cadOpcion()#cadOpcion:{Token t1;}{
+   <opcion><igual> (t1=<v_f>|t1=<si_no>){ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+}
+
+
 
 void tENCABEZADO_PRE()#Encabezado_Val:{Token t;}
 {
@@ -265,54 +589,11 @@ void tENCABEZADO_PRE()#Encabezado_Val:{Token t;}
 }
 
 
-void ENCABEZADO_VAL()#Encabezado_Val:{Token t;}
-{
-    t= <tipoC>{ jjtThis.setName(t.image); }//
-   |t=<idPreguntaC>{ jjtThis.setName(t.image); }//
-   |t=<sugerirC>{ jjtThis.setName(t.image); }//
-   |t=<codigo_preC>{ jjtThis.setName(t.image); }//
-   |t=<codigo_postC>{ jjtThis.setName(t.image); }//
-   |t=<restringirC>{ jjtThis.setName(t.image); }//
-   |t=<restringirMsnC>{ jjtThis.setName(t.image); }//
-   |t=<predeterminadoC>{ jjtThis.setName(t.image); }//
-   |t=<aplicableC>{ jjtThis.setName(t.image); }//
-   |t=<lecturaC>{ jjtThis.setName(t.image); }//
-   |t=<calculoC>{ jjtThis.setName(t.image); }//
-   |t=<repeticionC>{ jjtThis.setName(t.image); }//
-   |t=<aparienciaC>{ jjtThis.setName(t.image); }//
-   |t=<parametroC>{ jjtThis.setName(t.image); }//
-   |t=< requeridoC>{ jjtThis.setName(t.image); }//
-   |t=<etiqueta>{ jjtThis.setName(t.image); }//
-   |t=< requeridoMsnC>{ jjtThis.setName(t.image); }//
-   
-   
-   |t= <tipoC2>{ jjtThis.setName(t.image); }
-   |t=<idPreguntaC2>{ jjtThis.setName(t.image); }
-   |t=<sugerirC2>{ jjtThis.setName(t.image); }
-   |t=<codigo_preC2>{ jjtThis.setName(t.image); }
-   |t=<codigo_postC2>{ jjtThis.setName(t.image); }
-   |t=<restringirC2>{ jjtThis.setName(t.image); }
-   |t=<restringirMsnC2>{ jjtThis.setName(t.image); }
-   |t=<predeterminadoC2>{ jjtThis.setName(t.image); }
-   |t=<aplicableC2>{ jjtThis.setName(t.image); }
-   |t=<lecturaC2>{ jjtThis.setName(t.image); }
-   |t=<calculoC2>{ jjtThis.setName(t.image); }
-   |t=<repeticionC2>{ jjtThis.setName(t.image); }
-   |t=<aparienciaC2>{ jjtThis.setName(t.image); }
-   |t=<parametroC2>{ jjtThis.setName(t.image); }
-   |t=< requeridoC2>{ jjtThis.setName(t.image); }
-   |t=< requeridoMsnC2>{ jjtThis.setName(t.image); }
-   |t=<etiqueta2>{ jjtThis.setName(t.image); }
-}
 
 /*-------------------------------- OPCIONES --------------------------------------*/
 
 void OPCIONES ():{}{
-  ENCABEZADO_OPCI() LISTA_OPCIONES() ENCABEZADO_OPCI()
-}
-
-void ENCABEZADO_OPCI():{}{
-  ENCABEZADO_O()
+  ENCABEZADO_O() LISTA_OPCIONES() ENCABEZADO_O()
 }
 
 void ENCABEZADO_O()#Encabezado_Val:{Token t;}
@@ -326,13 +607,7 @@ void LISTA_OPCIONES():{}{
 }
 
 void OPCION():{}{
-ENCABEZADO_OPT() LISTA_OPT() ENCABEZADO_OPT()
-
-}
-
-void ENCABEZADO_OPT():{}
-{
-    tENCABEZADO_OPT()
+tENCABEZADO_OPT() LISTA_OPT() tENCABEZADO_OPT()
 }
 
 void tENCABEZADO_OPT()#Encabezado_Val:{Token t;}
@@ -341,49 +616,96 @@ void tENCABEZADO_OPT()#Encabezado_Val:{Token t;}
    |t=<opt2>{ jjtThis.setName(t.image); }
 }
 
-void LISTA_OPT():{}{
-  (OPT_OPCION())*
+void LISTA_OPT():{}{ 
+ (sent_unidad_opcion())*
 }
 
-void OPT_OPCION():{}{
-  TAG_OPCIONES() LISTA_UNIDADES() TAG_OPCIONES()
+
+void sent_unidad_opcion() #void:{Token t;}{
+	     nombre_lista()
+		|nombre()
+		|multimedia()
+		|etiqueta()
 }
 
-void TAG_OPCIONES():{}{
-  ENCABEZADO_OPCIONES()
+
+void etiqueta():{}{
+etiquetaO()
+}
+void etiquetaO()#etiqueta:{Token t;}{
+	t=<etiqueta>{ jjtThis.setName(t.image.replace("<etiqueta>","").replace("</etiqueta>",""));jjtThis.setPos(t.beginLine, t.beginColumn); }
 }
 
-void ENCABEZADO_OPCIONES()#Encabezado_Val:{Token t;}
-{
-   t=<nombre_lista>{ jjtThis.setName(t.image); }
-  |t=<nombre>{ jjtThis.setName(t.image); }
-  |t=<etiqueta>{ jjtThis.setName(t.image); }
-  |t=<multimedia>{ jjtThis.setName(t.image); }
-  |t=<nombre_lista2 >{ jjtThis.setName(t.image); }
-  |t=<nombre2>{ jjtThis.setName(t.image); }
-  |t=<etiqueta2>{ jjtThis.setName(t.image); }
-  |t=<multimedia2>{ jjtThis.setName(t.image); }
-
+void nombre_listaO()#nombre_lista:{Token t;}{
+   <nombre_lista> t=<id> <nombre_lista2>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
 }
 
+void nombreO()#nombre:{Token t;}{
+<nombre>t=<id><nombre2>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+}
+
+
+void multimedia():{}{
+<multimedia> (opcionMultimedia() REP())? <multimedia2>
+}
+
+
+void nombre_lista():{}{
+nombre_listaO()
+}
+
+
+void nombre():{}{
+nombreO()
+}
+
+void opcionMultimedia()#opcionMultimedia: {Token t;}{
+    t =<imagen>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn);}
+	|t =<video>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+	|t=<audio>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+}
+
+void REP():{}{
+	 Cadena() (REP2())?
+	 |(REP2()) Cadena()
+}
+
+void REP2():{}{
+	<reproduccion> <igual> activarMultimedia()  
+}
+
+void activarMultimedia():{}{
+TIPO_BOOL()
+}
+
+void TIPO_BOOL()#tipoBool: {Token t;}{
+	 t= <verdadero>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+	| t=<falso>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+	| t=<NUM>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+	
+}
+
+void Cadena():{}{
+   Cad()
+}
+
+void Cad()#tipoCadena:{Token t;}{
+   t= <CADENA>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+}
 
 
 
 /*------------------------------------ CONFIGURACIONES -----------------------------------*/
 
-void ENCABEZADO_CONFI():{}{
-  ENCABEZADO_C()
-}
 
 void ENCABEZADO_C()#Encabezado_Val:{Token t;}
 {
    t=<configuraciones>{ jjtThis.setName(t.image); }
    | t=<configuraciones2>{ jjtThis.setName(t.image); }
-
 }
 
 void CONFIGURACION():{}{
-  ENCABEZADO_CONFI() LISTA_CONFIGURACIONES()  ENCABEZADO_CONFI()
+  ENCABEZADO_C() LISTA_CONFIGURACIONES()  ENCABEZADO_C()
 }
 
 
@@ -392,13 +714,7 @@ void LISTA_CONFIGURACIONES():{}{
 }
 
 void ELEMENTO_CONFIGURACION():{}{
-  ENCABEZADO_CONFI2() L_OP_CONFIGURACION() ENCABEZADO_CONFI2()
-}
-
-
-void ENCABEZADO_CONFI2():{}
-{
-    tENCABEZADO_CONFI()
+  tENCABEZADO_CONFI() L_OP_CONFIGURACION() tENCABEZADO_CONFI()
 }
 
 void tENCABEZADO_CONFI()#Encabezado_Val:{Token t;}
@@ -407,45 +723,75 @@ void tENCABEZADO_CONFI()#Encabezado_Val:{Token t;}
    |t=<confi2>{ jjtThis.setName(t.image); }
 }
 
-
-
 void L_OP_CONFIGURACION():{}{
   (OP_CONFIGURACION())*
 }
 
-void OP_CONFIGURACION():{}{
-  TAG_CONFIGURACION() LISTA_UNIDADES() TAG_CONFIGURACION()
+void OP_CONFIGURACION()#void:{}{
+  idForm()
+  |Estilo()
+  |titulo_formulario()
+  |importar()
+  |codigo_global()
+  |codigo_principal()
 }
 
 
-
-void TAG_CONFIGURACION():{}{
-  ENCABEZADO_CONFIGURACION()
+void idForm():{}{
+idFormConf()
 }
 
-void ENCABEZADO_CONFIGURACION()#Encabezado_Val:{Token t;}
-{
-   t=<titulo_formulario>{ jjtThis.setName(t.image); }
-  |t=<idform>{ jjtThis.setName(t.image); }
-  |t=<estilo>{ jjtThis.setName(t.image); }
-  |t=<importar>{ jjtThis.setName(t.image); }
-  |t=<codigo_menu>{ jjtThis.setName(t.image); }
-  |t=<codigo_global>{ jjtThis.setName(t.image); }
-  |t=<titulo_formulario2>{ jjtThis.setName(t.image); }
-  |t=<idform2>{ jjtThis.setName(t.image); }
-  |t=<estilo2>{ jjtThis.setName(t.image); }
-  |t=<importar2>{ jjtThis.setName(t.image); }
-  |t=<codigo_menu2>{ jjtThis.setName(t.image); }
-  |t=<codigo_global2>{ jjtThis.setName(t.image); }
-
+void Estilo():{}{
+ <estilo> (tipoEstilo())? <estilo2>
 }
 
 
+void titulo_formulario():{}{
+tituloForm()
+}
 
 
+void importar():{}{
+importarConf()
+}
+
+void codigo_principal():{}{
+codPrincipal()
+}
+
+void codPrincipal()#codPrincipal:{Token t;}{
+	t=<codigo_principal>{ jjtThis.setName(t.image.replace("<codigo_principal>","").replace("</codigo_principal>",""));jjtThis.setPos(t.beginLine, t.beginColumn); }
+}
 
 
+void codigo_global():{}{
+codGlobal()
+}
 
+void codGlobal()#codGlobal:{Token t;}{
+	t=<codigo_global>{ jjtThis.setName(t.image.replace("<codigo_global>","").replace("</codigo_global>",""));jjtThis.setPos(t.beginLine, t.beginColumn); }
+}
+
+
+void importarConf()#importarConf:{Token t;}{
+	t=<importar>{ jjtThis.setName(t.image.replace("<importar>","").replace("</importar>",""));jjtThis.setPos(t.beginLine, t.beginColumn); }
+}
+
+
+void tituloForm()#tituloForm:{Token t;}{
+	t=<titulo_formulario>{ jjtThis.setName(t.image.replace("<titulo_formulario>","").replace("</titulo_formulario>",""));jjtThis.setPos(t.beginLine, t.beginColumn); }
+}
+
+
+void idFormConf()#idForm:{Token t;}{
+   <idform> t=<id> <idform2>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+}
+
+void tipoEstilo()#tipoEstilo:{Token t;}{
+  t=<pagina>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+  |t=<todo>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+  |t=<cuadricula>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+}
 
 
 /*--------------------------------- cUERPO TAGS ----------------------*/
@@ -464,7 +810,6 @@ void obtenerValorUnidad() #obtenerValorUnidad:{Token t;}{
 
    t=<NUM>{ jjtThis.setName(t.image);  } 
    |t =<hexa>{ jjtThis.setName(t.image); }
-    |t =<DECIMAL>{ jjtThis.setName(t.image); }
     |t =<CADENA>{ jjtThis.setName(t.image); }
     |t =<CARACTER>{ jjtThis.setName(t.image); }
     |t =<dosPuntos>{ jjtThis.setName(t.image); }
@@ -503,9 +848,6 @@ void obtenerValorUnidad() #obtenerValorUnidad:{Token t;}{
 	|t =<pregunta2>{ jjtThis.setName(t.image); }
 	|t =<pregunta1>{ jjtThis.setName(t.image); }
 }
-
-
-
 
 
 

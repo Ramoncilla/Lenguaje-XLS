@@ -5,6 +5,7 @@
  */
 package XLSX;
 
+import XLSX.AnalizerXML.ParseException;
 import XLSX.AnalizerXML.SimpleNode;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -21,7 +22,7 @@ import java.util.List;
 public class AnalizerFileXML {
     
     
-   public void Analizer(List<String> paths){
+   public void Analizer(List<String> paths) throws ParseException{
        String contentFile="";
        for (int i = 0; i < paths.size(); i++) {
            contentFile+=Leer_Archivo(paths.get(i))+"\n";
@@ -31,18 +32,18 @@ public class AnalizerFileXML {
     
     
     
-    private void Parser(String cadena){
+    private void Parser(String cadena) throws ParseException{
          InputStream is = new ByteArrayInputStream(cadena.getBytes());
         grammarXLSX analizar = new grammarXLSX(is);
-        try {
+        //try {
             SimpleNode n = analizar.Start();
             n.dump("");
            System.out.println("--------- Analizador Finalizado --------------");
-        } catch (Exception e) {
+       /* } catch (Exception e) {
            System.out.println("Un error en la sintaxis.");
            System.out.println(e.getMessage());
            
-       }
+       }*/
     }
     
     

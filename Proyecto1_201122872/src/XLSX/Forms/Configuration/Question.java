@@ -42,9 +42,9 @@ public class Question {
     
     public void insertarPropiedad(SimpleNode nodoPropiedad){
         String nombrePropiedad = nodoPropiedad.jjtGetChild(0).toString().replace("<", "").replace(">", "").toUpperCase();
-        int noElementos = nodoPropiedad.jjtGetChild(1).jjtGetNumChildren();
+        int noElementos = nodoPropiedad.jjtGetChild(0).jjtGetNumChildren();
         if(noElementos >0){
-            Object elemento = this.obtenerElemento((SimpleNode)nodoPropiedad.jjtGetChild(1));
+            Object elemento = nodoPropiedad.jjtGetChild(0).jjtGetChild(0).toString(); //this.obtenerElemento((SimpleNode)nodoPropiedad.jjtGetChild(1));
         switch (nombrePropiedad) {
             case Constantes.APARIENCIA:{
                 Apariencia a = new Apariencia(elemento);

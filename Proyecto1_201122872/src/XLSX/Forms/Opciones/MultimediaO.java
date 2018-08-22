@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package XLSX.Forms;
+package XLSX.Forms.Opciones;
+
+import XLSX.Forms.OpcionBase;
 
 /**
  *
- * @author alina
+ * @author Ramonella
  */
-public class OptionBase {
+public class MultimediaO extends OpcionBase{
     
 }

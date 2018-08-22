@@ -6,6 +6,7 @@
 package proyecto1_201122872;
 
 import XLSX.AnalizerFileXML;
+import XLSX.AnalizerXML.ParseException;
 import XLSX.ReadExcel;
 import java.util.List;
 
@@ -18,14 +19,14 @@ public class Proyecto1_201122872 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         // TODO code application logic here
         //ReadExcel n = new ReadExcel ();
         //System.out.println(n.convertSheet("bin-CoDe", "C:\\Users\\Ramonella\\Desktop\\ejemplo.xlsx")); 
         
         ReadExcel reader = new ReadExcel();
         AnalizerFileXML parserAnalizer = new AnalizerFileXML();
-        List<String> rutas = reader.generateXML("C:\\Users\\Ramonella\\Downloads\\Arbol.xls");
+        List<String> rutas = reader.generateXML("C:\\Users\\Ramonella\\Downloads\\Libro1.xls");
         parserAnalizer.Analizer(rutas);
         
         

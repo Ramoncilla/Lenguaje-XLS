@@ -4,8 +4,8 @@ package XLSX.AnalizerXML;
 
 import XLSX.Forms.Configuration.Question;
 import XLSX.Forms.ConfigurationBase;
-import XLSX.Forms.OptionBase;
-import XLSX.Forms.propertyBase;
+import XLSX.Forms.Opciones.ListaOpciones;
+import XLSX.Forms.QuestionProperties.ListaPreguntas;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +17,10 @@ public class SimpleNode implements Node {
     protected Object value;
     protected grammarXLSX parser;
     protected String name;
-    private List<propertyBase> questions;
-    private List<OptionBase> options;
+    protected int lin=0;
+    protected int col=0;
+    private ListaPreguntas preguntas = new ListaPreguntas();
+    private ListaOpciones opciones = new ListaOpciones();;
     private List<ConfigurationBase> configurations;
 
     public SimpleNode(int i) {
@@ -84,10 +86,7 @@ public class SimpleNode implements Node {
     /* Override this method if you want to customize how the node dumps
      out its children. */
     public void dump(String prefix) {
-        this.configurations = new ArrayList<>();
-        this.options = new ArrayList<>();
-        this.questions = new ArrayList<>();
-        //System.out.println(toString(prefix));
+        System.out.println(toString(prefix));
         Question preguntaNueva;
         if (children != null) {
             for (int i = 0; i < children.length; ++i) {
@@ -97,6 +96,7 @@ public class SimpleNode implements Node {
                         preguntaNueva = this.createQuestion((SimpleNode) n.jjtGetChild(1));
                         if (preguntaNueva != null) {
                             System.out.println("Pregunta tiene:   " + preguntaNueva.noPropiedades());
+                            this.preguntas.insertarPregunta(preguntaNueva);
                         }else{
                             System.out.println("Pregunta no tiene propiedades ");
                         }
@@ -145,6 +145,17 @@ public class SimpleNode implements Node {
         } else {
             return grammarXLSXTreeConstants.jjtNodeName[id];
         }
+    }
+    
+    
+    public void setPos(int linea, int columna){
+      this.lin = linea;
+      this.col  = columna;
+  }
+
+    @Override
+    public int getId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 
