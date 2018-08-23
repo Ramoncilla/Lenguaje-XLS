@@ -5,7 +5,8 @@
  */
 package XLSX.Forms.QuestionProperties;
 
-import XLSX.Forms.Configuration.Question;
+
+import XLSX.Forms.basePregunta;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +14,15 @@ import java.util.List;
  *
  * @author Ramonella
  */
-public class ListaPreguntas {
+public class ListaPreguntas extends basePregunta {
     
-    public List<Question> lPreguntas;
+    public List<basePregunta> lPreguntas;
 
     public ListaPreguntas() {
         this.lPreguntas = new ArrayList<>();
     }
     
-    public void insertarPregunta(Question nueva){
+    public void insertarPregunta(basePregunta nueva){
         this.lPreguntas.add(nueva);
     }
     

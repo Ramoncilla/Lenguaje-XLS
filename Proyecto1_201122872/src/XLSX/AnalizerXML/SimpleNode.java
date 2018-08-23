@@ -2,12 +2,18 @@
  /* JavaCCOptions:MULTI=false,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package XLSX.AnalizerXML;
 
-import XLSX.Forms.Configuration.Question;
+import XLSX.Forms.Agrupacion;
+import XLSX.Forms.Question;
 import XLSX.Forms.ConfigurationBase;
 import XLSX.Forms.Opciones.ListaOpciones;
 import XLSX.Forms.QuestionProperties.ListaPreguntas;
+import XLSX.Forms.basePregunta;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
+import static proyecto1_201122872.Constantes.listaPreguntasT;
+import static proyecto1_201122872.Constantes.pila;
+import proyecto1_201122872.Constantes;
 
 public class SimpleNode implements Node {
 
@@ -22,6 +28,7 @@ public class SimpleNode implements Node {
     private ListaPreguntas preguntas = new ListaPreguntas();
     private ListaOpciones opciones = new ListaOpciones();;
     private List<ConfigurationBase> configurations;
+      
 
     public SimpleNode(int i) {
         id = i;
@@ -85,21 +92,168 @@ public class SimpleNode implements Node {
 
     /* Override this method if you want to customize how the node dumps
      out its children. */
-    public void dump(String prefix) {
-        System.out.println(toString(prefix));
+    
+    
+    
+  
+   
+ 
+    
+    private boolean esInicioAgrupacion(SimpleNode nodo){
+         for (int i = 0; i < nodo.children.length; i++) {
+             String g=nodo.jjtGetChild(i).jjtGetChild(0).toString();
+             String v = "";
+             if(nodo.jjtGetChild(i).jjtGetChild(0).jjtGetNumChildren()>0){
+                 v= nodo.jjtGetChild(i).jjtGetChild(0).jjtGetChild(0).toString();
+             }
+            if(g.equalsIgnoreCase(Constantes.TIPO) &&
+                   v.equalsIgnoreCase(Constantes.INICIAR_AGRUPACION)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private boolean esFinAgrupacion(SimpleNode nodo){
+         for (int i = 0; i < nodo.children.length; i++) {
+             String g=nodo.jjtGetChild(i).jjtGetChild(0).toString();
+             String v = "";
+             if(nodo.jjtGetChild(i).jjtGetChild(0).jjtGetNumChildren()>0){
+                 v= nodo.jjtGetChild(i).jjtGetChild(0).jjtGetChild(0).toString();
+             }
+            if(g.equalsIgnoreCase(Constantes.TIPO) &&
+                   v.equalsIgnoreCase(Constantes.FINALIZAR_AGRUPACION)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
+    
+ 
+/*
+    private Question createQuestion(SimpleNode nodeQuestion) {
         Question preguntaNueva;
+        Agrupacion grupoNuevo;
+        
+        if(esInicioAgrupacion(nodeQuestion)){
+            
+            
+        }
+        
+        for (int i = 0; i < nodeQuestion.children.length; i++) {
+            
+            if(nodeQuestion.jjtGetChild(i).toString().equalsIgnoreCase(Constantes.TIPO) &&
+                    nodeQuestion.jjtGetChild(i).jjtGetChild(0).toString().equalsIgnoreCase(Constantes.FINALIZAR_AGRUPACION)){
+                bandera=false;
+            }
+            
+            if(nodeQuestion.jjtGetChild(i).toString().equalsIgnoreCase(Constantes.TIPO) &&
+                    nodeQuestion.jjtGetChild(i).jjtGetChild(0).toString().equalsIgnoreCase(Constantes.INICIAR_AGRUPACION)){
+                
+            }
+            
+            //nueva.insertarPropiedad((SimpleNode) nodeQuestion.jjtGetChild(i));
+        }
+       if (nueva.tienePropiedades()) {
+            return nueva;
+        }
+        return null;
+    }
+*/
+    
+   
+    private void createConfiguration(SimpleNode nodeConf) {
+
+    }
+
+    private void createOption(SimpleNode nodeOption) {
+
+    }
+    
+    
+    private basePregunta crearTipoNodo(SimpleNode nodo){
+        
+       // basePregunta nueva;
+        if(this.esInicioAgrupacion(nodo)){
+            Agrupacion g = new Agrupacion();
+            return g;
+        }else if(this.esFinAgrupacion(nodo)){
+            return new basePregunta();
+        }else{
+            Question nueva = new Question();
+            for (int i = 0; i < nodo.jjtGetNumChildren(); i++) {
+                nueva.insertarPropiedad((SimpleNode) nodo.jjtGetChild(i));
+            }
+            return nueva;
+        }
+        
+    }
+    
+      
+        
+    public void ejecutar(String valor){
+        this.preguntas = new ListaPreguntas();
+        pila.push(preguntas);
+        this.dump(valor);
+        //this.preguntas = (ListaPreguntas) pila.pop();
+        System.out.println("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG "+ preguntas.lPreguntas.size());
+        
+    }
+       public void dump(String prefix) {
+        System.out.println(toString(prefix));
         if (children != null) {
             for (int i = 0; i < children.length; ++i) {
                 SimpleNode n = (SimpleNode) children[i];
                 if (n != null) {
                     if (n.toString().equals("PREGUNTA")){
-                        preguntaNueva = this.createQuestion((SimpleNode) n.jjtGetChild(1));
-                        if (preguntaNueva != null) {
-                            System.out.println("Pregunta tiene:   " + preguntaNueva.noPropiedades());
-                            this.preguntas.insertarPregunta(preguntaNueva);
+                        basePregunta p = crearTipoNodo((SimpleNode)n.jjtGetChild(1));
+                      
+                        if (p!= null) {
+                           // System.out.println("Pregunta tiene:   " + preguntaNueva.noPropiedades());
+                            if(this.esInicioAgrupacion((SimpleNode)n.jjtGetChild(1))){
+                                 pila.push(p);
+                                System.out.println("se ha insertado una agrupacion");
+                        } else if(this.esFinAgrupacion((SimpleNode)n.jjtGetChild(1))){
+                             basePregunta lista = pila.pop();
+                             basePregunta listaAnt = pila.get((pila.size())-1);
+                            if(listaAnt instanceof ListaPreguntas){
+                               ListaPreguntas l = (ListaPreguntas)listaAnt;
+                               l.lPreguntas.add(lista);
+                                
+                            }
+                            if(listaAnt instanceof Agrupacion){
+                                Agrupacion l = (Agrupacion)listaAnt;
+                                l.preguntas.add(lista);
+                            }
+                            
+                            System.out.println("se ha eliminado la agruapaion");
+                        }else{
+                           basePregunta lista = pila.get((pila.size())-1);
+                            if(lista instanceof Agrupacion){
+                                Agrupacion temp = (Agrupacion) lista;
+                                temp.preguntas.add(p);
+                                System.out.println("se ha insertado una pregunta en la agrupacion");
+                            }
+                            if(lista instanceof ListaPreguntas){
+                                ListaPreguntas temp = (ListaPreguntas)lista;
+                                temp.lPreguntas.add(p);
+                                System.out.println("se ha insertado una pregunta");
+                            }
+                        }
                         }else{
                             System.out.println("Pregunta no tiene propiedades ");
                         }
+                        
+                        
+                        
+                    }
+                    
+                    if(n.toString().equalsIgnoreCase("OPCION")){
+                    }
+                    
+                    if(n.toString().equalsIgnoreCase("CONFIGURACION")){   
                     }
                     
                     
@@ -111,25 +265,7 @@ public class SimpleNode implements Node {
         }
     }
 
-    private Question createQuestion(SimpleNode nodeQuestion) {
-        Question nueva = new Question();
-        for (int i = 0; i < nodeQuestion.children.length; i++) {
-            nueva.insertarPropiedad((SimpleNode) nodeQuestion.jjtGetChild(i));
-        }
-        if (nueva.tienePropiedades()) {
-            return nueva;
-        }
-        return null;
-    }
-
-    private void createConfiguration(SimpleNode nodeConf) {
-
-    }
-
-    private void createOption(SimpleNode nodeOption) {
-
-    }
-
+    
     public void setName(String s) {
         this.name = s;
     }

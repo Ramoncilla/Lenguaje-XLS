@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package XLSX.Forms.Configuration;
+package XLSX.Forms;
 
 import XLSX.AnalizerXML.SimpleNode;
 import XLSX.Forms.propertyBase;
@@ -15,7 +15,7 @@ import XLSX.Forms.QuestionProperties.*;
  *
  * @author Ramonella
  */
-public class Question {
+public class Question  extends basePregunta{
     
     List<propertyBase> propiedades;
     

@@ -12,5 +12,13 @@ import XLSX.Forms.OpcionBase;
  * @author Ramonella
  */
 public class MultimediaO extends OpcionBase{
+    public int tipoMultimedia; /* 1 -> imagen  2 -> video   3-> audio*/
+    public boolean encendido=false;
+    public String ruta="";
+    
+    
+    public MultimediaO(){
+        
+    }
     
 }

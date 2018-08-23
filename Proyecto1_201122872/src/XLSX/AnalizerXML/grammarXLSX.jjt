@@ -340,7 +340,7 @@ void LISTA_PREGUNTAS():{}{
 }
 
 void PREGUNTA():{}{
-    tENCABEZADO_PRE() L_OPT_PREGUNTA()  tENCABEZADO_PRE()
+    tENCABEZADO_PRE() L_OPT_PREGUNTA()  tENCABEZADO_PRE()  
 }
 
 
@@ -372,7 +372,7 @@ void OPT_PREGUNTA():{}{
 
 
 void tipo():{}{
- <tipoC> TIPO_E() <tipoC2> 
+ <tipoC> (TIPO_E())? <tipoC2> 
 }
 
 void idPregunta():{}{
@@ -380,7 +380,7 @@ idPreguntaE()
 }
 
 void idPreguntaE()#idPreguntaE:{Token t;}{
-<idPreguntaC>t=<id><idPreguntaC2>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+<idPreguntaC>(ID())?<idPreguntaC2>
 }
 
 
@@ -792,66 +792,6 @@ void tipoEstilo()#tipoEstilo:{Token t;}{
   |t=<todo>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
   |t=<cuadricula>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
 }
-
-
-/*--------------------------------- cUERPO TAGS ----------------------*/
-
-void LISTA_UNIDADES() : {}
-	{ 
-		(LOOKAHEAD(2)obtenerValorUnidad())*
-	}
-
-
-void unidad():{}{
-  obtenerValorUnidad()
-}
-
-void obtenerValorUnidad() #obtenerValorUnidad:{Token t;}{
-
-   t=<NUM>{ jjtThis.setName(t.image);  } 
-   |t =<hexa>{ jjtThis.setName(t.image); }
-    |t =<CADENA>{ jjtThis.setName(t.image); }
-    |t =<CARACTER>{ jjtThis.setName(t.image); }
-    |t =<dosPuntos>{ jjtThis.setName(t.image); }
-    |t =<abrePar>{ jjtThis.setName(t.image); }
-    |t=<cierraPar>{ jjtThis.setName(t.image); }
-    |t=<coma>{ jjtThis.setName(t.image); }
-    |t=<doblePunto>{ jjtThis.setName(t.image); }
-    |t=<punto>{ jjtThis.setName(t.image); }
-    |t=<puntoComa>{ jjtThis.setName(t.image); }
-    |t=<abreLlave>{ jjtThis.setName(t.image); }
-    |t=<cierraLlave>{ jjtThis.setName(t.image); }
-    |t=<abreCorchete>{ jjtThis.setName(t.image); }
-    |t=<cierraCorchete>{ jjtThis.setName(t.image); }
-    |t=<arroba>{ jjtThis.setName(t.image); }
-    |t=<menorIgual>{ jjtThis.setName(t.image); }
-    |t=<mayorIgual>{ jjtThis.setName(t.image); }
-    |t=<menor>{ jjtThis.setName(t.image); }
-    |t=<mayor>{ jjtThis.setName(t.image); }
-    |t=<igualIgual>{ jjtThis.setName(t.image); }
-    |t=<distintoA>{ jjtThis.setName(t.image); }
-    |t=< or>{ jjtThis.setName(t.image); }
-    | t= < and>{ jjtThis.setName(t.image); }
-    |t=<menosMenos>{ jjtThis.setName(t.image); }  
-    |t=<masMas>{ jjtThis.setName(t.image); }  
-    |t=<suma>{ jjtThis.setName(t.image); }
-    |t=<resta>{ jjtThis.setName(t.image); }
-    |t=<multiplicacion>{ jjtThis.setName(t.image); }
-    |t=<division>{ jjtThis.setName(t.image); }
-    |t=<modulo>{ jjtThis.setName(t.image); }
-    |t=<div>{ jjtThis.setName(t.image); }
-    |t=<potencia>{ jjtThis.setName(t.image); }
-    |t =<igual>{ jjtThis.setName(t.image); }
-    | t=< not>{ jjtThis.setName(t.image); }
-    |t =<id>{ jjtThis.setName(t.image); }
-	|t =<exclamacion>{ jjtThis.setName(t.image); }
-	|t =<pregunta2>{ jjtThis.setName(t.image); }
-	|t =<pregunta1>{ jjtThis.setName(t.image); }
-}
-
-
-
-
 
 
 

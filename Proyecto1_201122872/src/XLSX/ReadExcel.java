@@ -73,7 +73,7 @@ public class ReadExcel {
                             if (row.getCell(cont).toString().equals("")) {
                                 // continuidad = false;
                             } else {
-                                headers.add(row.getCell(cont).toString());
+                                headers.add(row.getCell(cont).toString().toLowerCase());
                             }
                             cont++;
                         }
@@ -81,6 +81,15 @@ public class ReadExcel {
                     }
                     out.println("\t<"+option+">");
                     for (int i = 0; i < headers.size(); i++) {
+                        /*
+                        Object c = row.getCell(i).toString();
+                        if(c.toString().equalsIgnoreCase("true")){
+                            c="verdadero";
+                        }
+                        if(c.toString().equalsIgnoreCase("false")){
+                            c="falso";
+                        }*/
+                        //out.println(formatElement("\t\t", headers.get(i), c.toString()));
                         out.println(formatElement("\t\t", headers.get(i), formatCell(row.getCell(i))));
                     }
                     out.println("\t</"+option+">");
@@ -106,8 +115,13 @@ public class ReadExcel {
         switch (cell.getCellType()) {
             case Cell.CELL_TYPE_BLANK:
                 return "";
-            case Cell.CELL_TYPE_BOOLEAN:
-                return Boolean.toString(cell.getBooleanCellValue());
+            case Cell.CELL_TYPE_BOOLEAN:{
+                String t = Boolean.toString(cell.getBooleanCellValue());
+                if(t.equalsIgnoreCase("true")){
+                    return "verdadero";
+                }
+                return "falso";
+            }
             case Cell.CELL_TYPE_ERROR:
                 return "*error*";
             case Cell.CELL_TYPE_NUMERIC:

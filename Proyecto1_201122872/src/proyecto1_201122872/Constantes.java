@@ -5,6 +5,11 @@
  */
 package proyecto1_201122872;
 
+import XLSX.Forms.basePregunta;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 /**
  *
  * @author Ramonella
@@ -12,6 +17,9 @@ package proyecto1_201122872;
 public class Constantes {
     
     //encuesta
+    
+    public static List<basePregunta> listaPreguntasT = new ArrayList<>();
+       public static Stack<basePregunta> pila = new Stack<>();
     public static final String TIPO= "TIPO";
     public static final String SUGERIR = "SUGERIR";
     public static final String RESTRINGIRMSN= "RESTRINGIRMSN";
@@ -30,5 +38,8 @@ public class Constantes {
    public  static final String CALCULO="CALCULO";
    public  static final String APLICABLE ="APLICABLE";
    public  static final String APARIENCIA ="APARIENCIA";
+   public static final String INICIAR_AGRUPACION= "INICIARAGRUPACION";
+   public static final String FINALIZAR_AGRUPACION= "FINALIZARAGRUPACION";
+   
     
 }

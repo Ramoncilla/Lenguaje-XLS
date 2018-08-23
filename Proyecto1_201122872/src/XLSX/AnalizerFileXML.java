@@ -37,7 +37,8 @@ public class AnalizerFileXML {
         grammarXLSX analizar = new grammarXLSX(is);
         //try {
             SimpleNode n = analizar.Start();
-            n.dump("");
+            n.ejecutar("");
+          //  n.dump("");
            System.out.println("--------- Analizador Finalizado --------------");
        /* } catch (Exception e) {
            System.out.println("Un error en la sintaxis.");

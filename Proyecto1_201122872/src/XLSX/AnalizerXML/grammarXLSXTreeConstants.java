@@ -85,9 +85,6 @@ public interface grammarXLSXTreeConstants
   public int JJTIMPORTARCONF = 79;
   public int JJTTITULOFORM = 80;
   public int JJTTIPOESTILO = 81;
-  public int JJTLISTA_UNIDADES = 82;
-  public int JJTUNIDAD = 83;
-  public int JJTOBTENERVALORUNIDAD = 84;
 
 
   public String[] jjtNodeName = {
@@ -173,9 +170,6 @@ public interface grammarXLSXTreeConstants
     "importarConf",
     "tituloForm",
     "tipoEstilo",
-    "LISTA_UNIDADES",
-    "unidad",
-    "obtenerValorUnidad",
   };
 }
-/* JavaCC - OriginalChecksum=985cf1f5d963968a9b7a751db5871bc6 (do not edit this line) */
+/* JavaCC - OriginalChecksum=4a7a0ad46f11c56eb83b7f4f2f911eb2 (do not edit this line) */
