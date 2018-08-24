@@ -673,7 +673,7 @@ void idPregunta():{/*@bgen(jjtree) idPregunta */
 /*@egen*/}{/*@bgen(jjtree) idPregunta */
 try {
 /*@egen*/
-idPreguntaE()/*@bgen(jjtree)*/
+<idPreguntaC>(identificador())?<idPreguntaC2>/*@bgen(jjtree)*/
 } catch (Throwable jjte000) {
   if (jjtc000) {
     jjtree.clearNodeScope(jjtn000);
@@ -923,7 +923,7 @@ void restrMsn()         :{/*@bgen(jjtree) restrMsn */
                            jjtree.closeNodeScope(jjtn000, true);
                            jjtc000 = false;
                          }
-/*@egen*/{ jjtn000.setName(t.image.replace("<restringirMsn>","").replace("</restringirMsn>",""));jjtn000.setPos(t.beginLine, t.beginColumn); }/*@bgen(jjtree)*/
+/*@egen*/{ jjtn000.setName(t.image.replace("<restringirmsn>","").replace("</restringirmsn>",""));jjtn000.setPos(t.beginLine, t.beginColumn); }/*@bgen(jjtree)*/
         } finally {
           if (jjtc000) {
             jjtree.closeNodeScope(jjtn000, true);
@@ -975,7 +975,7 @@ void requeMsn()         :{/*@bgen(jjtree) requeMsn */
                           jjtree.closeNodeScope(jjtn000, true);
                           jjtc000 = false;
                         }
-/*@egen*/{ jjtn000.setName(t.image.replace("<requeridoMsn>","").replace("</requeridoMsn>",""));jjtn000.setPos(t.beginLine, t.beginColumn); }/*@bgen(jjtree)*/
+/*@egen*/{ jjtn000.setName(t.image.replace("<requeridomsn>","").replace("</requeridomsn>",""));jjtn000.setPos(t.beginLine, t.beginColumn); }/*@bgen(jjtree)*/
         } finally {
           if (jjtc000) {
             jjtree.closeNodeScope(jjtn000, true);
@@ -1316,7 +1316,7 @@ void apariencia():{/*@bgen(jjtree) apariencia */
 /*@egen*/}{/*@bgen(jjtree) apariencia */
 try {
 /*@egen*/
-<aparienciaC> ((ID()|TIPO_E()))? <aparienciaC2>/*@bgen(jjtree)*/
+<aparienciaC> ((identificador()|TIPO_E()))? <aparienciaC2>/*@bgen(jjtree)*/
 } catch (Throwable jjte000) {
   if (jjtc000) {
     jjtree.clearNodeScope(jjtn000);
@@ -2346,7 +2346,7 @@ void REP2():{/*@bgen(jjtree) REP2 */
 /*@egen*/}{/*@bgen(jjtree) REP2 */
         try {
 /*@egen*/
-	<reproduccion> <igual> activarMultimedia()/*@bgen(jjtree)*/
+	<reproduccion> <igual> TIPO_BOOL()/*@bgen(jjtree)*/
         } catch (Throwable jjte000) {
           if (jjtc000) {
             jjtree.clearNodeScope(jjtn000);

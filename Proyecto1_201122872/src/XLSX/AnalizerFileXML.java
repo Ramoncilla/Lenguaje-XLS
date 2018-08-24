@@ -13,7 +13,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.InputStream;
 import XLSX.AnalizerXML.grammarXLSX;
+import XLSX.Forms.basePregunta;
+import java.io.IOException;
 import java.util.List;
+import java.util.Stack;
 
 /**
  *
@@ -35,16 +38,17 @@ public class AnalizerFileXML {
     private void Parser(String cadena) throws ParseException{
          InputStream is = new ByteArrayInputStream(cadena.getBytes());
         grammarXLSX analizar = new grammarXLSX(is);
-        //try {
+        Stack<basePregunta> pila = new Stack<>();
+        try {
             SimpleNode n = analizar.Start();
-            n.ejecutar("");
-          //  n.dump("");
+            n.ejecutar("",pila);
            System.out.println("--------- Analizador Finalizado --------------");
-       /* } catch (Exception e) {
+            System.out.println(pila.size());
+        } catch (Exception e) {
            System.out.println("Un error en la sintaxis.");
            System.out.println(e.getMessage());
            
-       }*/
+       }
     }
     
     
@@ -64,7 +68,7 @@ public class AnalizerFileXML {
             while ((linea = br.readLine()) != null) {
                 cadena += linea + "\n";
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("NO se pudo abiri el archivo" + e);
         }
         return cadena;

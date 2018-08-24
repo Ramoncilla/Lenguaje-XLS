@@ -18,8 +18,9 @@ public class Constantes {
     
     //encuesta
     
-    public static List<basePregunta> listaPreguntasT = new ArrayList<>();
-       public static Stack<basePregunta> pila = new Stack<>();
+   
+    
+    
     public static final String TIPO= "TIPO";
     public static final String SUGERIR = "SUGERIR";
     public static final String RESTRINGIRMSN= "RESTRINGIRMSN";
@@ -28,7 +29,7 @@ public class Constantes {
    public static final String REQUERIDO = "REQUERIDO";
    public static final String REPETICION = "REPETICION";
    public static final String PREDETERMINADDO = "PREDETERMINADO";
-   public  static final String PARAMETRO ="PARAMETRO";
+   public  static final String PARAMETRO ="PARAMETROS";
    public  static final String MULTIMEDIA ="MULTIMEDIA";//
    public  static final String LECTURA = "LECTURA";
    public  static final String IDPREGUNTA="IDPREGUNTA";

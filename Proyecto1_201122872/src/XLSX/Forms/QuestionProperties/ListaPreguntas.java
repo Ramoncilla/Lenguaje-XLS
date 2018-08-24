@@ -26,5 +26,15 @@ public class ListaPreguntas extends basePregunta {
         this.lPreguntas.add(nueva);
     }
     
-    
+   
+    @Override
+    public void mostrarDatos(){
+        basePregunta p;
+        System.out.println("------------------------- IMPRIMIENDO LISTA DE PREGUNTAS -----------------------------");
+        for (int i = 0; i < lPreguntas.size(); i++) {
+            p = lPreguntas.get(i);
+            p.mostrarDatos();
+        }
+        System.out.println("------------------------- FIN DE LISTA DE PREGUNTAS -----------------------------");
+    }
 }

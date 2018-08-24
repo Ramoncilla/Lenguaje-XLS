@@ -11,4 +11,9 @@ package XLSX.Forms;
  */
 public class basePregunta {
     
+    
+    public void mostrarDatos() {
+        
+    }
+    
 }

@@ -376,7 +376,7 @@ void tipo():{}{
 }
 
 void idPregunta():{}{
-idPreguntaE()
+<idPreguntaC>(identificador())?<idPreguntaC2>
 }
 
 void idPreguntaE()#idPreguntaE:{Token t;}{
@@ -414,7 +414,7 @@ restrMsn()
 }
 
 void restrMsn()#restrMsn:{Token t;}{
-	t=<restringirMsn>{ jjtThis.setName(t.image.replace("<restringirMsn>","").replace("</restringirMsn>",""));jjtThis.setPos(t.beginLine, t.beginColumn); }
+	t=<restringirMsn>{ jjtThis.setName(t.image.replace("<restringirmsn>","").replace("</restringirmsn>",""));jjtThis.setPos(t.beginLine, t.beginColumn); }
 }
 
 
@@ -423,7 +423,7 @@ requeMsn()
 }
 
 void requeMsn()#requeMsn:{Token t;}{
-	t=<requeridoMsn>{ jjtThis.setName(t.image.replace("<requeridoMsn>","").replace("</requeridoMsn>",""));jjtThis.setPos(t.beginLine, t.beginColumn); }
+	t=<requeridoMsn>{ jjtThis.setName(t.image.replace("<requeridomsn>","").replace("</requeridomsn>",""));jjtThis.setPos(t.beginLine, t.beginColumn); }
 }
 
 
@@ -485,7 +485,7 @@ void lectura():{}{
 
 
 void apariencia():{}{
-<aparienciaC> ((ID()|TIPO_E()))? <aparienciaC2>
+<aparienciaC> ((identificador()|TIPO_E()))? <aparienciaC2>
 }
 
 void ID():{}{
@@ -671,7 +671,7 @@ void REP():{}{
 }
 
 void REP2():{}{
-	<reproduccion> <igual> activarMultimedia()  
+	<reproduccion> <igual> TIPO_BOOL()  
 }
 
 void activarMultimedia():{}{

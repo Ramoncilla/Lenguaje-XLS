@@ -4,16 +4,24 @@
  * and open the template in the editor.
  */
 package XLSX.Forms.QuestionProperties;
-import XLSX.Forms.propertyBase;
+
+
+import XLSX.Forms.Opcion;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Ramonella
  */
-public class Restringir extends propertyBase {
-
-    public Restringir(Object elem) {
-        this.elemento= elem;
+public class ListaOpciones {
+    
+    List<Opcion> lOpciones;
+    
+    public ListaOpciones(){
+        this.lOpciones= new ArrayList<>();
     }
     
+   
     
 }
