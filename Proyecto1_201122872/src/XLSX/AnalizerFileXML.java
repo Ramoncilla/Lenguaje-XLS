@@ -13,6 +13,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.InputStream;
 import XLSX.AnalizerXML.grammarXLSX;
+import XLSX.Forms.QuestionProperties.ListaConfiguraciones;
+import XLSX.Forms.QuestionProperties.ListaOpciones;
+import XLSX.Forms.QuestionProperties.ListaPreguntas;
 import XLSX.Forms.basePregunta;
 import java.io.IOException;
 import java.util.List;
@@ -23,13 +26,16 @@ import java.util.Stack;
  * @author alina
  */
 public class AnalizerFileXML {
-    
+    public static ListaOpciones opciones = new ListaOpciones();
+     public static ListaConfiguraciones configuraciones = new ListaConfiguraciones();
     
    public void Analizer(List<String> paths) throws ParseException{
        String contentFile="";
        for (int i = 0; i < paths.size(); i++) {
            contentFile+=Leer_Archivo(paths.get(i))+"\n";
        }
+       contentFile = contentFile.replace("“", "\"");
+       contentFile = contentFile.replace("”", "\"");
        Parser(contentFile);
    } 
     
@@ -39,16 +45,18 @@ public class AnalizerFileXML {
          InputStream is = new ByteArrayInputStream(cadena.getBytes());
         grammarXLSX analizar = new grammarXLSX(is);
         Stack<basePregunta> pila = new Stack<>();
-        try {
+         ListaPreguntas preguntas = new ListaPreguntas();
+   
+        //try {
             SimpleNode n = analizar.Start();
-            n.ejecutar("",pila);
+            n.ejecutar("",pila, opciones, configuraciones);
            System.out.println("--------- Analizador Finalizado --------------");
             System.out.println(pila.size());
-        } catch (Exception e) {
+       /* } catch (Exception e) {
            System.out.println("Un error en la sintaxis.");
            System.out.println(e.getMessage());
            
-       }
+       }*/
     }
     
     

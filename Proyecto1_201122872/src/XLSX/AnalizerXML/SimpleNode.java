@@ -3,7 +3,10 @@
 package XLSX.AnalizerXML;
 
 import XLSX.Forms.Agrupacion;
+import XLSX.Forms.Configuracion;
+import XLSX.Forms.Opcion;
 import XLSX.Forms.Question;
+import XLSX.Forms.QuestionProperties.ListaConfiguraciones;
 import XLSX.Forms.QuestionProperties.ListaOpciones;
 import XLSX.Forms.QuestionProperties.ListaPreguntas;
 import XLSX.Forms.basePregunta;
@@ -11,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 import proyecto1_201122872.Constantes;
+import static XLSX.AnalizerFileXML.configuraciones;
 
+import static XLSX.AnalizerFileXML.opciones;
 public class SimpleNode implements Node {
 
     protected Node parent;
@@ -23,7 +28,8 @@ public class SimpleNode implements Node {
     protected int lin = 0;
     protected int col = 0;
     private ListaPreguntas preguntas = new ListaPreguntas();
-    private ListaOpciones opciones = new ListaOpciones();
+    //private ListaOpciones opciones = new ListaOpciones();
+   // private ListaConfiguraciones configuraciones = new ListaConfiguraciones();
     public static Stack<basePregunta> pila;
 
     public SimpleNode(int i) {
@@ -149,11 +155,32 @@ public class SimpleNode implements Node {
     }
      */
     private void createConfiguration(SimpleNode nodeConf) {
+        Configuracion conf = new Configuracion();
+        SimpleNode temp;
+        for (int i = 0; i < nodeConf.jjtGetNumChildren(); i++) {
+            temp = (SimpleNode) nodeConf.jjtGetChild(i);
+            conf.agregarPropiedad(temp);
+        }
+        if(!(conf.esConfVacia())){
+            configuraciones.insertar(conf);
+        }
 
     }
 
     private void createOption(SimpleNode nodeOption) {
-
+        Opcion p = new Opcion();
+        SimpleNode temp;
+        for (int i = 0; i < nodeOption.jjtGetNumChildren(); i++) {
+            temp =(SimpleNode)nodeOption.jjtGetChild(i);
+            p.insertarPropiedad(temp);
+        }
+        if(!p.esOpcionVacia()){
+            opciones.insertar(p);
+           p.imprimir();
+        }else{
+            System.out.println("Impresiones vacias");
+        }
+        
     }
 
     private basePregunta crearTipoNodo(SimpleNode nodo) {
@@ -174,13 +201,17 @@ public class SimpleNode implements Node {
 
     }
 
-    public void ejecutar(String valor, Stack<basePregunta>  p) {
+    public void ejecutar(String valor, Stack<basePregunta>  p, ListaOpciones op, ListaConfiguraciones confk) {
         this.preguntas = new ListaPreguntas();
+        opciones = op;
+       configuraciones = confk;
         this.pila = p;
         pila.push(preguntas);
         this.dump(valor);
         preguntas.mostrarDatos();
-        System.out.println("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG " + preguntas.lPreguntas.size());
+        System.out.println("PREGUNTAS:   " + preguntas.lPreguntas.size());
+        System.out.println("OPCIONES:          "+ opciones.lOpciones.size());
+        System.out.println("CONFIGURACIONES:         "+ configuraciones.lConfiguraciones.size());
 
     }
 
@@ -231,11 +262,12 @@ public class SimpleNode implements Node {
                     }
 
                     if (n.toString().equalsIgnoreCase("OPCION")) {
+                        this.createOption((SimpleNode) n.jjtGetChild(1));
                     }
 
-                    if (n.toString().equalsIgnoreCase("CONFIGURACION")) {
+                    if (n.toString().equalsIgnoreCase("ELEMENTO_CONFIGURACION")) {
+                        this.createConfiguration((SimpleNode)n.jjtGetChild(1));
                     }
-
                     n.dump(prefix + " ");
 
                 }

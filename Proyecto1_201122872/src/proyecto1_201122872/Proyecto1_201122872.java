@@ -26,7 +26,7 @@ public class Proyecto1_201122872 {
         
         ReadExcel reader = new ReadExcel();
         AnalizerFileXML parserAnalizer = new AnalizerFileXML();
-        List<String> rutas = reader.generateXML("C:\\Users\\Ramonella\\Downloads\\Libro1.xls");
+        List<String> rutas = reader.generateXML("C:\\Users\\Ramonella\\Desktop\\Libro2.xls");
         parserAnalizer.Analizer(rutas);
         
         

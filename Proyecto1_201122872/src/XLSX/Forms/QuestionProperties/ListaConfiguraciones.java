@@ -5,8 +5,7 @@
  */
 package XLSX.Forms.QuestionProperties;
 
-
-import XLSX.Forms.Opcion;
+import XLSX.Forms.Configuracion;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,17 +13,19 @@ import java.util.List;
  *
  * @author Ramonella
  */
-public class ListaOpciones {
+public class ListaConfiguraciones {
     
-   public  List<Opcion> lOpciones;
     
-    public ListaOpciones(){
-        this.lOpciones= new ArrayList<>();
+    public List<Configuracion> lConfiguraciones;
+    
+    public ListaConfiguraciones(){
+        this.lConfiguraciones = new ArrayList<>();
     }
     
-    public void insertar(Opcion p){
-        this.lOpciones.add(p);
+    
+    public void insertar(Configuracion c){
+        this.lConfiguraciones.add(c);
     }
-   
+    
     
 }

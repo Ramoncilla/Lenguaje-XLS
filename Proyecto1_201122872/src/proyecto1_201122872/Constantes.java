@@ -41,6 +41,15 @@ public class Constantes {
    public  static final String APARIENCIA ="APARIENCIA";
    public static final String INICIAR_AGRUPACION= "INICIARAGRUPACION";
    public static final String FINALIZAR_AGRUPACION= "FINALIZARAGRUPACION";
+   public static final String NOMBRE_LISTA= "NOMBRE_LISTA";
+   public static final String NOMBRE= "NOMBRE";
+  
+   public static final String TITULO_FORMULARIO = "TITULO_FORMULARIO";
+   public static final String IDFORM= "IDFORM";
+   public static final String ESTILO= "ESTILO";
+   public static final String IMPORTAR= "IMPORTAR";
+   public static final String CODIGO_PRINCIPAL= "CODIGO_PRINCIPAL";
+   public static final String CODIGO_GLOBAL= "CODIGO_GLOBAL";
    
     
 }

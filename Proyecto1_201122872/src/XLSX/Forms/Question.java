@@ -55,15 +55,7 @@ public class Question extends basePregunta {
         param = null;
     }
 
-    private Object obtenerElemento(SimpleNode elementos) {
-        String val = "";
-        for (int i = 0; i < elementos.jjtGetNumChildren(); i++) {
-            val += elementos.jjtGetChild(i).toString() + " ";
-        }
-        return val;
-    }
-
-    public boolean esPreguntaEnBlanco() {
+    public boolean esPreguntaLlena() {
         return (tipo != null
                 && idPregunta != null
                 && etiqueta != null

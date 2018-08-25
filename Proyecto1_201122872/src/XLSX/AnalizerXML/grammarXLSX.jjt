@@ -59,6 +59,7 @@ MORE :
   |"<codigo_principal>"{}:estado2
   |"<codigo_global>"{}:estado2
   |"<titulo_formulario>"{}:estado2
+  |"<nombre_lista>"{}:estado2
 }
 
 <estado2> TOKEN :
@@ -74,6 +75,7 @@ MORE :
  |<codigo_principal: "</codigo_principal>"> {} : DEFAULT
  |<codigo_global: "</codigo_global>"> {} : DEFAULT
  |<titulo_formulario: "</titulo_formulario>"> {} : DEFAULT
+ |<nombre_lista: "</nombre_lista>"> {} : DEFAULT
 }
 
 <estado2> MORE :
@@ -193,10 +195,10 @@ TOKEN:{
 }
 
 TOKEN:{
-  <nombre_lista :"<nombre_lista>">
-  |<nombre: "<nombre>">
+  //<nombre_lista :"<nombre_lista>">
+  <nombre: "<nombre>">
   |<multimedia: "<multimedia>">
-  |<nombre_lista2 :"</nombre_lista>">
+ // |<nombre_lista2 :"</nombre_lista>">
   |<nombre2: "</nombre>">
   |<etiqueta2: "</etiqueta>">
   |<multimedia2: "</multimedia>">
@@ -637,7 +639,8 @@ void etiquetaO()#etiqueta:{Token t;}{
 }
 
 void nombre_listaO()#nombre_lista:{Token t;}{
-   <nombre_lista> t=<id> <nombre_lista2>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+  /* <nombre_lista> t=<id> <nombre_lista2>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }*/
+  t=<nombre_lista>{ jjtThis.setName(t.image.replace("<nombre_lista>","").replace("</nombre_lista>",""));jjtThis.setPos(t.beginLine, t.beginColumn); }
 }
 
 void nombreO()#nombre:{Token t;}{
@@ -738,7 +741,7 @@ void OP_CONFIGURACION()#void:{}{
 
 
 void idForm():{}{
-idFormConf()
+<idform> (identificador())? <idform2>
 }
 
 void Estilo():{}{
@@ -784,7 +787,7 @@ void tituloForm()#tituloForm:{Token t;}{
 
 
 void idFormConf()#idForm:{Token t;}{
-   <idform> t=<id> <idform2>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+   <idform> (identificador())? <idform2>
 }
 
 void tipoEstilo()#tipoEstilo:{Token t;}{

@@ -63,6 +63,7 @@ MORE :
   |"<codigo_principal>"{}:estado2
   |"<codigo_global>"{}:estado2
   |"<titulo_formulario>"{}:estado2
+  |"<nombre_lista>"{}:estado2
 }
 
 <estado2> TOKEN :
@@ -78,6 +79,7 @@ MORE :
  |<codigo_principal: "</codigo_principal>"> {} : DEFAULT
  |<codigo_global: "</codigo_global>"> {} : DEFAULT
  |<titulo_formulario: "</titulo_formulario>"> {} : DEFAULT
+ |<nombre_lista: "</nombre_lista>"> {} : DEFAULT
 }
 
 <estado2> MORE :
@@ -197,10 +199,10 @@ TOKEN:{
 }
 
 TOKEN:{
-  <nombre_lista :"<nombre_lista>">
-  |<nombre: "<nombre>">
+  //<nombre_lista :"<nombre_lista>">
+  <nombre: "<nombre>">
   |<multimedia: "<multimedia>">
-  |<nombre_lista2 :"</nombre_lista>">
+ // |<nombre_lista2 :"</nombre_lista>">
   |<nombre2: "</nombre>">
   |<etiqueta2: "</etiqueta>">
   |<multimedia2: "</multimedia>">
@@ -2145,19 +2147,20 @@ void nombre_listaO()             :{/*@bgen(jjtree) nombre_lista */
                                    boolean jjtc000 = true;
                                    jjtree.openNodeScope(jjtn000);
 /*@egen*/Token t;}{/*@bgen(jjtree) nombre_lista */
-   try {
+  try {
 /*@egen*/
-   <nombre_lista> t=<id> <nombre_lista2>/*@bgen(jjtree)*/
-                                        {
-                                          jjtree.closeNodeScope(jjtn000, true);
-                                          jjtc000 = false;
-                                        }
-/*@egen*/{ jjtn000.setName(t.image);jjtn000.setPos(t.beginLine, t.beginColumn); }/*@bgen(jjtree)*/
-   } finally {
-     if (jjtc000) {
-       jjtree.closeNodeScope(jjtn000, true);
-     }
-   }
+  /* <nombre_lista> t=<id> <nombre_lista2>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }*/
+  t=<nombre_lista>/*@bgen(jjtree)*/
+                  {
+                    jjtree.closeNodeScope(jjtn000, true);
+                    jjtc000 = false;
+                  }
+/*@egen*/{ jjtn000.setName(t.image.replace("<nombre_lista>","").replace("</nombre_lista>",""));jjtn000.setPos(t.beginLine, t.beginColumn); }/*@bgen(jjtree)*/
+  } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+  }
 /*@egen*/
 }
 
@@ -2683,7 +2686,7 @@ void idForm():{/*@bgen(jjtree) idForm */
 /*@egen*/}{/*@bgen(jjtree) idForm */
 try {
 /*@egen*/
-idFormConf()/*@bgen(jjtree)*/
+<idform> (identificador())? <idform2>/*@bgen(jjtree)*/
 } catch (Throwable jjte000) {
   if (jjtc000) {
     jjtree.clearNodeScope(jjtn000);
@@ -2953,12 +2956,21 @@ void idFormConf()       :{/*@bgen(jjtree) idForm */
 /*@egen*/Token t;}{/*@bgen(jjtree) idForm */
    try {
 /*@egen*/
-   <idform> t=<id> <idform2>/*@bgen(jjtree)*/
-                            {
-                              jjtree.closeNodeScope(jjtn000, true);
-                              jjtc000 = false;
-                            }
-/*@egen*/{ jjtn000.setName(t.image);jjtn000.setPos(t.beginLine, t.beginColumn); }/*@bgen(jjtree)*/
+   <idform> (identificador())? <idform2>/*@bgen(jjtree)*/
+   } catch (Throwable jjte000) {
+     if (jjtc000) {
+       jjtree.clearNodeScope(jjtn000);
+       jjtc000 = false;
+     } else {
+       jjtree.popNode();
+     }
+     if (jjte000 instanceof RuntimeException) {
+       throw (RuntimeException)jjte000;
+     }
+     if (jjte000 instanceof ParseException) {
+       throw (ParseException)jjte000;
+     }
+     throw (Error)jjte000;
    } finally {
      if (jjtc000) {
        jjtree.closeNodeScope(jjtn000, true);
