@@ -17,6 +17,8 @@ import proyecto1_201122872.Constantes;
 import static XLSX.AnalizerFileXML.configuraciones;
 
 import static XLSX.AnalizerFileXML.opciones;
+import XLSX.Forms.Ciclo;
+
 public class SimpleNode implements Node {
 
     protected Node parent;
@@ -29,7 +31,7 @@ public class SimpleNode implements Node {
     protected int col = 0;
     private ListaPreguntas preguntas = new ListaPreguntas();
     //private ListaOpciones opciones = new ListaOpciones();
-   // private ListaConfiguraciones configuraciones = new ListaConfiguraciones();
+    // private ListaConfiguraciones configuraciones = new ListaConfiguraciones();
     public static Stack<basePregunta> pila;
 
     public SimpleNode(int i) {
@@ -124,36 +126,36 @@ public class SimpleNode implements Node {
         return false;
     }
 
-    /*
-    private Question createQuestion(SimpleNode nodeQuestion) {
-        Question preguntaNueva;
-        Agrupacion grupoNuevo;
-        
-        if(esInicioAgrupacion(nodeQuestion)){
-            
-            
-        }
-        
-        for (int i = 0; i < nodeQuestion.children.length; i++) {
-            
-            if(nodeQuestion.jjtGetChild(i).toString().equalsIgnoreCase(Constantes.TIPO) &&
-                    nodeQuestion.jjtGetChild(i).jjtGetChild(0).toString().equalsIgnoreCase(Constantes.FINALIZAR_AGRUPACION)){
-                bandera=false;
+    private boolean esInicioCiclo(SimpleNode nodo) {
+        for (int i = 0; i < nodo.children.length; i++) {
+            String g = nodo.jjtGetChild(i).jjtGetChild(0).toString();
+            String v = "";
+            if (nodo.jjtGetChild(i).jjtGetChild(0).jjtGetNumChildren() > 0) {
+                v = nodo.jjtGetChild(i).jjtGetChild(0).jjtGetChild(0).toString();
             }
-            
-            if(nodeQuestion.jjtGetChild(i).toString().equalsIgnoreCase(Constantes.TIPO) &&
-                    nodeQuestion.jjtGetChild(i).jjtGetChild(0).toString().equalsIgnoreCase(Constantes.INICIAR_AGRUPACION)){
-                
+            if (g.equalsIgnoreCase(Constantes.TIPO)
+                    && v.equalsIgnoreCase(Constantes.INICIAR_CICLO)) {
+                return true;
             }
-            
-            //nueva.insertarPropiedad((SimpleNode) nodeQuestion.jjtGetChild(i));
         }
-       if (nueva.tienePropiedades()) {
-            return nueva;
-        }
-        return null;
+        return false;
     }
-     */
+
+    private boolean esFinCiclo(SimpleNode nodo) {
+        for (int i = 0; i < nodo.children.length; i++) {
+            String g = nodo.jjtGetChild(i).jjtGetChild(0).toString();
+            String v = "";
+            if (nodo.jjtGetChild(i).jjtGetChild(0).jjtGetNumChildren() > 0) {
+                v = nodo.jjtGetChild(i).jjtGetChild(0).jjtGetChild(0).toString();
+            }
+            if (g.equalsIgnoreCase(Constantes.TIPO)
+                    && v.equalsIgnoreCase(Constantes.FINALIZAR_CICLO)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void createConfiguration(SimpleNode nodeConf) {
         Configuracion conf = new Configuracion();
         SimpleNode temp;
@@ -161,7 +163,7 @@ public class SimpleNode implements Node {
             temp = (SimpleNode) nodeConf.jjtGetChild(i);
             conf.agregarPropiedad(temp);
         }
-        if(!(conf.esConfVacia())){
+        if (!(conf.esConfVacia())) {
             configuraciones.insertar(conf);
         }
 
@@ -171,16 +173,16 @@ public class SimpleNode implements Node {
         Opcion p = new Opcion();
         SimpleNode temp;
         for (int i = 0; i < nodeOption.jjtGetNumChildren(); i++) {
-            temp =(SimpleNode)nodeOption.jjtGetChild(i);
+            temp = (SimpleNode) nodeOption.jjtGetChild(i);
             p.insertarPropiedad(temp);
         }
-        if(!p.esOpcionVacia()){
+        if (!p.esOpcionVacia()) {
             opciones.insertar(p);
-           p.imprimir();
-        }else{
+            p.imprimir();
+        } else {
             System.out.println("Impresiones vacias");
         }
-        
+
     }
 
     private basePregunta crearTipoNodo(SimpleNode nodo) {
@@ -195,7 +197,22 @@ public class SimpleNode implements Node {
             g.propiedadesInicio = nueva;
             return g;
         } else if (this.esFinAgrupacion(nodo)) {
-            
+
+            Question nueva = new Question();
+            for (int i = 0; i < nodo.jjtGetNumChildren(); i++) {
+                nueva.insertarPropiedad((SimpleNode) nodo.jjtGetChild(i));
+            }
+            return nueva;
+        } else if (this.esInicioCiclo(nodo)) {
+            Ciclo g = new Ciclo();
+            Question nueva = new Question();
+            for (int i = 0; i < nodo.jjtGetNumChildren(); i++) {
+                nueva.insertarPropiedad((SimpleNode) nodo.jjtGetChild(i));
+            }
+            g.propiedadesInicio = nueva;
+            return g;
+
+        } else if (this.esFinCiclo(nodo)) {
             Question nueva = new Question();
             for (int i = 0; i < nodo.jjtGetNumChildren(); i++) {
                 nueva.insertarPropiedad((SimpleNode) nodo.jjtGetChild(i));
@@ -211,17 +228,17 @@ public class SimpleNode implements Node {
 
     }
 
-    public void ejecutar(String valor, Stack<basePregunta>  p, ListaOpciones op, ListaConfiguraciones confk) {
+    public void ejecutar(String valor, Stack<basePregunta> p, ListaOpciones op, ListaConfiguraciones confk) {
         this.preguntas = new ListaPreguntas();
         opciones = op;
-       configuraciones = confk;
+        configuraciones = confk;
         this.pila = p;
         pila.push(preguntas);
         this.dump(valor);
         preguntas.mostrarDatos();
         System.out.println("PREGUNTAS:   " + preguntas.lPreguntas.size());
-        System.out.println("OPCIONES:          "+ opciones.lOpciones.size());
-        System.out.println("CONFIGURACIONES:         "+ configuraciones.lConfiguraciones.size());
+        System.out.println("OPCIONES:          " + opciones.lOpciones.size());
+        System.out.println("CONFIGURACIONES:         " + configuraciones.lConfiguraciones.size());
 
     }
 
@@ -237,61 +254,151 @@ public class SimpleNode implements Node {
                             // System.out.println("Pregunta tiene:   " + preguntaNueva.noPropiedades());
                             if (this.esInicioAgrupacion((SimpleNode) n.jjtGetChild(1))) {
                                 pila.push(p);
-                                
+
                                 //ystem.out.println("se ha insertado una agrupacion");
                             } else if (this.esFinAgrupacion((SimpleNode) n.jjtGetChild(1))) {
                                 basePregunta lista = pila.pop();
                                 basePregunta listaAnt = pila.get((pila.size()) - 1);
-                                
+
                                 if (listaAnt instanceof ListaPreguntas) {
-                                    
-                                    if(lista instanceof Agrupacion){
-                                         Agrupacion e = (Agrupacion) lista;
-                                         e.propiedadesFin = (Question)p;
-                                         ListaPreguntas l = (ListaPreguntas) listaAnt;
-                                         l.lPreguntas.add(e);
-                                         
-                                    }else{
-                                      ListaPreguntas l = (ListaPreguntas) listaAnt;
-                                    l.lPreguntas.add(lista);  
+
+                                    if (lista instanceof Agrupacion) {
+                                        Agrupacion e = (Agrupacion) lista;
+                                        e.propiedadesFin = (Question) p;
+                                        ListaPreguntas l = (ListaPreguntas) listaAnt;
+                                        l.lPreguntas.add(e);
+
+                                    } else if (lista instanceof Ciclo) {
+                                        Ciclo c = (Ciclo) lista;
+                                        c.propiedadesFin = (Question) p;
+                                        ListaPreguntas l = (ListaPreguntas) listaAnt;
+                                        l.lPreguntas.add(c);
+                                    } else {
+                                        ListaPreguntas l = (ListaPreguntas) listaAnt;
+                                        l.lPreguntas.add(lista);
                                     }
-                                    
 
                                 }
                                 if (listaAnt instanceof Agrupacion) {
-                                    
-                                    if(lista instanceof Agrupacion){
-                                         Agrupacion e = (Agrupacion) lista;
-                                         e.propiedadesFin = (Question)p;
+
+                                    if (lista instanceof Agrupacion) {
+                                        Agrupacion e = (Agrupacion) lista;
+                                        e.propiedadesFin = (Question) p;
                                         Agrupacion l = (Agrupacion) listaAnt;
-                                    l.preguntas.add(e);
-                                         
-                                    }else{
-                                    Agrupacion l = (Agrupacion) listaAnt;
-                                    l.preguntas.add(lista);  
+                                        l.preguntas.add(e);
+
+                                    } else if (lista instanceof Ciclo) {
+                                        Ciclo c = (Ciclo) lista;
+                                        c.propiedadesFin = (Question) p;
+                                        Agrupacion l = (Agrupacion) listaAnt;
+                                        l.preguntas.add(c);
+                                    } else {
+                                        ListaPreguntas l = (ListaPreguntas) listaAnt;
+                                        l.lPreguntas.add(lista);
                                     }
-                                    
-                                    
-                                    Agrupacion l = (Agrupacion) listaAnt;
-                                    l.preguntas.add(lista);
                                 }
 
-                                //System.out.println("se ha eliminado la agruapaion");
+                                if (listaAnt instanceof Ciclo) {
+
+                                    if (lista instanceof Agrupacion) {
+                                        Agrupacion e = (Agrupacion) lista;
+                                        e.propiedadesFin = (Question) p;
+                                        Agrupacion l = (Agrupacion) listaAnt;
+                                        l.preguntas.add(e);
+
+                                    } else if (lista instanceof Ciclo) {
+                                        Ciclo c = (Ciclo) lista;
+                                        c.propiedadesFin = (Question) p;
+                                        Ciclo l = (Ciclo) listaAnt;
+                                        l.preguntas.add(c);
+                                    } else {
+                                        Agrupacion l = (Agrupacion) listaAnt;
+                                        l.preguntas.add(lista);
+                                    }
+                                }
+
+                            } else if (this.esInicioCiclo((SimpleNode) n.jjtGetChild(1))) {
+                                pila.push(p);
+
+                            } else if (this.esFinCiclo((SimpleNode) n.jjtGetChild(1))) {
+
+                                basePregunta lista = pila.pop();
+                                basePregunta listaAnt = pila.get((pila.size()) - 1);
+
+                                if (listaAnt instanceof ListaPreguntas) {
+
+                                    if (lista instanceof Agrupacion) {
+                                        Agrupacion e = (Agrupacion) lista;
+                                        e.propiedadesFin = (Question) p;
+                                        ListaPreguntas l = (ListaPreguntas) listaAnt;
+                                        l.lPreguntas.add(e);
+
+                                    } else if (lista instanceof Ciclo) {
+                                        Ciclo c = (Ciclo) lista;
+                                        c.propiedadesFin = (Question) p;
+                                        ListaPreguntas l = (ListaPreguntas) listaAnt;
+                                        l.lPreguntas.add(c);
+                                    } else {
+                                        ListaPreguntas l = (ListaPreguntas) listaAnt;
+                                        l.lPreguntas.add(lista);
+                                    }
+
+                                }
+                                if (listaAnt instanceof Agrupacion) {
+
+                                    if (lista instanceof Agrupacion) {
+                                        Agrupacion e = (Agrupacion) lista;
+                                        e.propiedadesFin = (Question) p;
+                                        Agrupacion l = (Agrupacion) listaAnt;
+                                        l.preguntas.add(e);
+
+                                    } else if (lista instanceof Ciclo) {
+                                        Ciclo c = (Ciclo) lista;
+                                        c.propiedadesFin = (Question) p;
+                                        Agrupacion l = (Agrupacion) listaAnt;
+                                        l.preguntas.add(c);
+                                    } else {
+                                        ListaPreguntas l = (ListaPreguntas) listaAnt;
+                                        l.lPreguntas.add(lista);
+                                    }
+                                }
+
+                                if (listaAnt instanceof Ciclo) {
+
+                                    if (lista instanceof Agrupacion) {
+                                        Agrupacion e = (Agrupacion) lista;
+                                        e.propiedadesFin = (Question) p;
+                                        Agrupacion l = (Agrupacion) listaAnt;
+                                        l.preguntas.add(e);
+
+                                    } else if (lista instanceof Ciclo) {
+                                        Ciclo c = (Ciclo) lista;
+                                        c.propiedadesFin = (Question) p;
+                                        Ciclo l = (Ciclo) listaAnt;
+                                        l.preguntas.add(c);
+                                    } else {
+                                        Agrupacion l = (Agrupacion) listaAnt;
+                                        l.preguntas.add(lista);
+                                    }
+                                }
+
                             } else {
                                 basePregunta lista = pila.get((pila.size()) - 1);
                                 if (lista instanceof Agrupacion) {
                                     Agrupacion temp = (Agrupacion) lista;
                                     temp.preguntas.add(p);
-                                    //  System.out.println("se ha insertado una pregunta en la agrupacion");
                                 }
                                 if (lista instanceof ListaPreguntas) {
                                     ListaPreguntas temp = (ListaPreguntas) lista;
                                     temp.lPreguntas.add(p);
-                                    // System.out.println("se ha insertado una pregunta");
+                                }
+                                if (lista instanceof Ciclo) {
+                                    Ciclo temp = (Ciclo) lista;
+                                    temp.preguntas.add(p);
                                 }
                             }
                         } else {
-                            // System.out.println("Pregunta no tiene propiedades ");
+                            System.out.println("******************************** PREGUNTA VACIA  ******************************************");
                         }
 
                     }
@@ -301,7 +408,7 @@ public class SimpleNode implements Node {
                     }
 
                     if (n.toString().equalsIgnoreCase("ELEMENTO_CONFIGURACION")) {
-                        this.createConfiguration((SimpleNode)n.jjtGetChild(1));
+                        this.createConfiguration((SimpleNode) n.jjtGetChild(1));
                     }
                     n.dump(prefix + " ");
 

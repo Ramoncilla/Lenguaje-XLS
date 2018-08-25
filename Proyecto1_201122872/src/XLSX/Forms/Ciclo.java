@@ -13,26 +13,24 @@ import java.util.List;
  *
  * @author Ramonella
  */
-public class Agrupacion extends basePregunta {
+public class Ciclo extends basePregunta {
     
     public List<basePregunta> preguntas;
     public Question  propiedadesInicio;
     public Question propiedadesFin;
    
  
-    public Agrupacion(){
+    public Ciclo(){
         this.preguntas= new ArrayList<>();
         this.propiedadesInicio= new Question();
         this.propiedadesFin = new Question();
         
     }
-        
-  
-    
+         
     @Override
     public void mostrarDatos() {
-        System.out.println("Imprimiendo  agrupacion ***********************************   ");
-        System.out.println("Inicio Agrupacion :  "); 
+        System.out.println("Imprimiendo  ciclo ***********************************   ");
+        System.out.println("Inicio Ciclo :  "); 
         this.propiedadesInicio.mostrarDatos();
         basePregunta temp;
         for (int i = 0; i <preguntas.size(); i++) {
@@ -48,9 +46,9 @@ public class Agrupacion extends basePregunta {
             }
             
         }
-        System.out.println("Fin Agrupacion:   ");
+        System.out.println("Fin Ciclo:   ");
         this.propiedadesFin.mostrarDatos();
-        System.out.println("Fin de imprimir Agruapacion  ******************************   ");
+        System.out.println("Fin de imprimir Ciclo  ******************************   ");
     }
     
 }

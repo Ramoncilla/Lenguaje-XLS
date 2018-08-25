@@ -41,6 +41,10 @@ public class Constantes {
    public  static final String APARIENCIA ="APARIENCIA";
    public static final String INICIAR_AGRUPACION= "INICIARAGRUPACION";
    public static final String FINALIZAR_AGRUPACION= "FINALIZARAGRUPACION";
+   public static final String INICIAR_CICLO = "INICIARCICLO";
+   public static final String FINALIZAR_CICLO = "FINALIZARCICLO";
+   
+   
    public static final String NOMBRE_LISTA= "NOMBRE_LISTA";
    public static final String NOMBRE= "NOMBRE";
   
