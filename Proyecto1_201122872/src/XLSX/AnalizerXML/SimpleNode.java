@@ -188,9 +188,19 @@ public class SimpleNode implements Node {
         // basePregunta nueva;
         if (this.esInicioAgrupacion(nodo)) {
             Agrupacion g = new Agrupacion();
+            Question nueva = new Question();
+            for (int i = 0; i < nodo.jjtGetNumChildren(); i++) {
+                nueva.insertarPropiedad((SimpleNode) nodo.jjtGetChild(i));
+            }
+            g.propiedadesInicio = nueva;
             return g;
         } else if (this.esFinAgrupacion(nodo)) {
-            return new basePregunta();
+            
+            Question nueva = new Question();
+            for (int i = 0; i < nodo.jjtGetNumChildren(); i++) {
+                nueva.insertarPropiedad((SimpleNode) nodo.jjtGetChild(i));
+            }
+            return nueva;
         } else {
             Question nueva = new Question();
             for (int i = 0; i < nodo.jjtGetNumChildren(); i++) {
@@ -227,16 +237,41 @@ public class SimpleNode implements Node {
                             // System.out.println("Pregunta tiene:   " + preguntaNueva.noPropiedades());
                             if (this.esInicioAgrupacion((SimpleNode) n.jjtGetChild(1))) {
                                 pila.push(p);
+                                
                                 //ystem.out.println("se ha insertado una agrupacion");
                             } else if (this.esFinAgrupacion((SimpleNode) n.jjtGetChild(1))) {
                                 basePregunta lista = pila.pop();
                                 basePregunta listaAnt = pila.get((pila.size()) - 1);
+                                
                                 if (listaAnt instanceof ListaPreguntas) {
-                                    ListaPreguntas l = (ListaPreguntas) listaAnt;
-                                    l.lPreguntas.add(lista);
+                                    
+                                    if(lista instanceof Agrupacion){
+                                         Agrupacion e = (Agrupacion) lista;
+                                         e.propiedadesFin = (Question)p;
+                                         ListaPreguntas l = (ListaPreguntas) listaAnt;
+                                         l.lPreguntas.add(e);
+                                         
+                                    }else{
+                                      ListaPreguntas l = (ListaPreguntas) listaAnt;
+                                    l.lPreguntas.add(lista);  
+                                    }
+                                    
 
                                 }
                                 if (listaAnt instanceof Agrupacion) {
+                                    
+                                    if(lista instanceof Agrupacion){
+                                         Agrupacion e = (Agrupacion) lista;
+                                         e.propiedadesFin = (Question)p;
+                                        Agrupacion l = (Agrupacion) listaAnt;
+                                    l.preguntas.add(e);
+                                         
+                                    }else{
+                                    Agrupacion l = (Agrupacion) listaAnt;
+                                    l.preguntas.add(lista);  
+                                    }
+                                    
+                                    
                                     Agrupacion l = (Agrupacion) listaAnt;
                                     l.preguntas.add(lista);
                                 }

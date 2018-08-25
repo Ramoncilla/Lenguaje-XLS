@@ -5,6 +5,7 @@
  */
 package XLSX.Forms;
 
+import XLSX.AnalizerXML.SimpleNode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +16,18 @@ import java.util.List;
 public class Agrupacion extends basePregunta {
     
     public List<basePregunta> preguntas;
+    public Question  propiedadesInicio;
+    public Question propiedadesFin;
  
     public Agrupacion(){
         this.preguntas= new ArrayList<>();
+        this.propiedadesInicio= new Question();
+        this.propiedadesFin = new Question();
+    }
+    
+    
+    public void insertarPropiedades(SimpleNode nodo){
+        
     }
     
     
@@ -25,6 +35,8 @@ public class Agrupacion extends basePregunta {
     @Override
     public void mostrarDatos() {
         System.out.println("Imprimiendo  agrupacion ***********************************   ");
+        System.out.println("Inicio Agrupacion :  ");
+        this.propiedadesInicio.mostrarDatos();
         basePregunta temp;
         for (int i = 0; i <preguntas.size(); i++) {
             temp= preguntas.get(i);
@@ -39,6 +51,8 @@ public class Agrupacion extends basePregunta {
             }
             
         }
+        System.out.println("Fin Agrupacion:   ");
+        this.propiedadesFin.mostrarDatos();
         System.out.println("Fin de imprimir Agruapacion  ******************************   ");
     }
     
