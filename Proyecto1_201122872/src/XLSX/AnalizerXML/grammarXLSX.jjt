@@ -499,12 +499,14 @@ void identificador()#identificador:{Token t1;}{
 }
 
 void TIPO_E()#tipo:{Token t1,t2;}{
+{t2=new Token();}
     t1=<texto>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
    |t1=<entero>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
    |t1=<decimal>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
    |t1=<rango>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
    |t1=<nota>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
-   |t1=<fichero>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<fichero>{t2 = new Token();
+t2.image="";}(t2=<CADENA>)? { jjtThis.setName(t1.image+t2.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
    |t1=<calcular>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
    |t1=<iniciar> (t2=<agrupacion> | t2=<ciclo> ){ jjtThis.setName(t1.image+t2.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
    |t1=<finalizar>(t2=<agrupacion> | t2=<ciclo> ){ jjtThis.setName(t1.image+t2.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
@@ -512,8 +514,8 @@ void TIPO_E()#tipo:{Token t1,t2;}{
    |t1=<hora>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
    |t1=<fecha>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
    |t1=<fechahora>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
-   |t1=<selecciona_uno> <id>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
-   |t1=<selecciona_multiples> <id>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<selecciona_uno> t2=<id>{ jjtThis.setName(t1.image+"%"+t2.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<selecciona_multiples> t2=<id>{ jjtThis.setName(t1.image+"%"+t2.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
 	
 }
 

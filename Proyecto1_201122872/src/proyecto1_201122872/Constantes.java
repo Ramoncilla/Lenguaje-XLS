@@ -39,10 +39,7 @@ public class Constantes {
    public  static final String CALCULO="CALCULO";
    public  static final String APLICABLE ="APLICABLE";
    public  static final String APARIENCIA ="APARIENCIA";
-   public static final String INICIAR_AGRUPACION= "INICIARAGRUPACION";
-   public static final String FINALIZAR_AGRUPACION= "FINALIZARAGRUPACION";
-   public static final String INICIAR_CICLO = "INICIARCICLO";
-   public static final String FINALIZAR_CICLO = "FINALIZARCICLO";
+   
    
    
    public static final String NOMBRE_LISTA= "NOMBRE_LISTA";
@@ -54,6 +51,28 @@ public class Constantes {
    public static final String IMPORTAR= "IMPORTAR";
    public static final String CODIGO_PRINCIPAL= "CODIGO_PRINCIPAL";
    public static final String CODIGO_GLOBAL= "CODIGO_GLOBAL";
+   
+   
+   
+   public static final String INICIAR_AGRUPACION= "INICIARAGRUPACION";
+   public static final String FINALIZAR_AGRUPACION= "FINALIZARAGRUPACION";
+   public static final String INICIAR_CICLO = "INICIARCICLO";
+   public static final String FINALIZAR_CICLO = "FINALIZARCICLO";
+   public static final String TEXTO= "TEXTO";
+    public static final String ENTERO= "ENTERO";
+    public static final String DECIMAL= "DECIMAL";
+    public static final String RANGO = "RANGO";
+    public static final String CONDICION= "CONDICION";
+    public static final String FECHA= "FECHA";
+    public static final String TIEMPO= "TIEMPO";
+    public static final String FECHAHORA= "FECHAHORA";
+    public static final String SELECCION_UNO= "SELECCION_UNO";
+    public static final String SELECCION_MULTIPLES= "SELECCION_MULTIPLES";
+    public static final String NOTA= "NOTA";
+    public static final String FICHERO = "FICHERO";
+    public static final String CALCULAR="CALCULAR";
+    public static final String HORA = "HORA";
+    
    
     
 }

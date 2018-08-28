@@ -27,7 +27,7 @@ import java.util.Stack;
  */
 public class AnalizerFileXML {
     public static ListaOpciones opciones = new ListaOpciones();
-     public static ListaConfiguraciones configuraciones = new ListaConfiguraciones();
+    public static ListaConfiguraciones configuraciones = new ListaConfiguraciones();
     
    public void Analizer(List<String> paths) throws ParseException{
        String contentFile="";
@@ -39,13 +39,11 @@ public class AnalizerFileXML {
        Parser(contentFile);
    } 
     
-    
-    
     private void Parser(String cadena) throws ParseException{
-         InputStream is = new ByteArrayInputStream(cadena.getBytes());
+        InputStream is = new ByteArrayInputStream(cadena.getBytes());
         grammarXLSX analizar = new grammarXLSX(is);
         Stack<basePregunta> pila = new Stack<>();
-         ListaPreguntas preguntas = new ListaPreguntas();
+        ListaPreguntas preguntas = new ListaPreguntas();
    
         //try {
             SimpleNode n = analizar.Start();

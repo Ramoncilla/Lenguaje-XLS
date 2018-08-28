@@ -32,6 +32,16 @@ public class Multimedia {
         System.out.println("+++++++++++++++++++++  Fin Multemedia ++++++++++++++++++++++");
     }
     
+    
+    public String obtenerCodigoMostrar(){
+        if((!this.ruta.equalsIgnoreCase("")) && 
+                (!this.tipoMultimedia.equalsIgnoreCase(""))){
+            return (this.tipoMultimedia.toLowerCase().replace("media_", "")+"( "+this.ruta+", "+ this.activar+"); \n");
+        }
+
+        return "";
+    }
+    
     public boolean asignarValores(){
         SimpleNode nodoREP;
         if(nodoMultimedia.jjtGetNumChildren()>0){

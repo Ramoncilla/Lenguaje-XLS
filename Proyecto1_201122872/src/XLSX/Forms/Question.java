@@ -8,6 +8,8 @@ package XLSX.Forms;
 import XLSX.AnalizerXML.SimpleNode;
 import proyecto1_201122872.Constantes;
 import XLSX.Forms.QuestionProperties.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -33,6 +35,7 @@ public class Question extends basePregunta {
     public Multimedia multi = null;
     public Object apariencia = null;
     public Parametro param = null;
+    public Object nombreLista = null;
 
     public Question() {
         tipo = null;
@@ -53,6 +56,7 @@ public class Question extends basePregunta {
         multi = null;
         apariencia = null;
         param = null;
+        nombreLista = null;
     }
 
     public boolean esPreguntaLlena() {
@@ -73,71 +77,12 @@ public class Question extends basePregunta {
                 && repeticion != null
                 && multi != null
                 && apariencia != null
-                && param != null);
+                && param != null
+                && nombreLista!=null);
     }
 
-    @Override
-    public void mostrarDatos() {
-        System.out.println("IMPRIMIENDO  PREGUNTA -----------------------------");
-
-        if (tipo != null) {
-            System.out.println(" La pripiedad  tipo  es:  " +tipo);
-        }
-        if (idPregunta != null) {
-            System.out.println(" La pripiedad  idPregunta  es:  " +idPregunta);
-        }
-        if (etiqueta != null) {
-            System.out.println(" La pripiedad  etiqueta  es:  " +etiqueta);
-        }
-        if (sugerir != null) {
-            System.out.println(" La pripiedad  sugerir  es:  " +sugerir);
-        }
-        if (codigo_pre != null) {
-            System.out.println(" La pripiedad   codigo_pre  es:  " +codigo_pre);
-        }
-        if (codigo_post != null) {
-            System.out.println(" La pripiedad  codigo_post  es:  " +codigo_post);
-        }
-        if (restringir != null) {
-            System.out.println(" La pripiedad  restringir  es:  " +restringir);
-        }
-        if (restringirMsn != null) {
-            System.out.println(" La pripiedad  restringirMsn  es:  " +restringirMsn);
-        }
-        if (requerido != null) {
-            System.out.println(" La pripiedad  requerido  es:  " +requerido);
-        }
-        if (requeridoMsn != null) {
-            System.out.println(" La pripiedad  requeridoMsn  es:  " +requeridoMsn);
-        }
-        if (predeterminado != null) {
-            System.out.println(" La pripiedad  predeterminado  es:  " +predeterminado);
-        }
-        if (aplicable != null) {
-            System.out.println(" La pripiedad  aplicable  es:  " +aplicable);
-        }
-        if (lectura != null) {
-            System.out.println(" La pripiedad lectura   es:  " +lectura);
-        }
-        if (calculo != null) {
-            System.out.println(" La pripiedad  calculo  es:  " +calculo);
-        }
-        if (repeticion != null) {
-            System.out.println(" La pripiedad  repeticion  es:  " +repeticion);
-        }
-        if (multi != null) {
-            multi.imprimirMultimedia();
-        }
-        if (apariencia != null) {
-            System.out.println(" La pripiedad  apariencia  es:  " +apariencia);
-        }
-        if (param != null) {
-            param.imprimirParametro();
-        }
-        
-        System.out.println(" FIN PREGUNTA -----------------------------");
-    }
-
+    
+    
     public void insertarPropiedad(SimpleNode nodoPropiedad) {
         String nombrePropiedad = nodoPropiedad.jjtGetChild(0).toString().replace("<", "").replace(">", "").toUpperCase();
         int noElementos = nodoPropiedad.jjtGetChild(0).jjtGetNumChildren();
@@ -334,7 +279,20 @@ public class Question extends basePregunta {
 
                 case Constantes.TIPO: {
                     if(!(elemento.toString().equalsIgnoreCase(""))){
-                      this.tipo = elemento;  
+                      String [] val = elemento.toString().split("%");
+                      if(val.length>1){
+                          this.tipo= val[0];
+                          this.nombreLista = val[1];
+                      }
+                      else if(elemento.toString().toLowerCase().contains("fichero")){
+                          String v = elemento.toString().toLowerCase().trim().replace("fichero", "");
+                          this.tipo = "fichero";
+                          this.nombreLista= v;
+                      }
+                      else{
+                         this.tipo = elemento;  
+                      }
+                         
                     }
                     
                     break;
@@ -346,5 +304,390 @@ public class Question extends basePregunta {
 
         //System.out.println("Propiedad "+ nodeQuestion.jjtGetChild(i).jjtGetChild(0).toString().replace("<","").replace(">", "")+":  "+nodeQuestion.jjtGetChild(i).jjtGetChild(1).jjtGetNumChildren());
     }
+    
+    
+    
+    
+    
+    
+    
+ /*---------------------- Despliegue de los datos -----------------------------*/
+    
+    @Override
+    public void mostrarDatos() {
+        System.out.println("IMPRIMIENDO  PREGUNTA -----------------------------");
 
+        if (tipo != null) {
+            System.out.println(" La pripiedad  tipo  es:  " +tipo );
+        }
+        
+        if (tipo != null && this.nombreLista!= null) {
+            System.out.println(" La pripiedad  tipo  es:  " +tipo +",  nombreLista "+ this.nombreLista.toString());
+        }
+        
+        if (idPregunta != null) {
+            System.out.println(" La pripiedad  idPregunta  es:  " +idPregunta);
+        }
+        if (etiqueta != null) {
+            System.out.println(" La pripiedad  etiqueta  es:  " +etiqueta);
+        }
+        if (sugerir != null) {
+            System.out.println(" La pripiedad  sugerir  es:  " +sugerir);
+        }
+        if (codigo_pre != null) {
+            System.out.println(" La pripiedad   codigo_pre  es:  " +codigo_pre);
+        }
+        if (codigo_post != null) {
+            System.out.println(" La pripiedad  codigo_post  es:  " +codigo_post);
+        }
+        if (restringir != null) {
+            System.out.println(" La pripiedad  restringir  es:  " +restringir);
+        }
+        if (restringirMsn != null) {
+            System.out.println(" La pripiedad  restringirMsn  es:  " +restringirMsn);
+        }
+        if (requerido != null) {
+            System.out.println(" La pripiedad  requerido  es:  " +requerido);
+        }
+        if (requeridoMsn != null) {
+            System.out.println(" La pripiedad  requeridoMsn  es:  " +requeridoMsn);
+        }
+        if (predeterminado != null) {
+            System.out.println(" La pripiedad  predeterminado  es:  " +predeterminado);
+        }
+        if (aplicable != null) {
+            System.out.println(" La pripiedad  aplicable  es:  " +aplicable);
+        }
+        if (lectura != null) {
+            System.out.println(" La pripiedad lectura   es:  " +lectura);
+        }
+        if (calculo != null) {
+            System.out.println(" La pripiedad  calculo  es:  " +calculo);
+        }
+        if (repeticion != null) {
+            System.out.println(" La pripiedad  repeticion  es:  " +repeticion);
+        }
+        if (multi != null) {
+            multi.imprimirMultimedia();
+        }
+        if (apariencia != null) {
+            System.out.println(" La pripiedad  apariencia  es:  " +apariencia);
+        }
+        if (param != null) {
+            param.imprimirParametro();
+        }
+        
+        System.out.println(" FIN PREGUNTA -----------------------------");
+    }
+
+
+    
+    
+    /*==================================== GENERACION DE CODIGO =================================*/
+    
+    
+     public String generarCodigo(ListaPreguntas listaP){
+         
+         String codigo="";
+         if(this.idPregunta!= null){
+             codigo+="Pregunta "+ this.idPregunta+"{\n";
+             codigo+=this.getCodEtiqueta();
+             codigo+=this.getCodRequeridoMsn();
+             codigo+=this.getCodRuta();
+             codigo+=this.getCodSugerir();
+             
+             codigo+=this.getCodMostrar();
+             codigo+=this.getCodRespuesta();
+             
+             
+             
+             
+              
+             codigo+="}";
+         }
+        return codigo;
+    }
+    
+    
+    
+    
+    
+    /******* Atributos **************/
+    
+    
+    
+    
+    private String getCodEtiqueta(){
+        if(this.etiqueta!= null){
+            return "Cadena etiqueta = \" "+this.etiqueta+"\";\n";
+        }
+        return "";
+    }
+    
+    private String getCodSugerir(){
+         if(this.sugerir!= null){
+            return "Cadena sugerir = \" "+this.sugerir+"\";\n";
+        }
+        return "";
+    }
+    
+    private String getCodRequeridoMsn(){
+         if(this.requeridoMsn!= null){
+            return "Cadena requeridoMsn = \" "+this.requeridoMsn+"\";\n";
+        }
+        return "";
+    }
+    
+       private String getCodRuta(){
+         if(this.multi!= null){
+             if((!(multi.ruta.equalsIgnoreCase(""))) && (multi.ruta!= null)){
+                 return "Cadena ruta = \" "+this.multi.ruta+"\";\n";
+             }
+        }
+        return "";
+    }
+    
+       
+    /******* Funciones   **************/
+       
+    private String getCodMostrar(){
+        if(this.multi!= null){
+            String cod = multi.obtenerCodigoMostrar();
+            if(!(cod.equalsIgnoreCase(""))){
+                return "publico Mostrar(){ \n"+cod+"}\n";
+            }
+        }
+        return "";
+    }   
+       
+    
+    private String obtenerParametrosApariencia(String tipoMostrar){
+        
+                switch(tipoMostrar.toUpperCase()){
+                  case Constantes.TEXTO:{
+                    boolean b=false;
+                    String cFila="";
+                    String cMax="";
+                    String cMin="";
+                    
+                    if(this.param.cad_fila.equalsIgnoreCase("")){
+                        cFila="nada";
+                    }else{
+                        cFila = this.param.cad_fila;
+                        b=true;
+                    }
+                    
+                    if(this.param.cad_max.equalsIgnoreCase("")){
+                        cMax="nada";
+                    }else{
+                        cMax = this.param.cad_max;
+                        b=true;
+                    }
+                    
+                    if(this.param.cad_min.equalsIgnoreCase("")){
+                        cMin="nada";
+                    }else{
+                        cMin = this.param.cad_min;
+                        b=true;
+                    }
+                    
+                    if(b){
+                        return (cMin+", "+cMax+", "+cFila);
+                    }
+                        
+                    break;
+                }
+                  
+                  case Constantes.RANGO:{
+                      String pIniciar = "0";
+                      String pFinalizar = this.param.finalizar;
+                      if(!(this.param.iniciar.equalsIgnoreCase(""))){
+                          pIniciar = this.param.iniciar;
+                      }
+                      return pIniciar+", "+pFinalizar;
+                  }
+                  
+                  
+                  case Constantes.CONDICION:{
+                      String valor = "V_F";
+                      if(this.param.opcion.equalsIgnoreCase("")){
+                          return valor;
+                      }else{
+                          return this.param.opcion;
+                      }
+                  }
+                  
+                  
+                  case Constantes.SELECCION_UNO:{
+                      if(this.nombreLista!=null){
+                          if(!(this.nombreLista.toString().equalsIgnoreCase(""))){
+                              return this.nombreLista.toString();
+                          }
+                      }
+                      break;
+                  }
+                  
+                  
+                  case Constantes.SELECCION_MULTIPLES:{
+                      if(this.nombreLista!=null){
+                          if(!(this.nombreLista.toString().equalsIgnoreCase(""))){
+                              return this.nombreLista.toString();
+                          }
+                      }
+                      break;
+                  }
+                  
+                  case Constantes.FICHERO:{
+                      if(this.nombreLista!=null){
+                          if(!(this.nombreLista.toString().equalsIgnoreCase(""))){
+                              return this.nombreLista.toString();
+                          }
+                      }
+                      break;
+                  }
+                    
+                }
+        
+        return "";
+    }
+    
+    public String getCodLlamadaPregunta(){
+        String llamada="";
+        llamada = this.idPregunta.toString()+"().Respuesta(res."+this.obtenerParametroTipo()+").";
+        String tipoTexto= this.tipo.toString().toUpperCase();
+        if(this.apariencia!= null){
+            llamada+="Apariencia().";
+            tipoTexto = this.apariencia.toString().toUpperCase();
+        }
+        
+            switch(tipoTexto){
+                
+                case Constantes.TEXTO:{
+                    llamada+="Cadena";
+                    break;
+                }
+                
+                case Constantes.ENTERO:{
+                    llamada+="Entero";
+                    break;
+                }
+                
+                case Constantes.DECIMAL:{
+                    llamada+="Decimal";
+                    break;
+                }
+                
+                case Constantes.RANGO:{
+                    llamada+="Rango";
+                    break;
+                }
+                
+                
+                case Constantes.CONDICION:{
+                    llamada+="Condicion";
+                    break;
+                }
+                
+                case Constantes.FECHA:{
+                    llamada+="Fecha";
+                    break;
+                }
+                
+                case Constantes.HORA:{
+                    llamada+="Hora";
+                    break;
+                }
+                
+                case Constantes.FECHAHORA:{
+                    llamada+="FechaHora";
+                    break;
+                }
+                
+                case Constantes.SELECCION_UNO:{
+                    llamada+="Seleccionar_1";
+                    break;
+                }
+                
+                case Constantes.SELECCION_MULTIPLES:{
+                    llamada+="Seleccionar";
+                    break;
+                }
+                
+                case Constantes.NOTA:{
+                    llamada+="Nota";
+                    break;
+                }
+                
+                case Constantes.FICHERO:{
+                    llamada+="Fichero";
+                    break;
+                }
+                
+                default:{
+                    System.out.println("Vino "+ tipoTexto);
+                    llamada+="Cadena";
+                    break;
+                }
+                
+            }
+            
+            llamada+="("+this.obtenerParametrosApariencia(tipoTexto)+");";
+        return llamada;
+    }
+      
+    
+    private String getCodRespuesta(){
+        String visibilidad = "publico";
+        String cadena = visibilidad + " Respuesta ( "+ this.tipo.toString()+" param_1){\n"
+                + "     respuesta = param_1;"
+                + "\n}";
+        
+        return cadena;
+    }
+    
+    
+    
+    
+    
+    
+     
+    private String obtenerParametroTipo(){
+        return "es"+this.tipo.toString();
+    } 
+    
+    
+    public List<String> obtenerPreguntas(String cadena){
+        
+        List<String> lista = new ArrayList<>();
+        char c;
+        String cadTemp="";
+        boolean b1 = false;
+        boolean b2 = false;
+        for (int i = 0; i < cadena.length(); i++) {
+            c= cadena.charAt(i);
+            if(c==35){
+                b1= true;
+                b2= false;
+                cadTemp="";
+            }
+            if(b1== true && c== 91){
+                b1=false;
+                b2 = true;
+            }
+            if(b2 == true && c!=91 && c!=93){
+                cadTemp+=c+"";
+            }
+            if(b2==true && c ==93){
+                System.out.println(cadTemp);
+                cadTemp="";
+                b1=false;
+                b2=false;
+            } 
+        }
+        
+        return lista;
+    }
+    
+    
+    
 }

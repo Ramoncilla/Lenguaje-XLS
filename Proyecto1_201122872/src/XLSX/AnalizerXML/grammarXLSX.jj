@@ -1397,8 +1397,9 @@ void TIPO_E()     :{/*@bgen(jjtree) tipo */
                     boolean jjtc000 = true;
                     jjtree.openNodeScope(jjtn000);
 /*@egen*/Token t1,t2;}{/*@bgen(jjtree) tipo */
-    try {
+try {
 /*@egen*/
+{t2=new Token();}
     t1=<texto>/*@bgen(jjtree)*/
               {
                 jjtree.closeNodeScope(jjtn000, true);
@@ -1429,12 +1430,13 @@ void TIPO_E()     :{/*@bgen(jjtree) tipo */
                jjtc000 = false;
              }
 /*@egen*/{ jjtn000.setName(t1.image);jjtn000.setPos(t1.beginLine, t1.beginColumn); }
-   |t1=<fichero>/*@bgen(jjtree)*/
-                {
-                  jjtree.closeNodeScope(jjtn000, true);
-                  jjtc000 = false;
-                }
-/*@egen*/{ jjtn000.setName(t1.image);jjtn000.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<fichero>{t2 = new Token();
+t2.image="";}(t2=<CADENA>)?/*@bgen(jjtree)*/
+                            {
+                              jjtree.closeNodeScope(jjtn000, true);
+                              jjtc000 = false;
+                            }
+/*@egen*/ { jjtn000.setName(t1.image+t2.image);jjtn000.setPos(t1.beginLine, t1.beginColumn); }
    |t1=<calcular>/*@bgen(jjtree)*/
                  {
                    jjtree.closeNodeScope(jjtn000, true);
@@ -1477,23 +1479,23 @@ void TIPO_E()     :{/*@bgen(jjtree) tipo */
                     jjtc000 = false;
                   }
 /*@egen*/{ jjtn000.setName(t1.image);jjtn000.setPos(t1.beginLine, t1.beginColumn); }
-   |t1=<selecciona_uno> <id>/*@bgen(jjtree)*/
-                            {
-                              jjtree.closeNodeScope(jjtn000, true);
-                              jjtc000 = false;
-                            }
-/*@egen*/{ jjtn000.setName(t1.image);jjtn000.setPos(t1.beginLine, t1.beginColumn); }
-   |t1=<selecciona_multiples> <id>/*@bgen(jjtree)*/
-                                  {
-                                    jjtree.closeNodeScope(jjtn000, true);
-                                    jjtc000 = false;
-                                  }
-/*@egen*/{ jjtn000.setName(t1.image);jjtn000.setPos(t1.beginLine, t1.beginColumn); }/*@bgen(jjtree)*/
-    } finally {
-      if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
+   |t1=<selecciona_uno> t2=<id>/*@bgen(jjtree)*/
+                               {
+                                 jjtree.closeNodeScope(jjtn000, true);
+                                 jjtc000 = false;
+                               }
+/*@egen*/{ jjtn000.setName(t1.image+"%"+t2.image);jjtn000.setPos(t1.beginLine, t1.beginColumn); }
+   |t1=<selecciona_multiples> t2=<id>/*@bgen(jjtree)*/
+                                     {
+                                       jjtree.closeNodeScope(jjtn000, true);
+                                       jjtc000 = false;
+                                     }
+/*@egen*/{ jjtn000.setName(t1.image+"%"+t2.image);jjtn000.setPos(t1.beginLine, t1.beginColumn); }/*@bgen(jjtree)*/
+} finally {
+  if (jjtc000) {
+    jjtree.closeNodeScope(jjtn000, true);
+  }
+}
 /*@egen*/
 	
 }

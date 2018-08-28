@@ -16,4 +16,10 @@ public class basePregunta {
         
     }
     
+    
+    public String generarCodigo(){
+        
+        return "";
+    }
+    
 }
