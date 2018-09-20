@@ -56,7 +56,7 @@ public class ReadExcel {
         File af = new File(filename);
         if (af.exists()) {
             try {
-                strFilePrefix = af.getName().replace(".xlsx", "")+"_"+name;
+                strFilePrefix = af.getName().replace(".xlsx", "").replace(".xls", "")+"_"+name;
                 InputStream inputStream = new FileInputStream(af);
                 Workbook wb = WorkbookFactory.create(inputStream);
                 Sheet sheet = wb.getSheet(name);

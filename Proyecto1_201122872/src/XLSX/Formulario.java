@@ -18,11 +18,27 @@ public class Formulario {
     public ListaPreguntas preguntas;
     public ListaOpciones opciones;
     public ListaConfiguraciones configuraciones;
+public String nombreForm;
 
-    public Formulario(ListaPreguntas preguntas, ListaOpciones opciones, ListaConfiguraciones configuraciones) {
+    public Formulario(ListaPreguntas preguntas, ListaOpciones opciones, ListaConfiguraciones configuraciones, String nombreForm) {
+        String nom = nombreForm.replace("\\","#");
+        String []n= nom.split("#");
         this.preguntas = preguntas;
         this.opciones = opciones;
         this.configuraciones = configuraciones;
+        this.nombreForm= n[n.length-1].replace(".xml", "");
+    }
+
+  
+    public String generarCodigo(){
+        
+        String cla= "clase "+nombreForm+" publico{\n"
+                + "principal(){\n"
+                + "nuevo "+nombreForm+"();"
+                + "\n}\n";
+        cla+= preguntas.escribirPreguntas(preguntas, configuraciones, opciones, nombreForm)
+         + "\n}";
+        return cla;
     }
     
     

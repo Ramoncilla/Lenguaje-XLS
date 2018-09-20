@@ -51,4 +51,42 @@ public class Ciclo extends basePregunta {
         System.out.println("Fin de imprimir Ciclo  ******************************   ");
     }
     
+    
+    
+     public String obtenerLlamadaPregunta(String pregunta){
+        String llamada="";
+        basePregunta temp;
+        for (int i = 0; i < this.preguntas.size(); i++) {
+            temp = this.preguntas.get(i);
+            if(temp instanceof Agrupacion){
+                Agrupacion agrup = (Agrupacion) temp;
+                String val = agrup.obtenerLlamadaPregunta(pregunta);
+                 if(!(val.equalsIgnoreCase(""))){
+                     llamada = agrup.propiedadesInicio.idPregunta.toString()+"()."+val;
+                     break;
+                 }
+            }else if(temp instanceof Ciclo){
+                Ciclo agrup = (Ciclo) temp;
+                String val = agrup.obtenerLlamadaPregunta(pregunta);
+                 if(!(val.equalsIgnoreCase(""))){
+                     llamada = agrup.propiedadesInicio.idPregunta.toString()+"()."+val;
+                     break;
+                 }
+                
+            }else{
+                Question preg = (Question)temp;
+                if(preg.idPregunta.toString().equalsIgnoreCase(pregunta)){
+                    llamada =preg.idPregunta.toString()+"()";
+                    break;
+                }
+            }
+            
+            
+            
+        }
+        
+        
+        return llamada;
+    }
+    
 }

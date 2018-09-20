@@ -23,15 +23,17 @@ public class Proyecto1_201122872 {
         // TODO code application logic here
         //ReadExcel n = new ReadExcel ();
         //System.out.println(n.convertSheet("bin-CoDe", "C:\\Users\\Ramonella\\Desktop\\ejemplo.xlsx")); 
-        
-        ReadExcel reader = new ReadExcel();
+       Principal p = new Principal();
+       p.setVisible(true);
+        /*ReadExcel reader = new ReadExcel();
         AnalizerFileXML parserAnalizer = new AnalizerFileXML();
-        List<String> rutas = reader.generateXML("C:\\Users\\Ramonella\\Desktop\\Libro2.xls");
+       List<String> rutas = reader.generateXML("C:\\Users\\Ramonella\\Desktop\\Libro2.xls");
         parserAnalizer.Analizer(rutas);
-        
-     
-        
-        
+        String hola = "\"hola\"";
+        System.out.println(hola.startsWith("\""));
+        */
+    
+   
     
     }
     

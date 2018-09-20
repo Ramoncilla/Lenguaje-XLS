@@ -29,32 +29,39 @@ public class AnalizerFileXML {
     public static ListaOpciones opciones = new ListaOpciones();
     public static ListaConfiguraciones configuraciones = new ListaConfiguraciones();
     
-   public void Analizer(List<String> paths) throws ParseException{
+   public Formulario Analizer(List<String> paths) throws ParseException{
        String contentFile="";
        for (int i = 0; i < paths.size(); i++) {
            contentFile+=Leer_Archivo(paths.get(i))+"\n";
        }
        contentFile = contentFile.replace("“", "\"");
        contentFile = contentFile.replace("”", "\"");
-       Parser(contentFile);
+       return  Parser(contentFile, paths.get(0));
    } 
     
-    private void Parser(String cadena) throws ParseException{
+    private Formulario Parser(String cadena, String nombreForm) throws ParseException{
         InputStream is = new ByteArrayInputStream(cadena.getBytes());
         grammarXLSX analizar = new grammarXLSX(is);
         Stack<basePregunta> pila = new Stack<>();
         ListaPreguntas preguntas = new ListaPreguntas();
    
-        //try {
+        try {
             SimpleNode n = analizar.Start();
             n.ejecutar("",pila, opciones, configuraciones);
-           System.out.println("--------- Analizador Finalizado --------------");
+            System.out.println("--------- Analizador Finalizado --------------");
             System.out.println(pila.size());
-       /* } catch (Exception e) {
+            preguntas = (ListaPreguntas)pila.pop();
+            preguntas.generarCodigo(preguntas);
+            System.out.println("========================================================");
+            Formulario f = new Formulario(preguntas,opciones,configuraciones, nombreForm);
+           // preguntas.escribirPreguntas(preguntas, configuraciones, opciones);
+            return f;
+        } catch (Exception e) {
            System.out.println("Un error en la sintaxis.");
            System.out.println(e.getMessage());
+           return null;
            
-       }*/
+       }
     }
     
     

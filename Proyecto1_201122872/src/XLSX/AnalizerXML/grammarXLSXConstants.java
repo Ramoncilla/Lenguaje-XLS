@@ -57,293 +57,291 @@ public interface grammarXLSXConstants {
   /** RegularExpression Id. */
   int multiplicacion_ = 51;
   /** RegularExpression Id. */
-  int division_ = 52;
+  int modulo_ = 52;
   /** RegularExpression Id. */
-  int modulo_ = 53;
+  int div_ = 53;
   /** RegularExpression Id. */
-  int div_ = 54;
+  int potencia_ = 54;
   /** RegularExpression Id. */
-  int potencia_ = 55;
+  int or_ = 55;
   /** RegularExpression Id. */
-  int or_ = 56;
+  int and_ = 56;
   /** RegularExpression Id. */
-  int and_ = 57;
+  int not_ = 57;
   /** RegularExpression Id. */
-  int not_ = 58;
+  int igual_ = 58;
   /** RegularExpression Id. */
-  int igual_ = 59;
+  int doblePunto_ = 59;
   /** RegularExpression Id. */
-  int doblePunto_ = 60;
+  int punto_ = 60;
   /** RegularExpression Id. */
-  int punto_ = 61;
+  int arroba_ = 61;
   /** RegularExpression Id. */
-  int arroba_ = 62;
+  int abrePar_ = 62;
   /** RegularExpression Id. */
-  int abrePar_ = 63;
+  int cierraPar_ = 63;
   /** RegularExpression Id. */
-  int cierraPar_ = 64;
+  int NUM_ = 64;
   /** RegularExpression Id. */
-  int NUM_ = 65;
+  int CARACTER_ = 65;
   /** RegularExpression Id. */
-  int CARACTER_ = 66;
+  int tagid_ = 66;
   /** RegularExpression Id. */
-  int tagid_ = 67;
+  int id_ = 67;
   /** RegularExpression Id. */
-  int id_ = 68;
+  int CADENA_ = 68;
   /** RegularExpression Id. */
-  int CADENA_ = 69;
+  int NUMERAL_ = 69;
   /** RegularExpression Id. */
-  int NUMERAL_ = 70;
+  int hexa_ = 70;
   /** RegularExpression Id. */
-  int hexa_ = 71;
+  int LETRA_ = 71;
   /** RegularExpression Id. */
-  int LETRA_ = 72;
+  int DIGITO_ = 72;
   /** RegularExpression Id. */
-  int DIGITO_ = 73;
+  int restringir = 78;
   /** RegularExpression Id. */
-  int restringir = 79;
+  int aplicable = 79;
   /** RegularExpression Id. */
-  int aplicable = 80;
+  int calculo = 80;
   /** RegularExpression Id. */
-  int calculo = 81;
+  int repeticion = 81;
   /** RegularExpression Id. */
-  int repeticion = 82;
+  int imagen = 82;
   /** RegularExpression Id. */
-  int imagen = 83;
+  int audio = 83;
   /** RegularExpression Id. */
-  int audio = 84;
+  int video = 84;
   /** RegularExpression Id. */
-  int video = 85;
+  int verdadero = 85;
   /** RegularExpression Id. */
-  int verdadero = 86;
+  int falso = 86;
   /** RegularExpression Id. */
-  int falso = 87;
+  int reproduccion = 87;
   /** RegularExpression Id. */
-  int reproduccion = 88;
+  int cad_min = 88;
   /** RegularExpression Id. */
-  int cad_min = 89;
+  int cad_max = 89;
   /** RegularExpression Id. */
-  int cad_max = 90;
+  int iniciar = 90;
   /** RegularExpression Id. */
-  int iniciar = 91;
+  int finalizar = 91;
   /** RegularExpression Id. */
-  int finalizar = 92;
+  int opcion = 92;
   /** RegularExpression Id. */
-  int opcion = 93;
+  int v_f = 93;
   /** RegularExpression Id. */
-  int v_f = 94;
+  int si_no = 94;
   /** RegularExpression Id. */
-  int si_no = 95;
+  int cad_fila = 95;
   /** RegularExpression Id. */
-  int cad_fila = 96;
+  int pagina = 96;
   /** RegularExpression Id. */
-  int pagina = 97;
+  int todo = 97;
   /** RegularExpression Id. */
-  int todo = 98;
+  int cuadricula = 98;
   /** RegularExpression Id. */
-  int cuadricula = 99;
+  int texto = 99;
   /** RegularExpression Id. */
-  int texto = 100;
+  int entero = 100;
   /** RegularExpression Id. */
-  int entero = 101;
+  int decimal = 101;
   /** RegularExpression Id. */
-  int decimal = 102;
+  int rango = 102;
   /** RegularExpression Id. */
-  int rango = 103;
+  int condicion = 103;
   /** RegularExpression Id. */
-  int condicion = 104;
+  int hora = 104;
   /** RegularExpression Id. */
-  int hora = 105;
+  int fecha = 105;
   /** RegularExpression Id. */
-  int fecha = 106;
+  int fechahora = 106;
   /** RegularExpression Id. */
-  int fechahora = 107;
+  int selecciona_uno = 107;
   /** RegularExpression Id. */
-  int selecciona_uno = 108;
+  int selecciona_multiples = 108;
   /** RegularExpression Id. */
-  int selecciona_multiples = 109;
+  int nota = 109;
   /** RegularExpression Id. */
-  int nota = 110;
+  int fichero = 110;
   /** RegularExpression Id. */
-  int fichero = 111;
+  int calcular = 111;
   /** RegularExpression Id. */
-  int calcular = 112;
+  int ciclo = 112;
   /** RegularExpression Id. */
-  int ciclo = 113;
+  int agrupacion = 113;
   /** RegularExpression Id. */
-  int agrupacion = 114;
+  int opt = 114;
   /** RegularExpression Id. */
-  int opt = 115;
+  int preg = 115;
   /** RegularExpression Id. */
-  int preg = 116;
+  int confi = 116;
   /** RegularExpression Id. */
-  int confi = 117;
+  int opt2 = 117;
   /** RegularExpression Id. */
-  int opt2 = 118;
+  int preg2 = 118;
   /** RegularExpression Id. */
-  int preg2 = 119;
+  int confi2 = 119;
   /** RegularExpression Id. */
-  int confi2 = 120;
+  int nombre = 120;
   /** RegularExpression Id. */
-  int nombre = 121;
+  int multimedia = 121;
   /** RegularExpression Id. */
-  int multimedia = 122;
+  int nombre2 = 122;
   /** RegularExpression Id. */
-  int nombre2 = 123;
+  int etiqueta2 = 123;
   /** RegularExpression Id. */
-  int etiqueta2 = 124;
+  int multimedia2 = 124;
   /** RegularExpression Id. */
-  int multimedia2 = 125;
+  int idform = 125;
   /** RegularExpression Id. */
-  int idform = 126;
+  int estilo = 126;
   /** RegularExpression Id. */
-  int estilo = 127;
+  int idform2 = 127;
   /** RegularExpression Id. */
-  int idform2 = 128;
+  int estilo2 = 128;
   /** RegularExpression Id. */
-  int estilo2 = 129;
+  int encuesta = 129;
   /** RegularExpression Id. */
-  int encuesta = 130;
+  int opciones = 130;
   /** RegularExpression Id. */
-  int opciones = 131;
+  int configuraciones = 131;
   /** RegularExpression Id. */
-  int configuraciones = 132;
+  int encuesta2 = 132;
   /** RegularExpression Id. */
-  int encuesta2 = 133;
+  int opciones2 = 133;
   /** RegularExpression Id. */
-  int opciones2 = 134;
+  int configuraciones2 = 134;
   /** RegularExpression Id. */
-  int configuraciones2 = 135;
+  int tipoC = 135;
   /** RegularExpression Id. */
-  int tipoC = 136;
+  int idPreguntaC = 136;
   /** RegularExpression Id. */
-  int idPreguntaC = 137;
+  int requeridoC = 137;
   /** RegularExpression Id. */
-  int requeridoC = 138;
+  int requeridoC2 = 138;
   /** RegularExpression Id. */
-  int requeridoC2 = 139;
+  int requeridoMsnC2 = 139;
   /** RegularExpression Id. */
-  int requeridoMsnC2 = 140;
+  int aparienciaC = 140;
   /** RegularExpression Id. */
-  int aparienciaC = 141;
+  int parametroC = 141;
   /** RegularExpression Id. */
-  int parametroC = 142;
+  int tipoC2 = 142;
   /** RegularExpression Id. */
-  int tipoC2 = 143;
+  int idPreguntaC2 = 143;
   /** RegularExpression Id. */
-  int idPreguntaC2 = 144;
+  int sugerirC2 = 144;
   /** RegularExpression Id. */
-  int sugerirC2 = 145;
+  int codigo_preC2 = 145;
   /** RegularExpression Id. */
-  int codigo_preC2 = 146;
+  int codigo_postC2 = 146;
   /** RegularExpression Id. */
-  int codigo_postC2 = 147;
+  int restringirC2 = 147;
   /** RegularExpression Id. */
-  int restringirC2 = 148;
+  int restringirMsnC2 = 148;
   /** RegularExpression Id. */
-  int restringirMsnC2 = 149;
+  int predeterminadoC2 = 149;
   /** RegularExpression Id. */
-  int predeterminadoC2 = 150;
+  int aplicableC2 = 150;
   /** RegularExpression Id. */
-  int aplicableC2 = 151;
+  int lecturaC = 151;
   /** RegularExpression Id. */
-  int lecturaC = 152;
+  int lecturaC2 = 152;
   /** RegularExpression Id. */
-  int lecturaC2 = 153;
+  int calculoC2 = 153;
   /** RegularExpression Id. */
-  int calculoC2 = 154;
+  int repeticionC2 = 154;
   /** RegularExpression Id. */
-  int repeticionC2 = 155;
+  int aparienciaC2 = 155;
   /** RegularExpression Id. */
-  int aparienciaC2 = 156;
+  int parametroC2 = 156;
   /** RegularExpression Id. */
-  int parametroC2 = 157;
+  int menorIgual = 157;
   /** RegularExpression Id. */
-  int menorIgual = 158;
+  int mayorIgual = 158;
   /** RegularExpression Id. */
-  int mayorIgual = 159;
+  int menor = 159;
   /** RegularExpression Id. */
-  int menor = 160;
+  int mayor = 160;
   /** RegularExpression Id. */
-  int mayor = 161;
+  int igualIgual = 161;
   /** RegularExpression Id. */
-  int igualIgual = 162;
+  int distintoA = 162;
   /** RegularExpression Id. */
-  int distintoA = 163;
+  int menosMenos = 163;
   /** RegularExpression Id. */
-  int menosMenos = 164;
+  int masMas = 164;
   /** RegularExpression Id. */
-  int masMas = 165;
+  int suma = 165;
   /** RegularExpression Id. */
-  int suma = 166;
+  int resta = 166;
   /** RegularExpression Id. */
-  int resta = 167;
+  int multiplicacion = 167;
   /** RegularExpression Id. */
-  int multiplicacion = 168;
+  int division = 168;
   /** RegularExpression Id. */
-  int division = 169;
+  int modulo = 169;
   /** RegularExpression Id. */
-  int modulo = 170;
+  int div = 170;
   /** RegularExpression Id. */
-  int div = 171;
+  int potencia = 171;
   /** RegularExpression Id. */
-  int potencia = 172;
+  int or = 172;
   /** RegularExpression Id. */
-  int or = 173;
+  int and = 173;
   /** RegularExpression Id. */
-  int and = 174;
+  int not = 174;
   /** RegularExpression Id. */
-  int not = 175;
+  int igual = 175;
   /** RegularExpression Id. */
-  int igual = 176;
+  int doblePunto = 176;
   /** RegularExpression Id. */
-  int doblePunto = 177;
+  int punto = 177;
   /** RegularExpression Id. */
-  int punto = 178;
+  int arroba = 178;
   /** RegularExpression Id. */
-  int arroba = 179;
+  int abrePar = 179;
   /** RegularExpression Id. */
-  int abrePar = 180;
+  int cierraPar = 180;
   /** RegularExpression Id. */
-  int cierraPar = 181;
+  int dosPuntos = 181;
   /** RegularExpression Id. */
-  int dosPuntos = 182;
+  int coma = 182;
   /** RegularExpression Id. */
-  int coma = 183;
+  int puntoComa = 183;
   /** RegularExpression Id. */
-  int puntoComa = 184;
+  int abreLlave = 184;
   /** RegularExpression Id. */
-  int abreLlave = 185;
+  int cierraLlave = 185;
   /** RegularExpression Id. */
-  int cierraLlave = 186;
+  int abreCorchete = 186;
   /** RegularExpression Id. */
-  int abreCorchete = 187;
+  int cierraCorchete = 187;
   /** RegularExpression Id. */
-  int cierraCorchete = 188;
+  int pregunta1 = 188;
   /** RegularExpression Id. */
-  int pregunta1 = 189;
+  int pregunta2 = 189;
   /** RegularExpression Id. */
-  int pregunta2 = 190;
+  int exclamacion = 190;
   /** RegularExpression Id. */
-  int exclamacion = 191;
+  int id = 191;
   /** RegularExpression Id. */
-  int id = 192;
+  int NUM = 192;
   /** RegularExpression Id. */
-  int NUM = 193;
+  int CARACTER = 193;
   /** RegularExpression Id. */
-  int CARACTER = 194;
+  int tagid = 194;
   /** RegularExpression Id. */
-  int tagid = 195;
+  int CADENA = 195;
   /** RegularExpression Id. */
-  int CADENA = 196;
+  int NUMERAL = 196;
   /** RegularExpression Id. */
-  int NUMERAL = 197;
+  int hexa = 197;
   /** RegularExpression Id. */
-  int hexa = 198;
+  int LETRA = 198;
   /** RegularExpression Id. */
-  int LETRA = 199;
-  /** RegularExpression Id. */
-  int DIGITO = 200;
+  int DIGITO = 199;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -410,7 +408,6 @@ public interface grammarXLSXConstants {
     "\"+\"",
     "\"-\"",
     "\"*\"",
-    "\"/\"",
     "\"mod\"",
     "\"div\"",
     "\"^\"",

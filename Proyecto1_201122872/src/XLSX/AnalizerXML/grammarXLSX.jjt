@@ -87,10 +87,10 @@ MORE :
 
 MORE:
 {
- "<restringir>"{}: operaciones
- | "<aplicable>"{}: operaciones
- | "<calculo>"{}: operaciones
- | "<repeticion>"{}: operaciones
+ "<restringir>": operaciones
+ | "<aplicable>": operaciones
+ | "<calculo>": operaciones
+ | "<repeticion>": operaciones
 }
 
 
@@ -107,16 +107,15 @@ MORE:
 		|<suma_: "+">
 		|<resta_: "-">
 		|<multiplicacion_: "*">
-		|<division_: "/">
-		|<modulo_: "mod">
-		|<div_: "div">
+		|<modulo_: "mod">{int toktam = lengthOfMatch; image.replace(image.length()-toktam,image.length(),"%");}
+		|<div_: "div"> {int toktam2 = lengthOfMatch; image.replace(image.length()-toktam2,image.length(),"/");}
 		|<potencia_: "^">
 		|< or_: "||">
 		| < and_: "&&">
 		| < not_: "!">
 		|<igual_: "=">
 		|<doblePunto_: "..">
-		|<punto_:".">
+		|<punto_:".">{int toktam3 = lengthOfMatch; image.replace(image.length()-toktam3,image.length(),"param_1");}
 		|<arroba_ :"@">
 		|<abrePar_: "(">
 		|<cierraPar_: ")">
@@ -140,10 +139,10 @@ MORE:
 
 <operaciones> TOKEN:
 {
-	 <restringir: "</restringir>"> {} : DEFAULT
-	 | <aplicable: "</aplicable>"> {} : DEFAULT
-	 | <calculo: "</calculo>"> {} : DEFAULT
-	 | <repeticion: "</repeticion>"> {} : DEFAULT
+	 <restringir: "</restringir>"> {matchedToken.image=image.toString();} : DEFAULT
+	 | <aplicable: "</aplicable>"> {matchedToken.image=image.toString();}  : DEFAULT
+	 | <calculo: "</calculo>"> {matchedToken.image=image.toString();}  : DEFAULT
+	 | <repeticion: "</repeticion>"> {matchedToken.image=image.toString();}  : DEFAULT
 }	
 
 TOKEN:{
@@ -646,7 +645,8 @@ void nombre_listaO()#nombre_lista:{Token t;}{
 }
 
 void nombreO()#nombre:{Token t;}{
-<nombre>t=<id><nombre2>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+//<nombre>t=<id><nombre2>{ jjtThis.setName(t.image);jjtThis.setPos(t.beginLine, t.beginColumn); }
+<nombre>(identificador())?<nombre2>
 }
 
 

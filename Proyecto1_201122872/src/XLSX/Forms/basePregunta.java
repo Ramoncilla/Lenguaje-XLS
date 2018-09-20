@@ -5,6 +5,8 @@
  */
 package XLSX.Forms;
 
+import XLSX.Forms.QuestionProperties.ListaPreguntas;
+
 /**
  *
  * @author Ramonella
@@ -17,9 +19,14 @@ public class basePregunta {
     }
     
     
-    public String generarCodigo(){
+    public String generarCodigo(ListaPreguntas p){
         
         return "";
     }
     
+    
+    public String generarLlamadaSimple(){
+        
+        return "";
+    }
 }
