@@ -72,7 +72,9 @@ public class Constantes {
     public static final String FICHERO = "FICHERO";
     public static final String CALCULAR="CALCULAR";
     public static final String HORA = "HORA";
+    public static final String CADENA = "CADENA";
     
+    public static final String BOOLEANO= "BOOLEANO";
    
     
 }
