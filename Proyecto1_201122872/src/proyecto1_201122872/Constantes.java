@@ -19,7 +19,14 @@ public class Constantes {
     //encuesta
     
    
+    public static int ContadorCiclos=0;
     
+    
+    
+    public static int obtenerCont(){
+        ContadorCiclos++;
+        return ContadorCiclos;
+    }
     
     public static final String TIPO= "TIPO";
     public static final String SUGERIR = "SUGERIR";

@@ -51,7 +51,7 @@ public class ListaPreguntas extends basePregunta {
         System.out.println("------------------------- FIN DE LISTA DE PREGUNTAS -----------------------------");
     }
     
-    
+  /*  
     public String obtenerLlamadaPregunta(String pregunta){
         String llamada = "";
         basePregunta temp;
@@ -84,7 +84,7 @@ public class ListaPreguntas extends basePregunta {
         
         return llamada;
     }
-    
+    */
     
     public String escribirPreguntas(ListaPreguntas preg, ListaConfiguraciones conf, ListaOpciones opciones, String nombreForm){
         String contGrupo=" Formulario "+ nombreForm+"(){\n";

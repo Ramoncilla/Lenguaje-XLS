@@ -114,7 +114,14 @@ public class Question extends basePregunta {
 
                 case Constantes.CODIGO_POST: {
                     if (!(elemento.toString().equalsIgnoreCase(""))) {
-                        this.codigo_post = elemento;
+                        if(this.idPregunta!= null){
+                            String g = this.idPregunta.toString()+".respuestas";
+                             String val = elemento.toString().replace("@", g);
+                              this.codigo_post = val;
+                        }else{
+                            this.codigo_post= elemento.toString();
+                        }
+                       
                     }
 
                     break;
@@ -122,7 +129,13 @@ public class Question extends basePregunta {
 
                 case Constantes.CODIGO_PRE: {
                     if (!(elemento.toString().equalsIgnoreCase(""))) {
-                        this.codigo_pre = elemento;
+                           if(this.idPregunta!= null){
+                            String g = this.idPregunta.toString()+".respuestas";
+                             String val = elemento.toString().replace("@", g);
+                              this.codigo_pre = val;
+                        }else{
+                            this.codigo_pre= elemento.toString();
+                        }
                     }
 
                     break;
@@ -158,12 +171,12 @@ public class Question extends basePregunta {
                             break;
                         }
                         default: {
-                            if(valor.equalsIgnoreCase("")){
+                            if (valor.equalsIgnoreCase("")) {
                                 this.lectura = null;
-                            }else{
-                                 this.lectura = valor;
+                            } else {
+                                this.lectura = valor;
                             }
-                           
+
                         }
                     }
                     break;
@@ -216,12 +229,12 @@ public class Question extends basePregunta {
                             break;
                         }
                         default: {
-                            if(valor.equalsIgnoreCase("")){
+                            if (valor.equalsIgnoreCase("")) {
                                 this.requerido = null;
-                            }else{
-                                 this.requerido = valor;
+                            } else {
+                                this.requerido = valor;
                             }
-                           
+
                             break;
                         }
                     }
@@ -356,15 +369,52 @@ public class Question extends basePregunta {
     /*==================================== GENERACION DE CODIGO =================================*/
     @Override
     public String generarCodigo(ListaPreguntas listaP) {
+        if (tipo.toString().equalsIgnoreCase(Constantes.INICIAR_AGRUPACION)) {
+            String g = "Pregunta " + idPregunta + "(){\n"
+                    + "Cadena etiqueta = \"Inicio de Agrupacion " + idPregunta + "\";\n"
+                    + "Cadena ruta; \n"
+                    + "publico Respuesta(){\n"
+                    + "}\n"
+                    + "\n"
+                    + "}\n";
+            return g;
+        } else if (tipo.toString().equalsIgnoreCase(Constantes.FINALIZAR_AGRUPACION)) {
+            String g = "Pregunta " + idPregunta + "(){\n"
+                    + "Cadena etiqueta = \"Finalizar  Agrupacion " + idPregunta + "\";\n"
+                    + "Cadena ruta; \n"
+                    + "publico Respuesta(){\n"
+                    + "}\n"
+                    + "\n"
+                    + "}\n";
+            return g;
+        }else if(tipo.toString().equalsIgnoreCase(Constantes.INICIAR_CICLO)){
+             String g = "Pregunta " + idPregunta + "(){\n"
+                    + "Cadena etiqueta = \"Inicio Ciclo " + idPregunta + "\";\n"
+                    + "Cadena ruta; \n"
+                    + "publico Respuesta(){\n"
+                    + "}\n"
+                    + "\n"
+                    + "}\n";
+            return g;
+        }else if( tipo.toString().equalsIgnoreCase(Constantes.FINALIZAR_CICLO)){
+             String g = "Pregunta " + idPregunta + "(){\n"
+                    + "Cadena etiqueta = \"Finalizar ciclo " + idPregunta + "\";\n"
+                    + "Cadena ruta; \n"
+                    + "publico Respuesta(){\n"
+                    + "}\n"
+                    + "\n"
+                    + "}\n";
+            return g;
+        }
         this.preguntas = listaP;
         String codigo = "";
         if (this.idPregunta != null) {
-            codigo+="$$ ------------------ Inicio Pregunta "+ this.idPregunta+" ------------------\n";
+            codigo += "$$ ------------------ Inicio Pregunta " + this.idPregunta + " ------------------\n";
             codigo += "Pregunta " + this.idPregunta + "() {\n";
             codigo += this.generarAtributos();
             codigo += this.generarFunciones();
             codigo += "\n}\n\n";
-            codigo+="$$ ------------------ Fin Pregunta "+ this.idPregunta+" ---------------------\n";
+            codigo += "$$ ------------------ Fin Pregunta " + this.idPregunta + " ---------------------\n";
         }
         return codigo;
     }
@@ -433,84 +483,79 @@ public class Question extends basePregunta {
     private String getPredeterminado() {
         String valPredeterminado = this.getValorPredeterminado();
         String tipoR = "";
-        
-        if(this.tipo!= null){
-            String tipo1= tipo.toString();
-            
-            if(tipo1.equalsIgnoreCase(Constantes.CALCULAR)){
-                
+
+        if (this.tipo != null) {
+            String tipo1 = tipo.toString();
+
+            if (tipo1.equalsIgnoreCase(Constantes.CALCULAR)) {
+
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.CADENA)){
-                tipoR= Constantes.CADENA;
+
+            if (tipo1.equalsIgnoreCase(Constantes.CADENA)) {
+                tipoR = Constantes.CADENA;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.ENTERO)){
-                tipoR= Constantes.ENTERO;
+
+            if (tipo1.equalsIgnoreCase(Constantes.ENTERO)) {
+                tipoR = Constantes.ENTERO;
             }
-            
-            
-            if(tipo1.equalsIgnoreCase(Constantes.DECIMAL)){
-                tipoR= Constantes.DECIMAL;
+
+            if (tipo1.equalsIgnoreCase(Constantes.DECIMAL)) {
+                tipoR = Constantes.DECIMAL;
             }
-            
-            
-            if(tipo1.equalsIgnoreCase(Constantes.RANGO)){
-                tipoR= Constantes.ENTERO;
+
+            if (tipo1.equalsIgnoreCase(Constantes.RANGO)) {
+                tipoR = Constantes.ENTERO;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.CONDICION)){
-                tipoR= Constantes.BOOLEANO;
+
+            if (tipo1.equalsIgnoreCase(Constantes.CONDICION)) {
+                tipoR = Constantes.BOOLEANO;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.FECHA)){
-                tipoR= Constantes.FECHA;
+
+            if (tipo1.equalsIgnoreCase(Constantes.FECHA)) {
+                tipoR = Constantes.FECHA;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.HORA)){
-                tipoR= Constantes.HORA;
+
+            if (tipo1.equalsIgnoreCase(Constantes.HORA)) {
+                tipoR = Constantes.HORA;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.FECHAHORA)){
-                tipoR= Constantes.FECHAHORA;
+
+            if (tipo1.equalsIgnoreCase(Constantes.FECHAHORA)) {
+                tipoR = Constantes.FECHAHORA;
             }
-            
-            
-            if(tipo1.equalsIgnoreCase(Constantes.SELECCION_UNO)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.SELECCION_UNO)) {
+
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.SELECCION_MULTIPLES)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.SELECCION_MULTIPLES)) {
+
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.NOTA)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.NOTA)) {
+
             }
-            
-            
-            if(tipo1.equalsIgnoreCase(Constantes.FICHERO)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.FICHERO)) {
+
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.INICIAR_AGRUPACION)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.INICIAR_AGRUPACION)) {
+
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.FINALIZAR_AGRUPACION)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.FINALIZAR_AGRUPACION)) {
+
             }
-            
-            
-            if(tipo1.equalsIgnoreCase(Constantes.INICIAR_CICLO)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.INICIAR_CICLO)) {
+
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.FINALIZAR_CICLO)){
-                
-            } 
+
+            if (tipo1.equalsIgnoreCase(Constantes.FINALIZAR_CICLO)) {
+
+            }
         }
-        
+
         if (!(tipoR.equalsIgnoreCase(""))) {
             if (!(valPredeterminado.equalsIgnoreCase(""))) {
                 return tipoR + " respuestas = " + valPredeterminado + ";\n";
@@ -529,7 +574,7 @@ public class Question extends basePregunta {
             } else if (this.tipo.toString().equalsIgnoreCase(Constantes.HORA)
                     || this.tipo.toString().equalsIgnoreCase(Constantes.FECHA)
                     || this.tipo.toString().equalsIgnoreCase(Constantes.FECHAHORA)) {
-                String c = this.buscarLlamadaPreguntas( this.predeterminado.toString());
+                String c = this.buscarLlamadaPreguntas(this.predeterminado.toString());
                 return c;
             } else {
                 String c = this.buscarLlamadaPreguntas(this.predeterminado.toString());
@@ -541,80 +586,75 @@ public class Question extends basePregunta {
 
     private String getAparienciaL() {
         if (this.apariencia != null) {
-            String tipo1= apariencia.toString();
-            String tipoR="";
-            if(tipo1.equalsIgnoreCase(Constantes.CALCULAR)){
-                
+            String tipo1 = apariencia.toString();
+            String tipoR = "";
+            if (tipo1.equalsIgnoreCase(Constantes.CALCULAR)) {
+
             }
-            if(tipo1.equalsIgnoreCase(Constantes.CADENA)){
-                tipoR= Constantes.CADENA;
+            if (tipo1.equalsIgnoreCase(Constantes.CADENA)) {
+                tipoR = Constantes.CADENA;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.ENTERO)){
-                tipoR= Constantes.ENTERO;
+
+            if (tipo1.equalsIgnoreCase(Constantes.ENTERO)) {
+                tipoR = Constantes.ENTERO;
             }
-            
-            
-            if(tipo1.equalsIgnoreCase(Constantes.DECIMAL)){
-                tipoR= Constantes.DECIMAL;
+
+            if (tipo1.equalsIgnoreCase(Constantes.DECIMAL)) {
+                tipoR = Constantes.DECIMAL;
             }
-            
-            
-            if(tipo1.equalsIgnoreCase(Constantes.RANGO)){
-                tipoR= Constantes.RANGO;
+
+            if (tipo1.equalsIgnoreCase(Constantes.RANGO)) {
+                tipoR = Constantes.RANGO;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.CONDICION)){
-                tipoR= Constantes.CONDICION;
+
+            if (tipo1.equalsIgnoreCase(Constantes.CONDICION)) {
+                tipoR = Constantes.CONDICION;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.FECHA)){
-                tipoR= Constantes.FECHA;
+
+            if (tipo1.equalsIgnoreCase(Constantes.FECHA)) {
+                tipoR = Constantes.FECHA;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.HORA)){
-                tipoR= Constantes.HORA;
+
+            if (tipo1.equalsIgnoreCase(Constantes.HORA)) {
+                tipoR = Constantes.HORA;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.FECHAHORA)){
-                tipoR= Constantes.FECHAHORA;
+
+            if (tipo1.equalsIgnoreCase(Constantes.FECHAHORA)) {
+                tipoR = Constantes.FECHAHORA;
             }
-            
-            
-            if(tipo1.equalsIgnoreCase(Constantes.SELECCION_UNO)){
-                tipoR= Constantes.CADENA;
+
+            if (tipo1.equalsIgnoreCase(Constantes.SELECCION_UNO)) {
+                tipoR = Constantes.CADENA;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.SELECCION_MULTIPLES)){
-                tipoR= Constantes.CADENA;
+
+            if (tipo1.equalsIgnoreCase(Constantes.SELECCION_MULTIPLES)) {
+                tipoR = Constantes.CADENA;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.NOTA)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.NOTA)) {
+
             }
-            
-            
-            if(tipo1.equalsIgnoreCase(Constantes.FICHERO)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.FICHERO)) {
+
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.INICIAR_AGRUPACION)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.INICIAR_AGRUPACION)) {
+
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.FINALIZAR_AGRUPACION)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.FINALIZAR_AGRUPACION)) {
+
             }
-            
-            
-            if(tipo1.equalsIgnoreCase(Constantes.INICIAR_CICLO)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.INICIAR_CICLO)) {
+
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.FINALIZAR_CICLO)){
-                
-            } 
-           return tipoR;
+
+            if (tipo1.equalsIgnoreCase(Constantes.FINALIZAR_CICLO)) {
+
+            }
+            return tipoR;
         }
         return "";
     }
@@ -733,6 +773,10 @@ public class Question extends basePregunta {
         return cadena;
     }
 
+    
+   
+    
+    
     private String getAplicable() {
         String cod = this.LlamadaPregunta();
         if (this.aplicable != null) {
@@ -804,7 +848,7 @@ public class Question extends basePregunta {
         String temp = "";
         for (int i = 0; i < preg.size(); i++) {
             temp = preg.get(i);
-            llamadaPregunta = temp+".respuestas";//this.preguntas.obtenerLlamadaPregunta(temp);
+            llamadaPregunta = temp + ".respuestas";//this.preguntas.obtenerLlamadaPregunta(temp);
             if (!(llamadaPregunta.equalsIgnoreCase(""))) {
                 String v = "#[" + temp.toLowerCase() + "]";
                 if (b) {
@@ -820,10 +864,10 @@ public class Question extends basePregunta {
 
     private String obtenerParametrosApariencia(String tipoMostrar) {
 
-        if(tipoMostrar.equalsIgnoreCase(Constantes.CADENA)){
-            
-        }else if(tipoMostrar.equalsIgnoreCase(Constantes.RANGO)){
-            
+        if (tipoMostrar.equalsIgnoreCase(Constantes.CADENA)) {
+
+        } else if (tipoMostrar.equalsIgnoreCase(Constantes.RANGO)) {
+
         }
         switch (tipoMostrar.toUpperCase()) {
             case Constantes.CADENA: {
@@ -865,9 +909,9 @@ public class Question extends basePregunta {
                 if (this.param.opcion.equalsIgnoreCase("")) {
                     return valor;
                 } else {
-                    if(this.param.opcion.equalsIgnoreCase("Si_No")){
+                    if (this.param.opcion.equalsIgnoreCase("Si_No")) {
                         return "\"Si\", \"No\"";
-                    }else{
+                    } else {
                         return valor;
                     }
                 }
@@ -907,68 +951,72 @@ public class Question extends basePregunta {
 
     private String LlamadaPregunta() {
         String llamada = "preg ";
-        
-        String tipoP= this.tipo.toString();
-        
-        if(tipoP.equalsIgnoreCase(Constantes.NOTA)){
+
+        String tipoP = this.tipo.toString();
+
+        if (tipoP.equalsIgnoreCase(Constantes.NOTA)) {
             llamada += this.idPregunta.toString() + "().Nota();";
-        }else if(tipoP.equalsIgnoreCase(Constantes.INICIAR_AGRUPACION)){
-            llamada += this.idPregunta.toString() + "().IniciarAgrupacion();";
-        }else if(tipoP.equalsIgnoreCase(Constantes.INICIAR_CICLO)){
-            llamada += this.idPregunta.toString() + "().IniciarCiclo();";
-        }else if(tipoP.equalsIgnoreCase(Constantes.FINALIZAR_AGRUPACION)){
-            llamada += this.idPregunta.toString() + "().FinalizarAgrupacion();";
-        }else if(tipoP.equalsIgnoreCase(Constantes.FINALIZAR_CICLO)){
-            llamada += this.idPregunta.toString() + "().FinalizarCiclo();";
-        }else{
-            String param="";
-            if(tipoP.equalsIgnoreCase(Constantes.FICHERO)){
-                llamada+=idPregunta.toString()+"().Respuesta().";
-            }else{
-                llamada+=idPregunta.toString()+"().Respuesta(resp."+obtenerParametroTipo()+").";
+            return llamada;
+        } else if (tipoP.equalsIgnoreCase(Constantes.INICIAR_AGRUPACION)) {
+            llamada += this.idPregunta.toString() + "().Nota();";
+            return llamada;
+        } else if (tipoP.equalsIgnoreCase(Constantes.INICIAR_CICLO)) {
+            llamada += this.idPregunta.toString() + "().Nota();";
+            return llamada;
+        } else if (tipoP.equalsIgnoreCase(Constantes.FINALIZAR_AGRUPACION)) {
+            llamada += this.idPregunta.toString() + "().Nota();";
+            return llamada;
+        } else if (tipoP.equalsIgnoreCase(Constantes.FINALIZAR_CICLO)) {
+            llamada += this.idPregunta.toString() + "().Nota();";
+            return llamada;
+        } else {
+            String param = "";
+            if (tipoP.equalsIgnoreCase(Constantes.FICHERO)) {
+                llamada += idPregunta.toString() + "().Respuesta().";
+            } else {
+                llamada += idPregunta.toString() + "().Respuesta(resp." + obtenerParametroTipo() + ").";
             }
-            String apar= getAparienciaL();
-            String tipoPr=obtenerParametroTipo().replace("es", "");
-            String maneraVer="";
-            if(apar.equalsIgnoreCase("")){
-                maneraVer= tipoPr;
-            }else{
-                maneraVer=apar;
+            String apar = getAparienciaL();
+            String tipoPr = obtenerParametroTipo().replace("es", "");
+            String maneraVer = "";
+            if (apar.equalsIgnoreCase("")) {
+                maneraVer = tipoPr;
+            } else {
+                maneraVer = apar;
             }
-            if(maneraVer.equalsIgnoreCase(Constantes.SELECCION_UNO)){
-                 if (this.nombreLista != null) {
+            if (maneraVer.equalsIgnoreCase(Constantes.SELECCION_UNO)) {
+                if (this.nombreLista != null) {
                     llamada += "Seleccionar_1(" + this.nombreLista.toString() + ");";
                     return llamada;
                 } else {
                     llamada += "Seleccionar_1();";
                     return llamada;
                 }
-                
-            }else if(maneraVer.equalsIgnoreCase(Constantes.SELECCION_MULTIPLES)){
-                 if (this.nombreLista != null) {
+
+            } else if (maneraVer.equalsIgnoreCase(Constantes.SELECCION_MULTIPLES)) {
+                if (this.nombreLista != null) {
                     llamada += "Seleccionar(" + this.nombreLista.toString() + ");";
                     return llamada;
                 } else {
                     llamada += "Seleccionar();";
                     return llamada;
                 }
-            }else if(maneraVer.equalsIgnoreCase(Constantes.FICHERO)){
-                 if (this.nombreLista != null) {
+            } else if (maneraVer.equalsIgnoreCase(Constantes.FICHERO)) {
+                if (this.nombreLista != null) {
                     llamada += "Fichero(" + this.nombreLista.toString() + ");";
                     return llamada;
                 } else {
                     llamada += "Fichero();";
                     return llamada;
-                }   
+                }
+            } else {
+                llamada += maneraVer;
             }
-            else{
-                llamada+=maneraVer; 
-            }
-            llamada += "(" + this.obtenerParametrosApariencia(maneraVer) + ");";   
+            llamada += "(" + this.obtenerParametrosApariencia(maneraVer) + ");";
             return llamada;
         }
-        return "";
-        
+
+
         /*
         llamada = this.idPregunta.toString() + "().Respuesta(resp." + this.obtenerParametroTipo() + ").";
         String tipoTexto = this.tipo.toString().toUpperCase();
@@ -1060,107 +1108,95 @@ public class Question extends basePregunta {
             }
         }
         llamada += "(" + this.obtenerParametrosApariencia(tipoTexto) + ");";*/
-        
     }
-    
-/*
+
+    /*
     private String obtenerParametroTipo() {
         return "es" + this.tipo.toString();
     }*/
+    private String obtenerParametroTipo() {
+        String tipoR = "es";
+        if (this.tipo != null) {
+            String tipo1 = tipo.toString();
 
-    
-    
-    private String obtenerParametroTipo(){
-        String tipoR= "es";
-         if(this.tipo!= null){
-            String tipo1= tipo.toString();
-            
-            if(tipo1.equalsIgnoreCase(Constantes.CALCULAR)){
-                
+            if (tipo1.equalsIgnoreCase(Constantes.CALCULAR)) {
+
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.CADENA)){
-                tipoR+= Constantes.CADENA;
+
+            if (tipo1.equalsIgnoreCase(Constantes.CADENA)) {
+                tipoR += Constantes.CADENA;
                 return tipoR;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.ENTERO)){
-                tipoR+= Constantes.ENTERO;
-                  return tipoR;
+
+            if (tipo1.equalsIgnoreCase(Constantes.ENTERO)) {
+                tipoR += Constantes.ENTERO;
+                return tipoR;
             }
-            
-            
-            if(tipo1.equalsIgnoreCase(Constantes.DECIMAL)){
-                tipoR+= Constantes.DECIMAL;
-                  return tipoR;
+
+            if (tipo1.equalsIgnoreCase(Constantes.DECIMAL)) {
+                tipoR += Constantes.DECIMAL;
+                return tipoR;
             }
-            
-            
-            if(tipo1.equalsIgnoreCase(Constantes.RANGO)){
-                tipoR+= Constantes.ENTERO;
-                  return tipoR;
+
+            if (tipo1.equalsIgnoreCase(Constantes.RANGO)) {
+                tipoR += Constantes.ENTERO;
+                return tipoR;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.CONDICION)){
-                tipoR+= Constantes.BOOLEANO;
-                  return tipoR;
+
+            if (tipo1.equalsIgnoreCase(Constantes.CONDICION)) {
+                tipoR += Constantes.BOOLEANO;
+                return tipoR;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.FECHA)){
-                tipoR+= Constantes.FECHA;
-                  return tipoR;
+
+            if (tipo1.equalsIgnoreCase(Constantes.FECHA)) {
+                tipoR += Constantes.FECHA;
+                return tipoR;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.HORA)){
-                tipoR+= Constantes.HORA;
-                  return tipoR;
+
+            if (tipo1.equalsIgnoreCase(Constantes.HORA)) {
+                tipoR += Constantes.HORA;
+                return tipoR;
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.FECHAHORA)){
-                tipoR+= Constantes.FECHAHORA;
-                  return tipoR;
+
+            if (tipo1.equalsIgnoreCase(Constantes.FECHAHORA)) {
+                tipoR += Constantes.FECHAHORA;
+                return tipoR;
             }
-            
-            
-            if(tipo1.equalsIgnoreCase(Constantes.SELECCION_UNO)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.SELECCION_UNO)) {
+
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.SELECCION_MULTIPLES)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.SELECCION_MULTIPLES)) {
+
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.NOTA)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.NOTA)) {
+
             }
-            
-            
-            if(tipo1.equalsIgnoreCase(Constantes.FICHERO)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.FICHERO)) {
+
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.INICIAR_AGRUPACION)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.INICIAR_AGRUPACION)) {
+
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.FINALIZAR_AGRUPACION)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.FINALIZAR_AGRUPACION)) {
+
             }
-            
-            
-            if(tipo1.equalsIgnoreCase(Constantes.INICIAR_CICLO)){
-                
+
+            if (tipo1.equalsIgnoreCase(Constantes.INICIAR_CICLO)) {
+
             }
-            
-            if(tipo1.equalsIgnoreCase(Constantes.FINALIZAR_CICLO)){
-                
-            } 
+
+            if (tipo1.equalsIgnoreCase(Constantes.FINALIZAR_CICLO)) {
+
+            }
         }
-        
-        
+
         return "";
     }
-    
-    
-    
+
 }
