@@ -96,13 +96,15 @@ public class Agrupacion extends basePregunta {
     
     @Override
     public String generarLlamadaSimple(){
-       return this.propiedadesInicio.idPregunta.toString()+"();\n";
+       return ""+this.propiedadesInicio.idPregunta.toString()+"();\n";
     }
     
     @Override
     public String generarCodigo(ListaPreguntas p){
         
-        String contGrupo="Grupo "+ this.propiedadesInicio.idPregunta.toString()+"{\n"
+        String contGrupo=""
+                + "$$--------------------------- Inicio Grupo "+ propiedadesInicio.idPregunta.toString()+"------------------\n";
+        contGrupo ="Grupo "+ this.propiedadesInicio.idPregunta.toString()+"() {\n"
                 + "Respueta resp;\n";
         String preguntas="";
         basePregunta temp;
@@ -111,8 +113,8 @@ public class Agrupacion extends basePregunta {
              preguntas+=temp.generarCodigo(p);
              contGrupo+=temp.generarLlamadaSimple()+"\n";
         }
-        contGrupo+="\n}\n";
-        
+        contGrupo+="\n}\n"
+                + "$$--------------------------- Fin Grupo "+ propiedadesInicio.idPregunta.toString()+"------------------\n";
         return preguntas +"\n\n"+contGrupo;
     }
 }

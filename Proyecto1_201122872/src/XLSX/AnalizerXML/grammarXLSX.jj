@@ -3,7 +3,6 @@
 	
 IGNORE_CASE = true;
 	STATIC=false;
-	             
 	                        
 }
 
@@ -95,6 +94,8 @@ MORE:
  | "<aplicable>": operaciones
  | "<calculo>": operaciones
  | "<repeticion>": operaciones
+ |"<requerido>":operaciones
+ |"<lectura>":operaciones
 }
 
 
@@ -147,6 +148,9 @@ MORE:
 	 | <aplicable: "</aplicable>"> {matchedToken.image=image.toString();}  : DEFAULT
 	 | <calculo: "</calculo>"> {matchedToken.image=image.toString();}  : DEFAULT
 	 | <repeticion: "</repeticion>"> {matchedToken.image=image.toString();}  : DEFAULT
+	 | <requerido: "</requerido>"> {matchedToken.image=image.toString();}  : DEFAULT
+	 | <lectura: "</lectura>"> {matchedToken.image=image.toString();}  : DEFAULT
+	 
 }	
 
 TOKEN:{
@@ -229,8 +233,8 @@ TOKEN:
 {
    <tipoC :"<tipo>">
    |<idPreguntaC :"<idPregunta>">
-	|< requeridoC:"<requerido>">
-   |< requeridoC2:"</requerido>">
+	/*|< requeridoC:"<requerido>">
+   |< requeridoC2:"</requerido>">*/
    |< requeridoMsnC2:"</requeridoMsn>">
    |< aparienciaC:"<apariencia>">
    |< parametroC:"<parametro>">
@@ -243,8 +247,8 @@ TOKEN:
    |< restringirMsnC2:"</restringirMsn>">
    |< predeterminadoC2:"</predeterminado>">
    |< aplicableC2:"</aplicable>">
-   |<lecturaC:"<lectura>">
-   |< lecturaC2:"</lectura>">
+   /*|<lecturaC:"<lectura>">
+   |< lecturaC2:"</lectura>">*/
    |< calculoC2:"</calculo>">
    |< repeticionC2:"</repeticion>">
    |< aparienciaC2:"</apariencia>">
@@ -1255,7 +1259,7 @@ void requerido():{/*@bgen(jjtree) requerido */
 /*@egen*/}{/*@bgen(jjtree) requerido */
  try {
 /*@egen*/
- <requeridoC> (TIPO_BOOL())? <requeridoC2>/*@bgen(jjtree)*/
+ reque()/*@bgen(jjtree)*/
  } catch (Throwable jjte000) {
    if (jjtc000) {
      jjtree.clearNodeScope(jjtn000);
@@ -1279,35 +1283,78 @@ void requerido():{/*@bgen(jjtree) requerido */
 }
 
 
+void reque()      :{/*@bgen(jjtree) reque */
+                    SimpleNode jjtn000 = new SimpleNode(JJTREQUE);
+                    boolean jjtc000 = true;
+                    jjtree.openNodeScope(jjtn000);
+/*@egen*/Token t1;}{/*@bgen(jjtree) reque */
+        try {
+/*@egen*/
+	t1=<requerido>/*@bgen(jjtree)*/
+                      {
+                        jjtree.closeNodeScope(jjtn000, true);
+                        jjtc000 = false;
+                      }
+/*@egen*/{ jjtn000.setName(t1.image.replace("<requerido>","").replace("</requerido>",""));jjtn000.setPos(t1.beginLine, t1.beginColumn);}/*@bgen(jjtree)*/
+        } finally {
+          if (jjtc000) {
+            jjtree.closeNodeScope(jjtn000, true);
+          }
+        }
+/*@egen*/
+}
+
 void lectura():{/*@bgen(jjtree) lectura */
   SimpleNode jjtn000 = new SimpleNode(JJTLECTURA);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/}{/*@bgen(jjtree) lectura */
-try {
+ try {
 /*@egen*/
-<lecturaC> (TIPO_BOOL())? <lecturaC2>/*@bgen(jjtree)*/
-} catch (Throwable jjte000) {
-  if (jjtc000) {
-    jjtree.clearNodeScope(jjtn000);
-    jjtc000 = false;
-  } else {
-    jjtree.popNode();
-  }
-  if (jjte000 instanceof RuntimeException) {
-    throw (RuntimeException)jjte000;
-  }
-  if (jjte000 instanceof ParseException) {
-    throw (ParseException)jjte000;
-  }
-  throw (Error)jjte000;
-} finally {
-  if (jjtc000) {
-    jjtree.closeNodeScope(jjtn000, true);
-  }
-}
+ lecto()/*@bgen(jjtree)*/
+ } catch (Throwable jjte000) {
+   if (jjtc000) {
+     jjtree.clearNodeScope(jjtn000);
+     jjtc000 = false;
+   } else {
+     jjtree.popNode();
+   }
+   if (jjte000 instanceof RuntimeException) {
+     throw (RuntimeException)jjte000;
+   }
+   if (jjte000 instanceof ParseException) {
+     throw (ParseException)jjte000;
+   }
+   throw (Error)jjte000;
+ } finally {
+   if (jjtc000) {
+     jjtree.closeNodeScope(jjtn000, true);
+   }
+ }
 /*@egen*/
 }
+
+void lecto()      :{/*@bgen(jjtree) lecto */
+                    SimpleNode jjtn000 = new SimpleNode(JJTLECTO);
+                    boolean jjtc000 = true;
+                    jjtree.openNodeScope(jjtn000);
+/*@egen*/Token t1;}{/*@bgen(jjtree) lecto */
+        try {
+/*@egen*/
+	t1=<lectura>/*@bgen(jjtree)*/
+                    {
+                      jjtree.closeNodeScope(jjtn000, true);
+                      jjtc000 = false;
+                    }
+/*@egen*/{ jjtn000.setName(t1.image.replace("<lectura>","").replace("</lectura>",""));jjtn000.setPos(t1.beginLine, t1.beginColumn);}/*@bgen(jjtree)*/
+        } finally {
+          if (jjtc000) {
+            jjtree.closeNodeScope(jjtn000, true);
+          }
+        }
+/*@egen*/
+}
+
 
 
 void apariencia():{/*@bgen(jjtree) apariencia */
@@ -1404,7 +1451,7 @@ try {
                 jjtree.closeNodeScope(jjtn000, true);
                 jjtc000 = false;
               }
-/*@egen*/{ jjtn000.setName(t1.image);jjtn000.setPos(t1.beginLine, t1.beginColumn); }
+/*@egen*/{ jjtn000.setName("cadena");jjtn000.setPos(t1.beginLine, t1.beginColumn); }
    |t1=<entero>/*@bgen(jjtree)*/
                {
                  jjtree.closeNodeScope(jjtn000, true);

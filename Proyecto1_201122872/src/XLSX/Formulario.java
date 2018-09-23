@@ -32,10 +32,12 @@ public String nombreForm;
   
     public String generarCodigo(){
         
-        String cla= "clase "+nombreForm+" publico{\n"
-                + "principal(){\n"
-                + "nuevo "+nombreForm+"();"
-                + "\n}\n";
+        String cla= "clase "+nombreForm+" publico{\n\n"
+                + "$$--------------- Codigo Principal ---------------------\n"
+                + " Principal(){\n"
+                + " nuevo "+nombreForm+"();"
+                + "\n}\n"
+                + "$$------------------- Fin Principal----------------------\n";
         cla+= preguntas.escribirPreguntas(preguntas, configuraciones, opciones, nombreForm)
          + "\n}";
         return cla;

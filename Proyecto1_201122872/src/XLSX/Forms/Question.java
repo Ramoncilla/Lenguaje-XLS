@@ -89,7 +89,6 @@ public class Question extends basePregunta {
 
         if (noElementos > 0) {
             Object elemento = nodoPropiedad.jjtGetChild(0).jjtGetChild(0).toString(); //this.obtenerElemento((SimpleNode)nodoPropiedad.jjtGetChild(1));
-            // System.out.println(elemento);
             switch (nombrePropiedad) {
                 case Constantes.APARIENCIA: {
                     if (!(elemento.toString().equalsIgnoreCase(""))) {
@@ -158,21 +157,13 @@ public class Question extends basePregunta {
                             this.lectura = "verdadero";
                             break;
                         }
-
-                        case "verdadero": {
-                            this.lectura = "verdadero";
-                            break;
-                        }
-
-                        case "falso": {
-                            this.lectura = "falso";
-                            break;
-                        }
-
                         default: {
-                            this.lectura = "falso";
-                            System.out.println("vinooo  en lectura   " + elemento);
-                            break;
+                            if(valor.equalsIgnoreCase("")){
+                                this.lectura = null;
+                            }else{
+                                 this.lectura = valor;
+                            }
+                           
                         }
                     }
                     break;
@@ -224,20 +215,13 @@ public class Question extends basePregunta {
                             this.requerido = "verdadero";
                             break;
                         }
-
-                        case "verdadero": {
-                            this.requerido = "verdadero";
-                            break;
-                        }
-
-                        case "falso": {
-                            this.requerido = "falso";
-                            break;
-                        }
-
                         default: {
-                            this.requerido = "falso";
-                            System.out.println("vinooo  en requerido   " + elemento);
+                            if(valor.equalsIgnoreCase("")){
+                                this.requerido = null;
+                            }else{
+                                 this.requerido = valor;
+                            }
+                           
                             break;
                         }
                     }
@@ -375,10 +359,12 @@ public class Question extends basePregunta {
         this.preguntas = listaP;
         String codigo = "";
         if (this.idPregunta != null) {
+            codigo+="$$ ------------------ Inicio Pregunta "+ this.idPregunta+" ------------------\n";
             codigo += "Pregunta " + this.idPregunta + "() {\n";
             codigo += this.generarAtributos();
             codigo += this.generarFunciones();
             codigo += "\n}\n\n";
+            codigo+="$$ ------------------ Fin Pregunta "+ this.idPregunta+" ---------------------\n";
         }
         return codigo;
     }
@@ -448,8 +434,9 @@ public class Question extends basePregunta {
         String valPredeterminado = this.getValorPredeterminado();
         String tipoR = "";
         switch (this.tipo.toString()) {
-            case Constantes.FICHERO: {
-                tipoR = "Cadena";
+
+            case Constantes.CALCULAR:{
+               
                 break;
             }
             case Constantes.TEXTO: {
@@ -531,7 +518,7 @@ public class Question extends basePregunta {
 
     private String getApariencia() {
         if (this.apariencia != null) {
-            return "cadena apariencia = " + this.apariencia.toString() + ";\n";
+            return "cadena apariencia = \"" + this.apariencia.toString() + "\";\n";
         }
         return "";
     }
@@ -721,7 +708,7 @@ public class Question extends basePregunta {
         String temp = "";
         for (int i = 0; i < preg.size(); i++) {
             temp = preg.get(i);
-            llamadaPregunta = this.preguntas.obtenerLlamadaPregunta(temp);
+            llamadaPregunta = temp+".resp";//this.preguntas.obtenerLlamadaPregunta(temp);
             if (!(llamadaPregunta.equalsIgnoreCase(""))) {
                 String v = "#[" + temp.toLowerCase() + "]";
                 if (b) {
@@ -823,8 +810,8 @@ public class Question extends basePregunta {
     }
 
     private String LlamadaPregunta() {
-        String llamada = "";
-        llamada = this.idPregunta.toString() + "().Respuesta(res.es" + this.obtenerParametroTipo() + ").";
+        String llamada = "preg ";
+        llamada = this.idPregunta.toString() + "().Respuesta(resp." + this.obtenerParametroTipo() + ").";
         String tipoTexto = this.tipo.toString().toUpperCase();
 
         switch (tipoTexto) {
@@ -921,4 +908,24 @@ public class Question extends basePregunta {
         return "es" + this.tipo.toString();
     }
 
+    
+    
+    private String tipoParametros(){
+        
+        if(this.tipo!= null){
+            String tipoT= tipo.toString();
+            
+            //if(tipoT.equalsIgnoreCase())
+            
+            
+            
+            
+        }
+        
+        
+        return "";
+    }
+    
+    
+    
 }

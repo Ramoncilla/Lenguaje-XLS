@@ -87,12 +87,12 @@ public class ListaPreguntas extends basePregunta {
     
     
     public String escribirPreguntas(ListaPreguntas preg, ListaConfiguraciones conf, ListaOpciones opciones, String nombreForm){
-          String contGrupo="Formulario "+ nombreForm+"(){\n";
+        String contGrupo=" Formulario "+ nombreForm+"(){\n";
         String preguntas="";
         basePregunta temp;
         for (int i = 0; i < preg.lPreguntas.size(); i++) {
             temp=preg.lPreguntas.get(i);
-             preguntas+=temp.generarCodigo(preg);
+             preguntas+=temp.generarCodigo(preg)+"\n";
              contGrupo+=temp.generarLlamadaSimple()+"\n";
         }
         contGrupo+="\n}\n";

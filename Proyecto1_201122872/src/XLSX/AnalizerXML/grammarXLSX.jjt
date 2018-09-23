@@ -2,7 +2,6 @@ options{
 	
 IGNORE_CASE = true;
 	STATIC=false;
-	//MULTI=true;
 	NODE_DEFAULT_VOID=false;
 }
 
@@ -91,6 +90,8 @@ MORE:
  | "<aplicable>": operaciones
  | "<calculo>": operaciones
  | "<repeticion>": operaciones
+ |"<requerido>":operaciones
+ |"<lectura>":operaciones
 }
 
 
@@ -143,6 +144,9 @@ MORE:
 	 | <aplicable: "</aplicable>"> {matchedToken.image=image.toString();}  : DEFAULT
 	 | <calculo: "</calculo>"> {matchedToken.image=image.toString();}  : DEFAULT
 	 | <repeticion: "</repeticion>"> {matchedToken.image=image.toString();}  : DEFAULT
+	 | <requerido: "</requerido>"> {matchedToken.image=image.toString();}  : DEFAULT
+	 | <lectura: "</lectura>"> {matchedToken.image=image.toString();}  : DEFAULT
+	 
 }	
 
 TOKEN:{
@@ -225,8 +229,8 @@ TOKEN:
 {
    <tipoC :"<tipo>">
    |<idPreguntaC :"<idPregunta>">
-	|< requeridoC:"<requerido>">
-   |< requeridoC2:"</requerido>">
+	/*|< requeridoC:"<requerido>">
+   |< requeridoC2:"</requerido>">*/
    |< requeridoMsnC2:"</requeridoMsn>">
    |< aparienciaC:"<apariencia>">
    |< parametroC:"<parametro>">
@@ -239,8 +243,8 @@ TOKEN:
    |< restringirMsnC2:"</restringirMsn>">
    |< predeterminadoC2:"</predeterminado>">
    |< aplicableC2:"</aplicable>">
-   |<lecturaC:"<lectura>">
-   |< lecturaC2:"</lectura>">
+   /*|<lecturaC:"<lectura>">
+   |< lecturaC2:"</lectura>">*/
    |< calculoC2:"</calculo>">
    |< repeticionC2:"</repeticion>">
    |< aparienciaC2:"</apariencia>">
@@ -476,13 +480,22 @@ void repet()#repet:{Token t1;}{
 
 
 void requerido():{}{
- <requeridoC> (TIPO_BOOL())? <requeridoC2>
+ reque()
 }
 
+
+void reque()#reque:{Token t1;}{
+	t1=<requerido>{ jjtThis.setName(t1.image.replace("<requerido>","").replace("</requerido>",""));jjtThis.setPos(t1.beginLine, t1.beginColumn);}
+}
 
 void lectura():{}{
-<lecturaC> (TIPO_BOOL())? <lecturaC2>
+ lecto()
 }
+
+void lecto()#lecto:{Token t1;}{
+	t1=<lectura>{ jjtThis.setName(t1.image.replace("<lectura>","").replace("</lectura>",""));jjtThis.setPos(t1.beginLine, t1.beginColumn);}
+}
+
 
 
 void apariencia():{}{
@@ -499,7 +512,7 @@ void identificador()#identificador:{Token t1;}{
 
 void TIPO_E()#tipo:{Token t1,t2;}{
 {t2=new Token();}
-    t1=<texto>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
+    t1=<texto>{ jjtThis.setName("cadena");jjtThis.setPos(t1.beginLine, t1.beginColumn); }
    |t1=<entero>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
    |t1=<decimal>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }
    |t1=<rango>{ jjtThis.setName(t1.image);jjtThis.setPos(t1.beginLine, t1.beginColumn); }

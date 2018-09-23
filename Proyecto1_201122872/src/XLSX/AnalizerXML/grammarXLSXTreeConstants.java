@@ -36,55 +36,57 @@ public interface grammarXLSXTreeConstants
   public int JJTREPETICION = 30;
   public int JJTREPET = 31;
   public int JJTREQUERIDO = 32;
-  public int JJTLECTURA = 33;
-  public int JJTAPARIENCIA = 34;
-  public int JJTID = 35;
-  public int JJTIDENTIFICADOR = 36;
-  public int JJTPARAMETROS = 37;
-  public int JJTPARAMETRO = 38;
-  public int JJTCAD_MIN = 39;
-  public int JJTCAD_MAX = 40;
-  public int JJTCAD_FILA = 41;
-  public int JJTINICIAR = 42;
-  public int JJTFINALIZAR = 43;
-  public int JJTOPCION2 = 44;
-  public int JJTCADMIN = 45;
-  public int JJTCADMAX = 46;
-  public int JJTCADFILA = 47;
-  public int JJTCADINICIAR = 48;
-  public int JJTCADFINALIZAR = 49;
-  public int JJTCADOPCION = 50;
-  public int JJTOPCIONES = 51;
-  public int JJTLISTA_OPCIONES = 52;
-  public int JJTOPCION = 53;
-  public int JJTLISTA_OPT = 54;
-  public int JJTVOID = 55;
-  public int JJTETIQUETA = 56;
-  public int JJTNOMBRE_LISTA = 57;
-  public int JJTNOMBRE = 58;
-  public int JJTMULTIMEDIA = 59;
-  public int JJTOPCIONMULTIMEDIA = 60;
-  public int JJTREP = 61;
-  public int JJTREP2 = 62;
-  public int JJTACTIVARMULTIMEDIA = 63;
-  public int JJTTIPOBOOL = 64;
-  public int JJTCADENA = 65;
-  public int JJTTIPOCADENA = 66;
-  public int JJTCONFIGURACION = 67;
-  public int JJTLISTA_CONFIGURACIONES = 68;
-  public int JJTELEMENTO_CONFIGURACION = 69;
-  public int JJTL_OP_CONFIGURACION = 70;
-  public int JJTIDFORM = 71;
-  public int JJTESTILO = 72;
-  public int JJTTITULO_FORMULARIO = 73;
-  public int JJTIMPORTAR = 74;
-  public int JJTCODIGO_PRINCIPAL = 75;
-  public int JJTCODPRINCIPAL = 76;
-  public int JJTCODIGO_GLOBAL = 77;
-  public int JJTCODGLOBAL = 78;
-  public int JJTIMPORTARCONF = 79;
-  public int JJTTITULOFORM = 80;
-  public int JJTTIPOESTILO = 81;
+  public int JJTREQUE = 33;
+  public int JJTLECTURA = 34;
+  public int JJTLECTO = 35;
+  public int JJTAPARIENCIA = 36;
+  public int JJTID = 37;
+  public int JJTIDENTIFICADOR = 38;
+  public int JJTPARAMETROS = 39;
+  public int JJTPARAMETRO = 40;
+  public int JJTCAD_MIN = 41;
+  public int JJTCAD_MAX = 42;
+  public int JJTCAD_FILA = 43;
+  public int JJTINICIAR = 44;
+  public int JJTFINALIZAR = 45;
+  public int JJTOPCION2 = 46;
+  public int JJTCADMIN = 47;
+  public int JJTCADMAX = 48;
+  public int JJTCADFILA = 49;
+  public int JJTCADINICIAR = 50;
+  public int JJTCADFINALIZAR = 51;
+  public int JJTCADOPCION = 52;
+  public int JJTOPCIONES = 53;
+  public int JJTLISTA_OPCIONES = 54;
+  public int JJTOPCION = 55;
+  public int JJTLISTA_OPT = 56;
+  public int JJTVOID = 57;
+  public int JJTETIQUETA = 58;
+  public int JJTNOMBRE_LISTA = 59;
+  public int JJTNOMBRE = 60;
+  public int JJTMULTIMEDIA = 61;
+  public int JJTOPCIONMULTIMEDIA = 62;
+  public int JJTREP = 63;
+  public int JJTREP2 = 64;
+  public int JJTACTIVARMULTIMEDIA = 65;
+  public int JJTTIPOBOOL = 66;
+  public int JJTCADENA = 67;
+  public int JJTTIPOCADENA = 68;
+  public int JJTCONFIGURACION = 69;
+  public int JJTLISTA_CONFIGURACIONES = 70;
+  public int JJTELEMENTO_CONFIGURACION = 71;
+  public int JJTL_OP_CONFIGURACION = 72;
+  public int JJTIDFORM = 73;
+  public int JJTESTILO = 74;
+  public int JJTTITULO_FORMULARIO = 75;
+  public int JJTIMPORTAR = 76;
+  public int JJTCODIGO_PRINCIPAL = 77;
+  public int JJTCODPRINCIPAL = 78;
+  public int JJTCODIGO_GLOBAL = 79;
+  public int JJTCODGLOBAL = 80;
+  public int JJTIMPORTARCONF = 81;
+  public int JJTTITULOFORM = 82;
+  public int JJTTIPOESTILO = 83;
 
 
   public String[] jjtNodeName = {
@@ -121,7 +123,9 @@ public interface grammarXLSXTreeConstants
     "repeticion",
     "repet",
     "requerido",
+    "reque",
     "lectura",
+    "lecto",
     "apariencia",
     "ID",
     "identificador",
@@ -172,4 +176,4 @@ public interface grammarXLSXTreeConstants
     "tipoEstilo",
   };
 }
-/* JavaCC - OriginalChecksum=4a7a0ad46f11c56eb83b7f4f2f911eb2 (do not edit this line) */
+/* JavaCC - OriginalChecksum=dad162b857ed936d49df3c4a2cc9714c (do not edit this line) */
