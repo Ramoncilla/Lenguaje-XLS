@@ -31,11 +31,16 @@ public String nombreForm;
 
   
     public String generarCodigo(){
-        
-        String cla= "clase "+nombreForm+" publico{\n\n"
+        String cla="";
+        cla+=configuraciones.obtenerImportaciones()+"\n"
+                + configuraciones.obtenerCodigoGlobal()+"\n";
+       cla+= "clase "+nombreForm+" publico{\n\n"
                 + "$$--------------- Codigo Principal ---------------------\n"
                 + " Principal(){\n"
-                + " nuevo "+nombreForm+"();"
+               +configuraciones.obtenerCodigoPrincipal()+"\n"
+                //+opciones.obtenerDeclacionesLista()
+                + " nuevo "+nombreForm+"();" 
+                +"GUARDARFORM();"
                 + "\n}\n"
                 + "$$------------------- Fin Principal----------------------\n";
         cla+= preguntas.escribirPreguntas(preguntas, configuraciones, opciones, nombreForm)

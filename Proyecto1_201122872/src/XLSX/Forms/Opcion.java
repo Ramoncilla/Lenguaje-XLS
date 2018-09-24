@@ -29,10 +29,36 @@ public class Opcion {
     
     
     public boolean esOpcionVacia(){
-        return (this.nombre_lista == null &&
-        this.nombre == null &&
-        this.etiqueta == null &&
-        this.multi== null);
+        return (this.nombre_lista == null ||
+        this.nombre == null ||
+        this.etiqueta == null);
+    }
+    
+    
+    public String obtenerIngreso(){
+        String cod="";
+        if(nombre_lista!= null){
+            if(nombre!= null && etiqueta!= null & multi.ruta!= null){
+                nombre= nombre.replace("\"", "");
+                nombre= "\""+nombre+"\"";
+                etiqueta= etiqueta.replace("\"", "");
+                etiqueta= "\""+etiqueta+"\"";
+                multi.ruta= multi.ruta.replace("\"", "");
+                multi.ruta= "\""+multi.ruta+"\"";
+                cod= nombre_lista+".insertar("+nombre+","+etiqueta+","+multi.ruta+");";
+                return cod;
+            }else if(nombre!= null && etiqueta!= null){
+                nombre= nombre.replace("\"", "");
+                nombre= "\""+nombre+"\"";
+                etiqueta= etiqueta.replace("\"", "");
+                etiqueta= "\""+etiqueta+"\"";
+                
+                cod= nombre_lista+".insertar("+nombre+","+etiqueta+",\"\");";
+                return cod;
+            }
+
+        }
+        return cod;
     }
     
     
@@ -63,6 +89,7 @@ public class Opcion {
                 }
                 
                 case Constantes.NOMBRE: {
+                     //elemento = nodo.jjtGetChild(0).jjtGetChild(0).toString();
                     if(!(elemento.toString().equalsIgnoreCase(""))){
                        this.nombre = elemento.toString();
                     }
