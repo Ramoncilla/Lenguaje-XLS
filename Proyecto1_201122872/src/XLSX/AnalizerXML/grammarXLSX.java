@@ -209,17 +209,21 @@ if (jjtc000) {
     try {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case encuesta:{
-        t = jj_consume_token(encuesta);
-jjtree.closeNodeScope(jjtn000, true);
-                   jjtc000 = false;
-jjtn000.setName(t.image);
+        try {
+          t = jj_consume_token(encuesta);
+jjtn000.setName(t.image); jjtn000.setPos(t.beginLine, t.beginColumn);
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error en etiqueta que abre encuesta");
+        }
         break;
         }
       case encuesta2:{
-        t = jj_consume_token(encuesta2);
-jjtree.closeNodeScope(jjtn000, true);
-                   jjtc000 = false;
-jjtn000.setName(t.image);
+        try {
+          t = jj_consume_token(encuesta2);
+jjtn000.setName(t.image);  jjtn000.setPos(t.beginLine, t.beginColumn);
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error en etiqueta que cierra encuesta");
+        }
         break;
         }
       default:
@@ -229,8 +233,8 @@ jjtn000.setName(t.image);
       }
     } finally {
 if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
+            jjtree.closeNodeScope(jjtn000, true);
+          }
     }
   }
 
@@ -251,26 +255,30 @@ if (jjtc000) {
           jj_la1[3] = jj_gen;
           break label_2;
         }
-        PREGUNTA();
+        try {
+          PREGUNTA();
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error en produccion pregunta");
+        }
       }
     } catch (Throwable jjte000) {
 if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      {if (true) throw (RuntimeException)jjte000;}
-    }
-    if (jjte000 instanceof ParseException) {
-      {if (true) throw (ParseException)jjte000;}
-    }
-    {if (true) throw (Error)jjte000;}
+            jjtree.clearNodeScope(jjtn000);
+            jjtc000 = false;
+          } else {
+            jjtree.popNode();
+          }
+          if (jjte000 instanceof RuntimeException) {
+            {if (true) throw (RuntimeException)jjte000;}
+          }
+          if (jjte000 instanceof ParseException) {
+            {if (true) throw (ParseException)jjte000;}
+          }
+          {if (true) throw (Error)jjte000;}
     } finally {
 if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
+            jjtree.closeNodeScope(jjtn000, true);
+          }
     }
   }
 
@@ -366,75 +374,165 @@ if (jjtc000) {
     try {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case tipoC:{
-        tipo();
+        try {
+          tipo();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Tipo");
+        }
         break;
         }
       case idPreguntaC:{
-        idPregunta();
+        try {
+          idPregunta();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Id Pregunta");
+        }
         break;
         }
       case etiqueta:{
-        etiqueta();
+        try {
+          etiqueta();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Etiqueta");
+        }
         break;
         }
       case sugerir:{
-        Sugerir();
+        try {
+          Sugerir();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Sugerir");
+        }
         break;
         }
       case codigo_pre:{
-        codigo_pre();
+        try {
+          codigo_pre();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Codigo Pre");
+        }
         break;
         }
       case codigo_post:{
-        codigo_post();
+        try {
+          codigo_post();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Codigo Post");
+        }
         break;
         }
       case restringirMsn:{
-        restringirMsn();
+        try {
+          restringirMsn();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de RestringirMsn");
+        }
         break;
         }
       case requeridoMsn:{
-        requeridoMsn();
+        try {
+          requeridoMsn();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de requeridoMsn");
+        }
         break;
         }
       case predeterminado:{
-        predeterminado();
+        try {
+          predeterminado();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Predeterminado");
+        }
         break;
         }
       case restringir:{
-        restringir();
+        try {
+          restringir();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Restringir");
+        }
         break;
         }
       case aplicable:{
-        aplicable();
+        try {
+          aplicable();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Aplicable");
+        }
         break;
         }
       case calculo:{
-        calculo();
+        try {
+          calculo();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Calculo");
+        }
         break;
         }
       case repeticion:{
-        repeticion();
+        try {
+          repeticion();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Repeticion");
+        }
         break;
         }
       case requerido:{
-        requerido();
+        try {
+          requerido();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Requerido");
+        }
         break;
         }
       case lectura:{
-        lectura();
+        try {
+          lectura();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Lectura");
+        }
         break;
         }
       case multimedia:{
-        multimedia();
+        try {
+          multimedia();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Multimedia");
+        }
         break;
         }
       case aparienciaC:{
-        apariencia();
+        try {
+          apariencia();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("No se ha podido completar la produccion de Apariencia");
+        }
         break;
         }
       case parametroC:{
-        PARAMETROS();
+        try {
+          PARAMETROS();
+
+        } catch (ParseException e) {
+erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de parametros");
+        }
         break;
         }
       default:

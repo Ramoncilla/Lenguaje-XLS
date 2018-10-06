@@ -41,7 +41,6 @@ public String nombreForm;
                +configuraciones.obtenerCodigoPrincipal()+"\n"
                 +opciones.obtenerDeclacionesLista()
                 + " nuevo "+nombreForm+"();" 
-                +"GUARDARFORM();"
                 + "\n}\n"
                 + "$$------------------- Fin Principal----------------------\n";
         cla+= preguntas.escribirPreguntas(preguntas, configuraciones, opciones, nombreForm)

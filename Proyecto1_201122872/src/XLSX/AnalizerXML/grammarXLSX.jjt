@@ -364,13 +364,32 @@ void ENCABEZADO_ENCUESTA():{}{
 
 void ENCABEZADO_E()#Encabezado_Val:{Token t;}
 {
-    t= <encuesta>{ jjtThis.setName(t.image); }
-   |t=<encuesta2>{ jjtThis.setName(t.image); }
+	try{
+    t= <encuesta>{ jjtThis.setName(t.image); jjtThis.setPos(t.beginLine, t.beginColumn); }
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error en etiqueta que abre encuesta");
+ }
+ | try{
+    t=<encuesta2>{ jjtThis.setName(t.image);  jjtThis.setPos(t.beginLine, t.beginColumn);}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error en etiqueta que cierra encuesta");
+ }
+	
+	
+	/*
+    t= <encuesta>{ jjtThis.setName(t.image); jjtThis.setPos(t.beginLine, t.beginColumn); }
+   |t=<encuesta2>{ jjtThis.setName(t.image);  jjtThis.setPos(t.beginLine, t.beginColumn);}*/
 
 }
 
 void LISTA_PREGUNTAS():{}{
-  (PREGUNTA())*
+	(try{
+    PREGUNTA()
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error en produccion pregunta");
+ })*
+	
+ //(PREGUNTA())*
 }
 
 void PREGUNTA():{}{
@@ -384,7 +403,103 @@ void L_OPT_PREGUNTA():{}{
 
 void OPT_PREGUNTA():{}{
  // ENCABEZADO_VAL() LISTA_UNIDADES() ENCABEZADO_VAL()
- tipo()
+ 
+ try{
+ tipo(){ }
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Tipo");
+ }
+ |try{
+idPregunta(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Id Pregunta");
+ }
+ 
+ |try{
+ etiqueta(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Etiqueta");
+ }
+ |try{
+ Sugerir(){}
+ }catch (ParseException e){
+  erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Sugerir");
+ }
+ |try{
+codigo_pre(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Codigo Pre");
+ }
+ |try{
+ codigo_post(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Codigo Post");
+ }
+ |try{
+ restringirMsn(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de RestringirMsn");
+ }
+ |try{
+ requeridoMsn(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de requeridoMsn");
+ }
+ |try{
+ predeterminado(){}
+ }catch (ParseException e){
+  erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Predeterminado");
+ }
+ |try{
+ restringir(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Restringir");
+ }
+ |try{
+ aplicable(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Aplicable");
+ }
+ |try{
+ calculo(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Calculo");
+ }
+ |try{
+ repeticion(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Repeticion");
+ }
+ |try{
+ requerido(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Requerido");
+ }
+ |try{
+ lectura(){}
+ }catch (ParseException e){
+  erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Lectura");
+ }
+ 
+ |try{
+ multimedia(){}
+ }catch (ParseException e){
+  erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Multimedia");
+ }
+ 
+ |try{
+ apariencia(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("No se ha podido completar la produccion de Apariencia");
+ }
+ 
+ |try{
+ PARAMETROS(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de parametros");
+ }
+ 
+ /*tipo()
  |idPregunta()
  |etiqueta()
  |Sugerir()
@@ -401,7 +516,7 @@ void OPT_PREGUNTA():{}{
  |lectura()
  |multimedia()
  |apariencia()
- |PARAMETROS()
+ |PARAMETROS()*/
 }
 
 

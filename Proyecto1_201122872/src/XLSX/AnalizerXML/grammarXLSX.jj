@@ -397,16 +397,6 @@ void Archivo()        :{/*@bgen(jjtree) Archivo */
 
  }
  
- 
-	/*
-	try{
-		ENCUESTA()
-	}
-	 }catch (ParseException e){
-	   erroresEjecucion.errorSintactico("No se ha podido completar la produccion de Encuestas");
-	 }
-	*/
- 
    |try{
  OPCIONES()
   {
@@ -417,12 +407,6 @@ void Archivo()        :{/*@bgen(jjtree) Archivo */
    erroresEjecucion.errorSintactico("No se ha podido completar la produccion de Opciones");
  }
    
-   /*try{
-		OPCIONES()
-	}
-	 }catch (ParseException e){
-	   erroresEjecucion.errorSintactico("No se ha podido completar la produccion de Opciones");
-	 }*/
   | try{
  CONFIGURACION()
   {
@@ -453,13 +437,6 @@ void Archivo()        :{/*@bgen(jjtree) Archivo */
         }
 /*@egen*/
   
-  
-  /*try{
-		CONFIGURACION()
-	}
-	 }catch (ParseException e){
-	   erroresEjecucion.errorSintactico("No se ha podido completar la produccion de Configuraciones");
-	 }*/
 }
 
 /*------------------------------------------ ENCUESTA -----------------------------*/
@@ -530,26 +507,29 @@ void ENCABEZADO_E()               :{/*@bgen(jjtree) Encabezado_Val */
                                     jjtree.openNodeScope(jjtn000);
 /*@egen*/Token t;}
 {/*@bgen(jjtree) Encabezado_Val */
-    try {
+        try {
 /*@egen*/
-    t= <encuesta>/*@bgen(jjtree)*/
-                 {
-                   jjtree.closeNodeScope(jjtn000, true);
-                   jjtc000 = false;
-                 }
-/*@egen*/{ jjtn000.setName(t.image); }
-   |t=<encuesta2>/*@bgen(jjtree)*/
-                 {
-                   jjtree.closeNodeScope(jjtn000, true);
-                   jjtc000 = false;
-                 }
-/*@egen*/{ jjtn000.setName(t.image); }/*@bgen(jjtree)*/
-    } finally {
-      if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
+	try{
+    t= <encuesta>{ jjtn000.setName(t.image); jjtn000.setPos(t.beginLine, t.beginColumn); }
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error en etiqueta que abre encuesta");
+ }
+ | try{
+    t=<encuesta2>{ jjtn000.setName(t.image);  jjtn000.setPos(t.beginLine, t.beginColumn);}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error en etiqueta que cierra encuesta");
+ }/*@bgen(jjtree)*/
+        } finally {
+          if (jjtc000) {
+            jjtree.closeNodeScope(jjtn000, true);
+          }
+        }
 /*@egen*/
+	
+	
+	/*
+    t= <encuesta>{ jjtThis.setName(t.image); jjtThis.setPos(t.beginLine, t.beginColumn); }
+   |t=<encuesta2>{ jjtThis.setName(t.image);  jjtThis.setPos(t.beginLine, t.beginColumn);}*/
 
 }
 
@@ -558,29 +538,35 @@ void LISTA_PREGUNTAS():{/*@bgen(jjtree) LISTA_PREGUNTAS */
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/}{/*@bgen(jjtree) LISTA_PREGUNTAS */
-  try {
+        try {
 /*@egen*/
-  (PREGUNTA())*/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
-    }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
+	(try{
+    PREGUNTA()
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error en produccion pregunta");
+ })*/*@bgen(jjtree)*/
+        } catch (Throwable jjte000) {
+          if (jjtc000) {
+            jjtree.clearNodeScope(jjtn000);
+            jjtc000 = false;
+          } else {
+            jjtree.popNode();
+          }
+          if (jjte000 instanceof RuntimeException) {
+            throw (RuntimeException)jjte000;
+          }
+          if (jjte000 instanceof ParseException) {
+            throw (ParseException)jjte000;
+          }
+          throw (Error)jjte000;
+        } finally {
+          if (jjtc000) {
+            jjtree.closeNodeScope(jjtn000, true);
+          }
+        }
 /*@egen*/
+	
+ //(PREGUNTA())*
 }
 
 void PREGUNTA():{/*@bgen(jjtree) PREGUNTA */
@@ -652,24 +638,101 @@ void OPT_PREGUNTA():{/*@bgen(jjtree) OPT_PREGUNTA */
  try {
 /*@egen*/
  // ENCABEZADO_VAL() LISTA_UNIDADES() ENCABEZADO_VAL()
- tipo()
- |idPregunta()
- |etiqueta()
- |Sugerir()
- |codigo_pre()
- |codigo_post()
- |restringirMsn()
- |requeridoMsn()
- |predeterminado()
- |restringir()
- |aplicable()
- |calculo()
- |repeticion()
- |requerido()
- |lectura()
- |multimedia()
- |apariencia()
- |PARAMETROS()/*@bgen(jjtree)*/
+ 
+ try{
+ tipo(){ }
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Tipo");
+ }
+ |try{
+idPregunta(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Id Pregunta");
+ }
+ 
+ |try{
+ etiqueta(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Etiqueta");
+ }
+ |try{
+ Sugerir(){}
+ }catch (ParseException e){
+  erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Sugerir");
+ }
+ |try{
+codigo_pre(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Codigo Pre");
+ }
+ |try{
+ codigo_post(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Codigo Post");
+ }
+ |try{
+ restringirMsn(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de RestringirMsn");
+ }
+ |try{
+ requeridoMsn(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de requeridoMsn");
+ }
+ |try{
+ predeterminado(){}
+ }catch (ParseException e){
+  erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Predeterminado");
+ }
+ |try{
+ restringir(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Restringir");
+ }
+ |try{
+ aplicable(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Aplicable");
+ }
+ |try{
+ calculo(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Calculo");
+ }
+ |try{
+ repeticion(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Repeticion");
+ }
+ |try{
+ requerido(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Requerido");
+ }
+ |try{
+ lectura(){}
+ }catch (ParseException e){
+  erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Lectura");
+ }
+ 
+ |try{
+ multimedia(){}
+ }catch (ParseException e){
+  erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de Multimedia");
+ }
+ 
+ |try{
+ apariencia(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("No se ha podido completar la produccion de Apariencia");
+ }
+ 
+ |try{
+ PARAMETROS(){}
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("Error, no se pudo completar la columna de parametros");
+ }/*@bgen(jjtree)*/
  } catch (Throwable jjte000) {
    if (jjtc000) {
      jjtree.clearNodeScope(jjtn000);
@@ -690,6 +753,25 @@ void OPT_PREGUNTA():{/*@bgen(jjtree) OPT_PREGUNTA */
    }
  }
 /*@egen*/
+ 
+ /*tipo()
+ |idPregunta()
+ |etiqueta()
+ |Sugerir()
+ |codigo_pre()
+ |codigo_post()
+ |restringirMsn()
+ |requeridoMsn()
+ |predeterminado()
+ |restringir()
+ |aplicable()
+ |calculo()
+ |repeticion()
+ |requerido()
+ |lectura()
+ |multimedia()
+ |apariencia()
+ |PARAMETROS()*/
 }
 
 

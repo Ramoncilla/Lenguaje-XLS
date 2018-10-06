@@ -915,7 +915,8 @@ tipoR = Constantes.CADENA;
 
             case Constantes.CONDICION: {
                 String valor = "\"verdadero\", \"falso\"";
-                if (this.param.opcion.equalsIgnoreCase("")) {
+                if(this.param!= null){
+                    if (this.param.opcion.equalsIgnoreCase("")) {
                     return valor;
                 } else {
                     if (this.param.opcion.equalsIgnoreCase("Si_No")) {
@@ -924,6 +925,10 @@ tipoR = Constantes.CADENA;
                         return valor;
                     }
                 }
+                }else{
+                    return valor;
+                }
+                
             }
 
             case Constantes.SELECCION_UNO: {
@@ -995,6 +1000,9 @@ tipoR = Constantes.CADENA;
             }
             String apar = getAparienciaL();
             String tipoPr = obtenerParametroTipo().replace("es", "");
+            if(tipoPr.equalsIgnoreCase(Constantes.BOOLEANO)){
+                tipoPr= Constantes.CONDICION;
+            }
             String maneraVer = "";
             if (apar.equalsIgnoreCase("")) {
                 maneraVer = tipoPr;
