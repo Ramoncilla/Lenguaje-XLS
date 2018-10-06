@@ -38,7 +38,7 @@ public class Opcion {
     public String obtenerIngreso(){
         String cod="";
         if(nombre_lista!= null){
-            if(nombre!= null && etiqueta!= null & multi.ruta!= null){
+            if(nombre!= null && etiqueta!= null && multi!= null){
                 nombre= nombre.replace("\"", "");
                 nombre= "\""+nombre+"\"";
                 etiqueta= etiqueta.replace("\"", "");
@@ -89,10 +89,15 @@ public class Opcion {
                 }
                 
                 case Constantes.NOMBRE: {
-                     //elemento = nodo.jjtGetChild(0).jjtGetChild(0).toString();
+                    if(nodo.jjtGetChild(0).jjtGetNumChildren()> 0){
+                         elemento = nodo.jjtGetChild(0).jjtGetChild(0).toString();
                     if(!(elemento.toString().equalsIgnoreCase(""))){
                        this.nombre = elemento.toString();
+                    } 
+                    }else{
+                        System.out.println("nooo");
                     }
+                   
                     break;
                 }
                 

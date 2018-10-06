@@ -1,0 +1,287 @@
+options{
+	
+IGNORE_CASE = false;
+
+STATIC=false;
+}
+
+PARSER_BEGIN(analizadorExpresion)
+
+package Expresion;
+import java.io.*;
+
+public class analizadorExpresion{
+
+}
+
+PARSER_END(analizadorExpresion)
+
+
+SKIP:
+{
+ " "
+    |"\r"
+    |"\t"
+    |"\r\n"
+    | "#*" : COMMENT
+    |"\n"
+    | "#" : COMMENT2	
+}
+
+<COMMENT> SKIP :{
+  "*#" : DEFAULT
+}
+
+<COMMENT> MORE :{
+   <~[]>
+}
+
+<COMMENT2> SKIP :{
+  "\n" : DEFAULT
+}
+
+<COMMENT2> MORE :{
+   <~[]>
+}
+
+
+/*--------------- SIMBOLOS -----------------*/
+
+TOKEN:    //PALABRAS RESERVADAS
+{
+    
+   < OR: "||">
+  | < AND: "&&">
+  | < NOT: "!">
+}
+
+TOKEN:{
+ <menos_menos:"--">  
+|<mas_mas:"++">  
+|<S_MAS: "+">
+|<S_MENOS: "-">
+|<S_POR: "*">
+|<S_DIV: "/">
+|<S_POT: "^">
+|<S_MOD: "%">
+|<VERDADERO: "verdadero">
+|<FALSO : "falso">
+|<NULO: "nulo">
+}
+
+TOKEN:{
+<abre_par: "(">
+|<cierra_par: ")">
+|<coma:",">
+|<dos_puntos: ":">
+|<punto:".">
+
+}
+
+TOKEN :   //EXPRESONES REGULARES 
+{
+    <COMILLA_SIMPLE : "'">
+  | <COMILLA_DOBLE:  "\"">
+  //(([\"]|['])([]*)([0-9][0-9])[/]([0-9][0-9])[/]([0-9][0-9][0-9][0-9])[]*([\"]|[']))>
+  | <DECIMAL: (["0"-"9"])+("."(["0"-"9"])+)>
+  |  < NUM: ["0"-"9"] (["0"-"9"])* >
+  |<fechaS : (<COMILLA_DOBLE>| <COMILLA_SIMPLE>)<NUM><S_DIV><NUM><S_DIV><NUM> (<COMILLA_DOBLE>| <COMILLA_SIMPLE>)>
+  |<horaS:(<COMILLA_DOBLE>| <COMILLA_SIMPLE>)<NUM><dos_puntos><NUM><dos_puntos><NUM>  (<COMILLA_DOBLE>| <COMILLA_SIMPLE>) >  
+  |<fechaHoraS: (<COMILLA_DOBLE>| <COMILLA_SIMPLE>)<NUM><S_DIV><NUM><S_DIV><NUM> " " <NUM><dos_puntos><NUM><dos_puntos><NUM>  (<COMILLA_DOBLE>| <COMILLA_SIMPLE>) > 
+  |  <CADENA: "\"" (  ~["\""] )* "\"">
+  |  <CARACTER: "\'" (["0"-"9"] | ["_","a"-"z","A"-"Z"] | "#" | "$" | "%" | "?" | "¿" | "@")  "\'">
+  |  < id: <LETRA> (<LETRA>|<DIGITO>)* >
+  |  < #LETRA: ["_","a"-"z","A"-"Z"] >
+  |  < #DIGITO: ["0"-"9"] >
+}
+
+SimpleNode Start():{}{
+
+	Inicio(){return jjtThis;}
+
+}
+
+void Inicio():{}{
+EXPRESION()
+}
+
+
+
+
+void EXPRESION():{}{
+ Condicion()
+}
+
+void Condicion():{}
+{
+ExpSuma1()
+}
+
+void ExpSuma1()#void :{}
+{
+  ( ExpMult1() ( LOOKAHEAD (2) <OR>  ExpMult1() )* )  #Or(>1)
+}
+
+void ExpMult1()#void : {}
+{
+    ( Term_Condicion()(LOOKAHEAD (2) <AND>  Term_Condicion() )* )  #And(>1)
+}
+
+void Term_Condicion()#void:{}
+{
+    Nuva_Condicion()
+  | <NOT> Nuva_CondicionNOT()
+   
+}
+
+
+void Nuva_CondicionNOT():{}
+{
+   LOOKAHEAD (3)Nuva_Condicion()
+ |Condicion()
+}
+
+void Nuva_Condicion():{}
+{
+  LOOKAHEAD (3)"("Condicion()")"
+  
+  |Expresion() Operador() Expresion()
+}
+
+
+void Operador() #Operador: {Token t; }
+{
+    t = "<" { jjtThis.setName(t.image); }
+  | t = ">" { jjtThis.setName(t.image); }
+  | t = "<=" { jjtThis.setName(t.image); }
+  | t = ">=" { jjtThis.setName(t.image); }
+  | t = "==" { jjtThis.setName(t.image); }
+  | t = "!=" { jjtThis.setName(t.image); }
+}
+
+
+
+void Expresion():{}
+{
+	ExpSuma()	
+}
+
+void ExpSuma()#void:{}
+{
+	(ExpResta() (<S_MAS> ExpResta())*) #Suma (>1)
+
+} 
+
+void ExpResta()#void:{}
+{
+	(ExpMulti() (<S_MENOS> ExpMulti())*) #Resta (>1)
+
+} 
+
+
+void ExpMulti()#void:{}
+{
+	(ExpDiv() (<S_POR> ExpDiv())*) #Multiplicacion (>1)
+
+} 
+
+
+void ExpDiv()#void:{}
+{
+	(ExpPot() (<S_DIV> ExpPot())*) #Division (>1)
+
+} 
+
+
+void ExpPot()#void:{}
+{
+	(TERMINO() (<S_MOD> TERMINO())*) #Potencia (>1)
+
+} 
+
+
+void TERMINO()#void:{}{
+	 FECHA()
+	|FECHA_HORA()
+	|HORA()
+	|CADENA()
+	|ENTERO()
+	|DECIMAL()
+	|BOOL()
+	|NULO()	
+}
+
+
+void Ter_Hora()#Hora:{Token t;}{
+
+t= <horaS>{ jjtThis.setName(t.image); }
+}
+
+void HORA():{}{
+Ter_Hora()
+}
+
+void Ter_FechaHora()#FechaHora:{Token t;}{
+t= <fechaHoraS>{ jjtThis.setName(t.image); }
+}
+
+void FECHA_HORA():{}
+{
+Ter_FechaHora()
+}
+
+
+void Ter_Fecha() #Fecha :{Token t;}
+{
+  t = <fechaS> { jjtThis.setName(t.image); }
+}
+
+void FECHA():{}
+{
+  Ter_Fecha()  
+}
+
+void Ter_Cadena() #Cadena :{Token t;}
+{
+  t = <CADENA> { jjtThis.setName(t.image); }
+}
+
+void CADENA():{}
+{
+  Ter_Cadena()  
+}
+
+void Ter_Entero()#Entero:{Token t;}{
+  t= <NUM> {jjtThis.setName(t.image);}
+}
+
+void ENTERO():{}{
+   Ter_Entero()
+}
+
+
+void DECIMAL():{}{
+ Ter_Decimal()
+ }
+ 
+ void Ter_Decimal()#Decimal:{Token t;}{
+	t=<DECIMAL> {jjtThis.setName(t.image);}
+ }
+ 
+ void Term_Booleano()#Booleano:{Token t;}{
+  t=<VERDADERO> {jjtThis.setName(t.image);}
+  |t=<FALSO> {jjtThis.setName(t.image);}
+ }
+ 
+ void BOOL():{}{
+    Term_Booleano()
+ }
+ 
+   void Term_Nulo()#Nulo:{Token t;}{
+     t=<NULO> {jjtThis.setName(t.image);}
+   } 
+ 
+ void NULO():{}{
+   Term_Nulo()
+ }
+ 

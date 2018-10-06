@@ -10,7 +10,7 @@ PARSER_BEGIN(grammarXLSX)
 package XLSX.AnalizerXML;
 import java.util.ArrayList;
 import java.util.List;
-
+import static proyecto1_201122872.Proyecto1_201122872.erroresEjecucion;
 public class grammarXLSX{
 
 }
@@ -318,9 +318,38 @@ void Inicio():{}{
 
 
 void Archivo()#Archivo:{}{
+	
+	try{
  ENCUESTA()
-   |OPCIONES()
-  |CONFIGURACION()
+  {
+   System.out.println("Se encontro la sentencia lee");
+ 
+  }
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("No se ha podido completar la produccion de Encuestas");
+
+ }
+ 
+   |try{
+ OPCIONES()
+  {
+   System.out.println("Se encontro la sentencia lee");
+ 
+  }
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("No se ha podido completar la produccion de Opciones");
+ }
+   
+  | try{
+ CONFIGURACION()
+  {
+   System.out.println("Se encontro la sentencia lee");
+ 
+  }
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("No se ha podido completar la produccion de Configuraciones");
+ }
+  
 }
 
 /*------------------------------------------ ENCUESTA -----------------------------*/

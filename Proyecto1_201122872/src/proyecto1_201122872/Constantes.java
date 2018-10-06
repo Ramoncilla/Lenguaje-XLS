@@ -73,8 +73,8 @@ public class Constantes {
     public static final String FECHA= "FECHA"; //
     //public static final String TIEMPO= "TIEMPO"; 
     public static final String FECHAHORA= "FECHAHORA";//
-    public static final String SELECCION_UNO= "SELECCION_UNO";
-    public static final String SELECCION_MULTIPLES= "SELECCION_MULTIPLES";
+    public static final String SELECCION_UNO= "SELECCIONA_UNO";
+    public static final String SELECCION_MULTIPLES= "SELECCIONA_MULTIPLES";
     public static final String NOTA= "NOTA";
     public static final String FICHERO = "FICHERO";
     public static final String CALCULAR="CALCULAR";

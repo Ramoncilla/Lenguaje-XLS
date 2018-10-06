@@ -81,7 +81,7 @@ public class Ciclo extends basePregunta {
             codigoFor+=cadena+"\n}";
         }else{
             String nombreCiclo = "varCiclo"+Constantes.obtenerCont();
-            codigoFor+="Para (entero "+ nombreCiclo+"=0; "+nombreCiclo+"< 3;"+nombreCiclo+"++){\n";
+            codigoFor+="Para (entero "+ nombreCiclo+"=0; "+nombreCiclo+"< 1;"+nombreCiclo+"++){\n";
             codigoFor+=cadena+"\n}";
         }   
        return codigoFor; 

@@ -32,13 +32,14 @@ public String nombreForm;
   
     public String generarCodigo(){
         String cla="";
-        cla+=configuraciones.obtenerImportaciones()+"\n"
-                + configuraciones.obtenerCodigoGlobal()+"\n";
+        cla+=configuraciones.obtenerImportaciones()+"\n";
+                
        cla+= "clase "+nombreForm+" publico{\n\n"
+               + configuraciones.obtenerCodigoGlobal()+"\n"
                 + "$$--------------- Codigo Principal ---------------------\n"
                 + " Principal(){\n"
                +configuraciones.obtenerCodigoPrincipal()+"\n"
-                //+opciones.obtenerDeclacionesLista()
+                +opciones.obtenerDeclacionesLista()
                 + " nuevo "+nombreForm+"();" 
                 +"GUARDARFORM();"
                 + "\n}\n"

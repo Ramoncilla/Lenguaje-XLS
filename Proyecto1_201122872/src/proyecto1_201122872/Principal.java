@@ -9,8 +9,12 @@ import XLSX.AnalizerFileXML;
 import XLSX.AnalizerXML.ParseException;
 import XLSX.Formulario;
 import XLSX.ReadExcel;
+import java.awt.Component;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +25,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.filechooser.FileSystemView;
+import static proyecto1_201122872.Proyecto1_201122872.erroresEjecucion;
 
 /**
  *
@@ -34,6 +40,10 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
     }
+
+    ArrayList ArrayTab = new ArrayList();
+    ArrayList ArrayTxt = new ArrayList();
+    int cont = 0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,6 +59,7 @@ public class Principal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("xForm USAC - XLSX -");
@@ -70,13 +81,34 @@ public class Principal extends javax.swing.JFrame {
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton3);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto1_201122872/close.png"))); // NOI18N
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton1);
+
+        jButton4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Ramonella\\Downloads\\if_icon-78-document-error_315202 (1).png")); // NOI18N
+        jButton4.setFocusable(false);
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,10 +122,10 @@ public class Principal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 819, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -101,7 +133,6 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         int result = fileChooser.showOpenDialog(this);
@@ -117,12 +148,7 @@ public class Principal extends javax.swing.JFrame {
                 if (f != null) {
                     String nombre = selectedFile.getName().replace(".xlsx", "").replace(".xls", "") + ".xform";
                     String cod = f.generarCodigo();
-                    JTextArea display = new JTextArea();
-                    display.setText(cod);
-                    JScrollPane scroll = new JScrollPane(display);
-                    scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-                    jTabbedPane1.add(nombre, scroll);
-                    jTabbedPane1.setSelectedIndex(jTabbedPane1.getComponentCount() - 1);
+                    newTab(nombre, cod);
                 } else {
                     System.out.println("Ha ocurrido error, archivo no valido");
                 }
@@ -132,6 +158,90 @@ public class Principal extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        guardarArchivo();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        cerrarPestanha();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        erroresEjecucion.moostrarErrores();
+        try 
+			{
+				Process process = Runtime.getRuntime().exec(new String[] { "cmd.exe","/c","start","\"\"",'"'
+				+ "C:\\Users\\Ramonella\\Documents\\erroresXLSX.html" + '"' });
+        	}																												
+        	catch (IOException ie) 
+        	{ 
+        		System.out.println("No se pudo abrir el reporte");
+        	}
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void newTab(String nombreArchivo, String codigo) {
+        JTextArea display = new JTextArea();
+        display.setText(codigo);
+        JScrollPane scroll = new JScrollPane(display);
+
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jTabbedPane1.add(nombreArchivo, scroll);
+        jTabbedPane1.setSelectedIndex(jTabbedPane1.getComponentCount() - 1);
+        this.ArrayTab.add(scroll);
+        this.ArrayTxt.add(display);
+        cont++;
+    }
+
+    private void guardarArchivo() {
+        if (jTabbedPane1.getComponentCount() == 0
+                || ArrayTab.size() == 0) {
+            return;
+        }
+        JScrollPane tab = (JScrollPane) jTabbedPane1.getSelectedComponent();
+        JTextArea txtActual = (JTextArea) tab.getViewport().getView();
+        String cadenaA= txtActual.getText();
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Speciify a file to Save");
+        int userSelection = fileChooser.showSaveDialog(null);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            fileToSave.getAbsolutePath();
+            if (!fileToSave.exists()) {
+                try {
+                    fileToSave.createNewFile();
+                    FileWriter fichero = new FileWriter(fileToSave.getAbsolutePath());
+                    PrintWriter pw = new PrintWriter(fichero);
+                    pw.println(cadenaA);
+                    fichero.close();
+                } catch (IOException ex) {
+
+                }
+            }
+
+        }
+
+    }
+
+    private void cerrarPestanha() {
+        JScrollPane c = (JScrollPane) jTabbedPane1.getSelectedComponent();
+        ArrayTab.remove(c);
+        jTabbedPane1.remove(c);
+        cont--;
+        /*  
+    Object h =   c.getViewport().getView();
+            Object[] k = c.getComponents();
+        for (Component ctrl: c.getComponents() ) {
+            if(ctrl instanceof JTextArea){
+                JTextArea a = (JTextArea) ctrl;
+                ArrayTxt.remove(a);
+            }
+        }
+         */
+    }
 
     /**
      * @param args the command line arguments
@@ -172,6 +282,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables

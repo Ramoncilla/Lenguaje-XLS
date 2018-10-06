@@ -11,7 +11,7 @@ PARSER_BEGIN(grammarXLSX)
 package XLSX.AnalizerXML;
 import java.util.ArrayList;
 import java.util.List;
-
+import static proyecto1_201122872.Proyecto1_201122872.erroresEjecucion;
 public class grammarXLSX/*@bgen(jjtree)*/implements grammarXLSXTreeConstants/*@egen*/{/*@bgen(jjtree)*/
   protected JJTgrammarXLSXState jjtree = new JJTgrammarXLSXState();
 
@@ -383,31 +383,83 @@ void Archivo()        :{/*@bgen(jjtree) Archivo */
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/}{/*@bgen(jjtree) Archivo */
- try {
+        try {
 /*@egen*/
+	
+	try{
  ENCUESTA()
-   |OPCIONES()
-  |CONFIGURACION()/*@bgen(jjtree)*/
- } catch (Throwable jjte000) {
-   if (jjtc000) {
-     jjtree.clearNodeScope(jjtn000);
-     jjtc000 = false;
-   } else {
-     jjtree.popNode();
-   }
-   if (jjte000 instanceof RuntimeException) {
-     throw (RuntimeException)jjte000;
-   }
-   if (jjte000 instanceof ParseException) {
-     throw (ParseException)jjte000;
-   }
-   throw (Error)jjte000;
- } finally {
-   if (jjtc000) {
-     jjtree.closeNodeScope(jjtn000, true);
-   }
+  {
+   System.out.println("Se encontro la sentencia lee");
+ 
+  }
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("No se ha podido completar la produccion de Encuestas");
+
  }
+ 
+ 
+	/*
+	try{
+		ENCUESTA()
+	}
+	 }catch (ParseException e){
+	   erroresEjecucion.errorSintactico("No se ha podido completar la produccion de Encuestas");
+	 }
+	*/
+ 
+   |try{
+ OPCIONES()
+  {
+   System.out.println("Se encontro la sentencia lee");
+ 
+  }
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("No se ha podido completar la produccion de Opciones");
+ }
+   
+   /*try{
+		OPCIONES()
+	}
+	 }catch (ParseException e){
+	   erroresEjecucion.errorSintactico("No se ha podido completar la produccion de Opciones");
+	 }*/
+  | try{
+ CONFIGURACION()
+  {
+   System.out.println("Se encontro la sentencia lee");
+ 
+  }
+ }catch (ParseException e){
+   erroresEjecucion.errorSintactico("No se ha podido completar la produccion de Configuraciones");
+ }/*@bgen(jjtree)*/
+        } catch (Throwable jjte000) {
+          if (jjtc000) {
+            jjtree.clearNodeScope(jjtn000);
+            jjtc000 = false;
+          } else {
+            jjtree.popNode();
+          }
+          if (jjte000 instanceof RuntimeException) {
+            throw (RuntimeException)jjte000;
+          }
+          if (jjte000 instanceof ParseException) {
+            throw (ParseException)jjte000;
+          }
+          throw (Error)jjte000;
+        } finally {
+          if (jjtc000) {
+            jjtree.closeNodeScope(jjtn000, true);
+          }
+        }
 /*@egen*/
+  
+  
+  /*try{
+		CONFIGURACION()
+	}
+	 }catch (ParseException e){
+	   erroresEjecucion.errorSintactico("No se ha podido completar la produccion de Configuraciones");
+	 }*/
 }
 
 /*------------------------------------------ ENCUESTA -----------------------------*/
